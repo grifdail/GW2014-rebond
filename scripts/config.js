@@ -3,9 +3,9 @@ require.config({
 	paths: {
 		"socketio" 				: '../socket.io/socket.io',
 		"RAF"	    			: "libs/requestAnimFrame",
-		"Game"					: "game/Game",
-		"gameLoop"				: "game/functions/gameLoop",
-		"menuLoop"				: "game/functions/menuLoop",
+		"Game"					: "game/game",
+		"gameLoop"				: "game/functions/game_loop",
+		"menuLoop"				: "game/functions/menu_loop",
 	},
 	shim: {
 	    'socketio': {
