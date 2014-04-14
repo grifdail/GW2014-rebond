@@ -3,6 +3,7 @@ define(["game/functions/add_event_capabilities"], function (addEventCapabilities
     var Game = function Game (){
         this.states = {};
         this.state = "";
+        this.gameObjects = {};
 
         this.instance = this;
     }

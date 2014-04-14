@@ -6,6 +6,7 @@ require.config({
 		"Game"					: "game/game",
 		"gameLoop"				: "game/functions/game_loop",
 		"menuLoop"				: "game/functions/menu_loop",
+		"collisionController"	: "game/functions/collision_controller",
 	},
 	shim: {
 	    'socketio': {
