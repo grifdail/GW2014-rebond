@@ -18,5 +18,10 @@ define([], function (){
 		target.radius = radius || 20;
 		target.shape = "circle";
 	} 
+	BasicObject.prototype.movableCircle = function(target, x, y, radius, direction, speed){
+		this.circle(target, x, y, radius);
+		target.direction = direction || 0;
+		target.speed = speed || 10;
+	}
 	return new BasicObject();
 });
