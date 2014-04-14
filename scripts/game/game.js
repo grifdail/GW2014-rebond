@@ -7,7 +7,7 @@ define([], function (){
         this.instance = this;
     }
 
-    Game.prototype.StartState = function (state){
+    Game.prototype.startState = function (state){
         if(this.states[state] !== undefined){            
             this.state = state
             this.states[state]();
