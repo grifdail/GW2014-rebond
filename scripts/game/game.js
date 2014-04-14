@@ -1,4 +1,4 @@
-define(["game/functions/add_event_capabilities", "game/functions/renderEngine"], function (addEventCapabilities){
+define(["game/functions/add_event_capabilities", "game/functions/renderEngine"], function (addEventCapabilities, RenderEngine){
 
     var Game = function Game (){
         this.states = {};
@@ -10,30 +10,32 @@ define(["game/functions/add_event_capabilities", "game/functions/renderEngine"],
 
     Game.prototype.startState = function (state){
         if(this.states[state] !== undefined){            
-            this.state = state
+            this.state = state;
             this.states[state]();
         }
     }
     Game.prototype.init = function(){
         this.canvas = {};
         this.canvas.background = document.createElement("canvas");
-        this.canvas.background.context = this.canvas.background.getContext("2d");
-
         this.canvas.players = document.createElement("canvas");
-        this.canvas.players.context = this.canvas.players.getContext("2d");
-
         this.canvas.bullets = document.createElement("canvas");
-        this.canvas.bullets.context = this.canvas.bullets.getContext("2d");
+        this.canvas.debug = document.createElement("canvas");
         
         for (var key in this.canvas){
-            this.canvas[key].width = 1920;
-            this.canvas[key].height = 1080;
+            this.canvas[key].context = this.canvas[key].getContext("2d");
+            this.canvas[key].width = 960;
+            this.canvas[key].height = 540;
             this.canvas[key].setAttribute("class", "canvas");
             document.body.appendChild(this.canvas[key]);
         }
         this.canvas.background.context.fillStyle = "rgba(50,50,50,1)";
         this.canvas.background.context.globalAlpha = 0.5;
 
+        this.renderEngine = new RenderEngine();
+
+        this.renderEngine.addGroup("test", this.canvas.debug.context);
+        var carre = {x : 10, y : 10, width : 100, height : 20, color : "rgb(220,200,2)"};
+        this.renderEngine.addElement("test", carre);
     }
 
     addEventCapabilities(Game);

@@ -22,17 +22,16 @@ define([], function (){
 	}
 	Renderer.prototype.render = function(){
 		for (var key in this.content){
-			for (var i = this.content[key].length - 1; i >= 0; i--) {
-				var target = this.content[key][i];
+			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {
+				var target = this.content[key].elements[i];
 				if (this.image)			//Si c'est une image
 					this.content[key].context.drawImage(this.image, this.x, this.y, this.width, this.height);
 				else if (this.radius) 	//Si c'est un cercle
-					console.warn("Le moteur de gèere pas encore les cercles");
+					console.warn("Le moteur de gère pas encore les cercles");
 				else{
 					if (target.color)
 						this.content[key].context.fillStyle = target.color;
-
-					this.content[key].context.drawRect(target.x, target.y, target.width, target.height);
+					this.content[key].context.fillRect(target.x, target.y, target.width, target.height);
 				}
 
 			};

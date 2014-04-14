@@ -5,6 +5,7 @@ define(["RAF", "Game","game/functions/gamepad_controller"], function (RAF, Game,
             RAF(gameLoop);
         }
         Game.canvas.background.context.fillRect(0, 0, Game.canvas.background.width, Game.canvas.background.height);
+        Game.renderEngine.render();
     }
 
     Game.states["game"] = gameLoop;
