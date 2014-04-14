@@ -1,4 +1,4 @@
-define([], function (){
+define(["game/functions/add_event_capabilities"], function (addEventCapabilities){
 
     var Game = function Game (){
         this.states = {};
@@ -30,6 +30,8 @@ define([], function (){
             this.canvas[key].setAttribute("class", "canvas");
         }
     }
+
+    addEventCapabilities(Game);
 
     var game = new Game();   
 
