@@ -1,0 +1,22 @@
+{
+  "name": "GW2014-rebond",
+  "version": "0.0.1",
+  "author": "Team dayum @ isart digital",
+  "description": "Arena shooter multijoueur. Gameweek 2014. Evitez les rebonds !",
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "main": "./server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grifdail/GW2014-rebond"
+  },
+  "dependencies" : {
+    "express"   :  "*",
+    "socket.io" :  "*"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6"
+  }
+}
