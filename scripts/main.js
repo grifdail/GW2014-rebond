@@ -11,6 +11,8 @@ require.config({
   }
 });
  
-define([], function() {
+define(["game/Game"], function(Game) {
     console.log("here we go !");
+    console.log(Game);
+    Game.StartState("game");
 });
