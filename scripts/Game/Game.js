@@ -12,8 +12,8 @@ define(["game/functions/gameLoop", "game/functions/menuLoop"], function (gameLoo
 
     Game.prototype.StartState = function (state){
         if(this.states[state] !== undefined){
-            this.states[state]();
-            this.state = state
+            this.states[state](this);
+            this.state = state;
         }
     }
     Game.prototype.init = function(){
