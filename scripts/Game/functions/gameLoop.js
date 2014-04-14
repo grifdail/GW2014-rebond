@@ -1,9 +1,11 @@
-define(["libs/requestAnimFrame"], function (RAF){
+define(["RAF", "Game"], function (RAF, Game){
     
     function gameLoop (){
-        console.log("toto");
-        RAF(gameLoop);
+        if(Game.state == "game")
+            RAF(gameLoop);
     }
+
+    Game.states["game"] = gameLoop;
 
     return gameLoop;
 })
