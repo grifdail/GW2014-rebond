@@ -26,9 +26,11 @@ define([], function (){
 				var target = this.content[key].elements[i];
 				if (this.image)			//Si c'est une image
 					this.content[key].context.drawImage(this.image, this.x, this.y, this.width, this.height);
-				else if (this.radius) 	//Si c'est un cercle
-					console.warn("Le moteur de gère pas encore les cercles");
-				else{
+				else if (target.radius){ 	//Si c'est un cercle
+					this.content[key].context.arc(target.x+target.radius/2, target.y+target.radius/2, target.radius, 0, 2 * Math.PI);
+					this.content[key].context.fill();
+				}
+				else{	//Sinon c'est un carre
 					if (target.color)
 						this.content[key].context.fillStyle = target.color;
 					this.content[key].context.fillRect(target.x, target.y, target.width, target.height);

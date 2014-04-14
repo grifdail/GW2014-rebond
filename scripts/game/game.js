@@ -1,4 +1,8 @@
-define(["game/functions/add_event_capabilities", "game/functions/renderEngine"], function (addEventCapabilities, RenderEngine){
+define(["game/functions/add_event_capabilities", 
+    "game/functions/renderEngine", 
+    "game/functions/basicObject", 
+    "game/functions/bulletsEngine"], 
+    function (addEventCapabilities, RenderEngine, basicObject, bulletsEngine){
 
     var Game = function Game (){
         this.states = {};
@@ -15,6 +19,7 @@ define(["game/functions/add_event_capabilities", "game/functions/renderEngine"],
         }
     }
     Game.prototype.init = function(){
+        this.frame = 0;
         this.canvas = {};
         this.canvas.background = document.createElement("canvas");
         this.canvas.players = document.createElement("canvas");
@@ -32,10 +37,15 @@ define(["game/functions/add_event_capabilities", "game/functions/renderEngine"],
         this.canvas.background.context.globalAlpha = 0.5;
 
         this.renderEngine = new RenderEngine();
+        this.bulletsEngine = new bulletsEngine();
+        this.bulletsEngine.init(this.canvas.bullets.context);
+
+
 
         this.renderEngine.addGroup("test", this.canvas.debug.context);
-        var carre = {x : 10, y : 10, width : 100, height : 20, color : "rgb(220,200,2)"};
-        this.renderEngine.addElement("test", carre);
+        var carre = {};
+        basicObject.rect(carre, 10, 5, 100, 50);
+       // this.renderEngine.addElement("test", carre);
     }
 
     addEventCapabilities(Game);
