@@ -1,22 +1,18 @@
 define(["libs/gamepad"], function(){
     "use strict";
     var gamepad = new Gamepad();
-    console.log(gamepad);
-
+    var pads = [{},{},{},{}];
 
     if (!gamepad.init()) {
-        // Your browser does not support gamepads, get the latest Google Chrome or Firefox
+        alert("Nope ! Pas pour toi ! Vas t'achetez un browser !")
     }
 
-    function GamepadController(entity,id) {
-        this.entity = entity;
-        this.id = id || 0;
-    }
-
-    GamepadController.prototype.update = function(e) {
-        if (gamepad.gamepad[this.id].) {
-
-        }
+    function GamepadController (id) {
+        return function() {
+            if (gamepad.gamepads[id]) {
+                var pad = gamepad.gamepads[id].state;
+            }
+        };
     };
 
 
