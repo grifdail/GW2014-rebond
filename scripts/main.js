@@ -12,7 +12,6 @@ require.config({
 });
  
 define(["game/Game"], function(Game) {
-    console.log("here we go !");
-    console.log(Game);
+    Game.init();
     Game.StartState("game");
 });
