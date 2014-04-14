@@ -1,4 +1,4 @@
-define(["game/functions/add_event_capabilities"], function (addEventCapabilities){
+define(["game/functions/add_event_capabilities", "game/functions/renderEngine"], function (addEventCapabilities){
 
     var Game = function Game (){
         this.states = {};
