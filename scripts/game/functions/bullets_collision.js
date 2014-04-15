@@ -45,6 +45,7 @@ define([], function (){
 
         this.vel.x = n.x*v2n + g.x*v1g;
         this.vel.y = n.y*v2n +  g.y*v1g;
+
     }
 
     function bulletPlayerCollision (player){
