@@ -9,11 +9,12 @@ define(["RAF", "Game","game/functions/gamepad_controller"], function (RAF, Game,
 
 
         if (Game.frame % 30 == 0){
-            Game.renderEngine.screenShake(10, 20);
-        	Game.bulletsEngine.create(Math.random() * 500+200, Math.random() * 500+200,20, Math.random() * Math.PI*2, 10);
+            //Game.renderEngine.screenShake(10, 20);
+        	//Game.bulletsEngine.create(Math.random() * 500+200, Math.random() * 500+200,20, Math.random() * Math.PI*2, 10);
         }
 
         Game.bulletsEngine.calcul();
+        Game.playersEngine.calcul();
         Game.renderEngine.render();
     }
 

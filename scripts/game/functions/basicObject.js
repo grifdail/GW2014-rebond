@@ -5,8 +5,6 @@ define(["vector"], function (Vector){
 	};
 
 	BasicObject.prototype.basic = function(target, x, y, width, height, radius) {
-		target.x = x || 0;
-		target.y = y || 0;
 		target.pos = new Vector(x,y);
 		target.vel = new Vector(0,0);
 		if (width || height) {
