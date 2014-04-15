@@ -43,8 +43,8 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 	CollisionEngine.prototype.addBox = function(name, target){
 		if (!this.box[name]){
 			this.box[name] = {};
-			this.box[name].x = target.x || 0;
-			this.box[name].y = target.y || 0;
+			this.box[name].x = target.x || target.posX || 0;
+			this.box[name].y = target.y || target.posY || 0;
 			this.box[name].width = target.width;
 			this.box[name].height = target.height;	
 			this.box[name].name = name;
@@ -108,10 +108,10 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 		return false;
 	}
 	CollisionEngine.prototype.rectCollision = function(a, aHitbox, b, bHitbox){
-		var aRealX = a.x + aHitbox.offsetX;
-		var aRealY = a.y + aHitbox.offsetY;
-		var bRealX = b.x + bHitbox.offsetX;
-		var bRealY = b.y + bHitbox.offsetY;
+		var aRealX = a.posX + aHitbox.offsetX;
+		var aRealY = a.posY + aHitbox.offsetY;
+		var bRealX = b.posX + bHitbox.offsetX;
+		var bRealY = b.posY + bHitbox.offsetY;
 		if ( aRealX + aHitbox.width > bRealX &&
 			aRealX < bRealX + bHitbox.width &&
 			aRealY + aHitbox.height > bRealY &&
@@ -120,10 +120,10 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 	}
 
 	CollisionEngine.prototype.circleCollision = function(a, hitboxA, b, hitboxB){
-		var aRealX = a.x + hitboxA.offsetX;
-		var aRealY = a.y + hitboxA.offsetY;
-		var bRealX = b.x + hitboxB.offsetX;
-		var bRealY = b.y + hitboxB.offsetY;
+		var aRealX = a.posX + hitboxA.offsetX;
+		var aRealY = a.posY + hitboxA.offsetY;
+		var bRealX = b.posX + hitboxB.offsetX;
+		var bRealY = b.posY + hitboxB.offsetY;
 
 		var norme = Math.sqrt(Math.pow(bRealX - aRealX, 2) + Math.pow(bRealY - aRealY, 2));
 		return norme <= hitboxA.radius + hitboxB.radius;
@@ -133,14 +133,14 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 		var circleObject = {
 			object : a,
 			hitbox : hitboxA,
-			realX : a.x + hitboxA.offsetX,
-			realY : a.y + hitboxA.offsetY
+			realX : a.posX + hitboxA.offsetX,
+			realY : a.posY + hitboxA.offsetY
 		};
 		var rectObject = {
 			object : b,
 			hitbox : hitboxB,
-			realX : b.x + hitboxB.offsetX,
-			realY : b.y + hitboxB.offsetY
+			realX : b.posX + hitboxB.offsetX,
+			realY : b.posY + hitboxB.offsetY
 		}
 		if(hitboxA.radius !== undefined){
 			var tmp = rectObject;

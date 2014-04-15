@@ -36,12 +36,10 @@ define([], function (){
 		for (var key in this.canvas){
 			if (this.screenShakeDuration > 0){
 				if (!vecX){
-					console.log("Hi");
 					var strength = Math.random() * 2 * this.screenShakeStrength - this.screenShakeStrength;
 					var angle = Math.random() * Math.PI*2;
 					var vecX = Math.cos(angle) * strength;
 					var vecY = Math.sin(angle)  * strength;
-					console.log(vecX + " : " + vecY);
 					this.screenShakeDuration--;
 				}
 				this.canvas[key].context.translate(vecX, vecY);	
