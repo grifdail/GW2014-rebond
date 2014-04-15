@@ -13,7 +13,7 @@ define(["libs/gamepad"], function(){
                 var pad = gamepad.gamepads[id].state;
                 this.vel.add({x:pad.LEFT_STICK_X,y:pad.LEFT_STICK_Y});
                 //Rotation du canon automatique ?
-                this.rotation.rotate(/*angle*/);
+                //this.rotation.rotate(/*angle*/);
                 if (pad.RIGHT_BOTTOM_SHOULDER || pad.LEFT_BOTTOM_SHOULDER){
                     this.shoot();
                 }

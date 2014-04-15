@@ -43,8 +43,8 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 	CollisionEngine.prototype.addBox = function(name, target){
 		if (!this.box[name]){
 			this.box[name] = {};
-			this.box[name].x = target.x || 0;
-			this.box[name].y = target.y || 0;
+			this.box[name].x = target.pos.x || 0;
+			this.box[name].y = target.pos.y || 0;
 			this.box[name].width = target.width;
 			this.box[name].height = target.height;	
 			this.box[name].name = name;
