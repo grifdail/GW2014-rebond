@@ -1,28 +1,26 @@
-define(['event_bus'], function(eventBus) {
+define(['addEventCapabilities'], function(addEventCapabilities) {
 
 	var CollisionEngine = function(){
 	}
 	CollisionEngine.prototype.group = {};
 	CollisionEngine.prototype.box = {};
-	CollisionEngine.prototype.addGroup = function(name, target, betweenThem, box){
+	CollisionEngine.prototype.addGroup = function(name, target, box){
 		if (!this.group[name]){
 			this.group[name] = {};
 			this.group[name].content = [];
 			this.group[name].target = target || [];
 			this.group[name].inBox = box || [];
-			this.group[name].betweenThem = betweenThem || false;
 		}
 	}
-	CollisionEngine.prototype.addElement = function(target, name, callback){
+	CollisionEngine.prototype.addElement = function(target, name){
 		if (!this.group[name])
 			this.addGroup(name);
 
-		if (!target.collisionCallback)
-			target.collisionCallback = {};
-		target.collisionCallback.general = (callback) ? callback : function(){};
-
 		if (!target.hitbox)
 			this.addHitbox(target);
+
+		if(target.on == undefined || target.emit == undefined)
+			addEventCapabilities(Object.getPrototypeOf(target));
 
 		this.group[name].content.push(target);	 
 	}
@@ -56,57 +54,42 @@ define(['event_bus'], function(eventBus) {
 		for (var name in this.group){											//Pour tous les groupes
 			for (var i = this.group[name].content.length - 1; i >= 0; i--) {	//Pour tous les elements du groupe
 				var target = this.group[name].content[i];
+				if(target === undefined || target === null){
+					this.group[name].content.splice(i,1);
+					continue;
+				}
 				for (var j = target.hitbox.length -1 ; j >= 0 ; j--){			//Pour toutes les hitboxs de cet element
 					targetHitbox = target.hitbox[j];
-					for (var k = this.group[name].inBox.length - 1 ; k >= 0 ; k--){	//Pour tout les inBox de ce groupe 
-						if (target.collisionCallback[this.group[name].inBox[k]])
-							target.collisionCallback[this.group[name].inBox[k]](this.isInBox(target.x, target.y, target.hitbox[j], this.group[name].inBox[k]), this.box[this.group[name].inBox[k]]);
-						else
-							target.collisionCallback.general(this.group[name].inBox[k], this.isInBox(target.x, target.y, target.hitbox[j], this.group[name].inBox[k]), this.box[this.group[name].inBox[k]]);
-					}
-					if (this.group[name].betweenThem){							//Si ils doivent collisioner entre eux
-						for (var k = i-1; k >= 0; k--) {
-							var opponent = this.group[name].content[k];
-							for(var l = opponent.hitbox.length -1 ; l >= 0 ; l-- ){
-								var opponentHitbox = opponent.hitbox[l];
-								if (this.rectCollision(target, targetHitbox, opponent, opponentHitbox)){
-									target.collisionCallback[name](opponent);
-									opponent.collisionCallback[name](opponent);
-								}
-							}
-						};
+					for (var k = this.group[name].inBox.length - 1 ; k >= 0 ; k--){	//Pour tout les inBox de ce groupe
+						if(this.isInBox(target.x, target.y, target.hitbox[j], this.group[name].inBox[k]))
+							target.emit("inboxOut", this.group[name].inBox[k]);
+						}
 					}
 					for (var m = this.group[name].target.length - 1 ; m >= 0 ; m--){
 						var currentGroup = this.group[this.group[name].target[m]];
 						for (var k = currentGroup.content.length - 1 ; k >= 0 ; k--){
 							var opponent = currentGroup.content[k];
+							if(opponent == undefined || opponent == null){
+								currentGroup.content.splice(k,1);
+								continue;
+							}
 							for (var l = opponent.hitbox.length - 1 ; l >= 0 ; l--){
 								var opponentHitbox = opponent.hitbox[l];
+								if(target.radius !== undefined && opponentHitbox.radius !== undefined){
+									if(this.circleCollision(target, targetHitbox, opponent, opponentHitbox)){
+										target.emit("collisionEnter", opponent);
+									}
+								}else if(target.radius !== undefined || opponentHitbox.radius !== undefined){
+
+								}
 								if (this.rectCollision(target, targetHitbox, opponent, opponentHitbox)){
-									target.collisionCallback[this.group[name].target[m]](opponent);
+									target.emit("collisionEnter", opponent);
 								}
 							}
 						}
 					}
 				}
 			}
-		}
-	}
-	CollisionEngine.prototype.render = function(context){
-		context.fillStyle = "rgba(255,0,0,0.5";
-		for (var name in this.group){
-			for (var i = this.group[name].content.length - 1; i >= 0; i--) {
-				var target = this.group[name].content[i];
-				for (var j = target.hitbox.length -1 ; j >= 0 ; j--){
-					var targetHitbox = target.hitbox[j];
-					if (target.shape == "circle"){
-
-					}
-					else{
-						context.fillRect(target.x + targetHitbox.offsetX, target.y + targetHitbox.offsetY, targetHitbox.width, targetHitbox.height);
-					}
-				}
-			};
 		}
 	}
 	CollisionEngine.prototype.isInBox = function(x, y, target, box){
@@ -122,7 +105,7 @@ define(['event_bus'], function(eventBus) {
 		if ((realY + target.height > box.y + box.height))
 			return "down";
 		
-		return "in";
+		return false;
 	}
 	CollisionEngine.prototype.rectCollision = function(a, aHitbox, b, bHitbox){
 		var aRealX = a.x + aHitbox.offsetX;
@@ -135,5 +118,54 @@ define(['event_bus'], function(eventBus) {
 			aRealY < bRealY + bHitbox.height)
 			return true
 	}
+
+	CollisionEngine.prototype.circleCollision = function(a, hitboxA, b, hitboxB){
+		var aRealX = a.x + hitboxA.offsetX;
+		var aRealY = a.y + hitboxA.offsetY;
+		var bRealX = b.x + hitboxB.offsetX;
+		var bRealY = b.y + hitboxB.offsetY;
+
+		var norme = Math.sqrt(Math.pow(bRealX - aRealX, 2) + Math.pow(bRealY - aRealY, 2));
+		return norme <= hitboxA.radius + hitboxB.radius;
+	}
+
+	CollisionEngine.prototype.circleRectCollision = function(a, hitboxA, b, hitboxB){
+		var circleObject = {
+			object : a,
+			hitbox : hitboxA,
+			realX : a.x + hitboxA.offsetX,
+			realY : a.y + hitboxA.offsetY
+		};
+		var rectObject = {
+			object : b,
+			hitbox : hitboxB,
+			realX : b.x + hitboxB.offsetX,
+			realY : b.y + hitboxB.offsetY
+		}
+		if(hitboxA.radius !== undefined){
+			var tmp = rectObject;
+			var rectObject = circleObject;
+			var circleObject = tmp;
+		}
+
+		//findClosestPoint
+		var collisionPoint = {x : 0, y : 0};						
+		if(circleObject.realX > rectObject.realX + rectObject.hitbox.width){
+			collisionPoint.x = rectCollision.realX + rectObject.hitbox.width;
+		}else if(circleObject.realX < rectObject.realX){
+			collisionPoint.x = rectObject.realX;
+		}else
+			collisionPoint.x = circleObject.realX;
+		if(circleObject.realY > rectObject.realY + rectObject.hitbox.height){
+			collisionPoint.y = rectObject.realY + rectObject.hitbox.height;
+		}else if(circleObject.realY < rectObject.realY){
+			collisionPoint.y = rectObject.realY;
+		}else
+			collisionPoint.y = circleObject.realY;
+
+		var distance = Math.sqrt(Math.pow(collisionPoint.x - circleObject.realX, 2) + Math.pow(collisionPoint.y - circleObject.realY, 2))
+		return distance <= circleObject.hitbox.radius;
+	}
+
 	return new CollisionEngine();
 });

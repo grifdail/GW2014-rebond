@@ -18,9 +18,10 @@ define(["game/functions/basicObject", "game/functions/renderEngine"], function (
 	}
 	BulletsEngine.prototype.calcul = function(){
 		for (var i = this.content.length - 1; i >= 0; i--) {
-			this.content[i].x += Math.cos(this.content[i].direction) * this.content[i].speed;
-			this.content[i].y += Math.sin(this.content[i].direction) * this.content[i].speed;
+			this.content[i].pos.add(this.content[i].vel);
  		};
 	}
 	return BulletsEngine;
+
+	//ctx.translate(Math.random()*2*strengh-strengh,Math.random()*2*strengh-strengh)
 });
