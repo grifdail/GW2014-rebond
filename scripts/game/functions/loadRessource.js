@@ -12,7 +12,7 @@ define(["libs/utils", "game/functions/sprite", "game/functions/renderEngine"], f
 
 		var get = utils.httpGetData("scripts/config/sprites.json");
 		for (var key in get){
-			target.sprites[key] = new Sprite(get[key][0], get[key][1]);
+			renderEngine.addSprite(key, get[key][0], get[key][1]);
 		}
 	}
 

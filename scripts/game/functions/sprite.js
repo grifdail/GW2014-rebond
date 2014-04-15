@@ -1,6 +1,5 @@
 define(["libs/utils"], function (utils){
 	var Sprite = function(image, config){
-		console.log("Hi");
 
 		config = utils.httpGetData(config);
 		this.animation = {};
@@ -11,6 +10,10 @@ define(["libs/utils"], function (utils){
 		}
 		this.image = new Image(image);
 	}
+	Sprite.prototype.render = function(){
+		console.log("Hi");
+	}
+
 
 	return Sprite;
 });
