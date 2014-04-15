@@ -20,6 +20,5 @@ define([
         this.gamepadController();
         this.shoot.update();
     };
-
     return Player;
 });
