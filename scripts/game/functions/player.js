@@ -17,6 +17,9 @@ define([
         this.gamepadController = GamepadController(pad || 0);
         this.physicControler = PhysicControler(0.95);
         this.shoot = ShootController(game,20);
+        this.sprite = game.rendererEngine.getSprite("tank")
+
+        this.sprite.anim = 2;
     }
 
     Player.prototype.update = function() {

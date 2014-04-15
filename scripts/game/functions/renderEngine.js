@@ -39,6 +39,17 @@ define([], function (){
 		this.screenShakeDuration = timing;
 		this.screenShakeStrength = strength;
 	};
+
+	Renderer.prototype.getSprite = function(name) {
+		var sprite = {};
+		sprite.name=n;
+		sprite.anim = 0;
+		sprite.index = 0;
+		sprite.config = //....;
+		sprite.speed = speed;
+		return sprite
+	};
+
 	Renderer.prototype.render = function(){
 
 		for (var key in this.canvas){
@@ -62,10 +73,27 @@ define([], function (){
 					this.content[key].context.fillStyle = target.color;
 				}
 				this.content[key].context.save();
-				if (target.image){	//Si c'est une image
+				if (target.sprite){	//Si c'est une image
 					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
 					this.content[key].context.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
-					this.content[key].context.rotate((rotation || 0) +Math.PI*0.5);		
+					this.content[key].context.rotate((rotation || 0) +Math.PI*0.5);
+					var config = target.sprite.config;
+					this.content[key].context.drawImage(
+					                    this.images[target.sprite.image],
+					                    target.sprite.index*config.width, 
+										config.animation[target.sprite.anim].row*config.height,
+					                    config.width, 
+										config.height,
+					                    -target.width*0.5, 
+					                    -target.height*0.5, 
+					                    target.width, 
+					                    target.height
+					);
+				}
+				else if (target.image){	//Si c'est une image
+					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
+					this.content[key].context.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
+					this.content[key].context.rotate((rotation || 0) +Math.PI*0.5);
 					this.content[key].context.drawImage(this.images[target.image], -target.width*0.5, -target.height*0.5, target.width, target.height);
 				}
 				else if (target.radius){		//Si c'est un cercle
