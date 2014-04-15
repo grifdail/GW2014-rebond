@@ -1,0 +1,4 @@
+{
+	"basic" : {"nbAnimation" : 4, "fps" : 20, "loop" : -1},
+	"run" : {"nbAnimation" : 5, "fps" : 20, "loop" : -1}
+}
