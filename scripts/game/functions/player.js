@@ -17,7 +17,9 @@ define([
         this.gamepadController = GamepadController(pad || 0);
         this.physicControler = PhysicControler(0.95);
         this.shoot = ShootController(game,20);
-        this.sprite = game.renderEngine.getSprite("tank","stay")
+        this.sprite = game.renderEngine.getSprite("tank","stay");
+        this.canon = basicObject.basic({}, 0, 0, 64, 64, 32);
+        this.canon.sprite = game.renderEngine.getSprite("tank","canon");
     }
 
     Player.prototype.update = function() {
@@ -29,6 +31,9 @@ define([
         } else {
             this.sprite.changeAnimation("stay")
         }
+        this.canon.pos.x = this.pos.x
+        this.canon.pos.y = this.pos.y
+        this.canon.rotation = this.shoot.rotation
     };
     return Player;
 });
