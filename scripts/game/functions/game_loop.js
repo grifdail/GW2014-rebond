@@ -1,4 +1,4 @@
-define(["RAF", "Game","game/functions/gamepad_controller"], function (RAF, Game, gamepad){
+define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine"], function (RAF, Game, gamepad, collisionEngine){
 
     function gameLoop (){
         if(Game.state == "game"){
@@ -12,7 +12,10 @@ define(["RAF", "Game","game/functions/gamepad_controller"], function (RAF, Game,
             //Game.renderEngine.screenShake(10, 20);
         	//Game.bulletsEngine.create(Math.random() * 500+200, Math.random() * 500+200,20, Math.random() * Math.PI*2, 10);
         }
-
+        for(var i = 0; i < Game.boules.length; i++){
+            Game.boules[i].move();
+        }
+        collisionEngine.calcul();
         Game.bulletsEngine.calcul();
         Game.playersEngine.calcul();
         Game.renderEngine.render();

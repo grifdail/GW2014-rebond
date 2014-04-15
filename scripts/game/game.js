@@ -3,8 +3,10 @@ define(["game/functions/add_event_capabilities",
         "game/functions/basicObject", 
         "game/functions/bulletsEngine", 
         "game/functions/loadRessource",
-        "game/functions/player_manager"], 
-    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine){
+        "game/functions/player_manager",
+        "collisionEngine", 
+        "game/functions/bullets_collision"], 
+    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision){
     var Game = function Game (){
         this.states = {};
         this.state = "";
@@ -51,14 +53,45 @@ define(["game/functions/add_event_capabilities",
         var carre = {};
         basicObject.rect(carre, 10, 5, 100, 50);
        // this.renderEngine.addElement("test", carre);
+        collisionEngine.addGroup("bullet", ["bullet", "wall"]);
+        collisionEngine.addGroup("wall", ["bullet"]);
+        this.boules = [];
+        new Wall(0,0,60,1000);
+        new Wall(0,0,1350,60);
+        new Wall(0,950,1350,60);
+        new Wall(1350,0,60,1000);
+        for(var i = 0; i < 4; i++){
+            this.boules.push(new Projectile(100 + Math.random()* 500, 200 + Math.random() * 500,Math.random() * 10,Math.random() * 10));
+        }
     }
 
-    addEventCapabilities(Game);
 
     var game = new Game();  
     loadRessource(game); 
 
+    addEventCapabilities(game);
     window.pGame = game;
+
+    var Projectile = function(x, y, velx, vely){
+        this.id = Math.random() * 8000;
+        basicObject.circle(this,x,y,null,null,16);
+        this.radius = 32
+        this.vel.add(new Vector(velx,vely));
+        this.move = function(){
+            this.pos.x += this.vel.x;
+            this.pos.y += this.vel.y;
+        }
+        collisionEngine.addHitbox(this, "circle", null, null, 32, 32);
+        collisionEngine.addElement(this, "bullet");
+        this.on("collisionEnter", bullet_collision, this);
+        game.renderEngine.addElement("test", this);
+    }
+    var Wall = function (x, y, width, height){
+        basicObject.rect(this,x,y,width,height);
+        collisionEngine.addHitbox(this, "rect");
+        collisionEngine.addElement(this, "wall");
+        game.renderEngine.addElement("test", this);
+    }
 
     return game.instance;
 

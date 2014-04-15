@@ -4,7 +4,7 @@ require.config({
 		"socketio"				: '../socket.io/socket.io',
 		"RAF"					: "libs/requestAnimFrame",
 		"vector"				: "libs/vector",
-		"collisionEngine"		: "libs/collisionEngine",
+		"collisionEngine"		: "libs/collision_engine",
 		"Game"					: "game/game",
 		"gameLoop"				: "game/functions/game_loop",
 		"menuLoop"				: "game/functions/menu_loop",

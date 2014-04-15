@@ -2,27 +2,29 @@ define([],function (){
 
 	return function addEventCapabilities(object){
 
-		var listeners = {};
+		object.listeners = {};
 
-		object.prototype.on = function(e, callback, instance){
-			if(!listeners[e])
-				listeners[e] = [];
-			listeners[e].push({callback : callback, instance : instance});
+		object.on = function(e, callback, instance){
+			if(!this.listeners[e])
+				this.listeners[e] = [];
+			this.listeners[e].push({callback : callback, instance : instance});
 		}
-		object.prototype.emit = function(e,arguments){
-			if(!listeners[e]){
+		object.emit = function(){
+			var args = Array.prototype.slice.call(arguments);
+			var e = args.shift();
+			if(!this.listeners[e]){
 				return false;
 			}
-			for(var i = 0; i < listeners[e].length; i++){
-				listeners[e][i].callback.apply(listeners[e][i].instance, arguments);
+			for(var i = 0; i < this.listeners[e].length; i++){
+				this.listeners[e][i].callback.apply(this.listeners[e][i].instance, args);
 			}
 		}
 
-		object.prototype.stopOn = function(e, callback){
-			if(listeners[e] != undefined){
-				for(var i = 0; i < listeners[e].length; i++){
-					if(listeners[e][i].toString() === callback.toString()){
-						listeners[e].splice(i,1);
+		object.stopOn = function(e, callback){
+			if(this.listeners[e] != undefined){
+				for(var i = 0; i < this.listeners[e].length; i++){
+					if(this.listeners[e][i].toString() === callback.toString()){
+						this.listeners[e].splice(i,1);
 						i--;
 						return true;
 					}
