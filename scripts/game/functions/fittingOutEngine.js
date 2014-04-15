@@ -9,7 +9,10 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 		this.renderEngine.addGroup("fittingOut", "bullets");
 
 		// this.create(400, 400, "bumper");
-		//this.create(0,0,"wall",20, 1920);
+		this.create(0,0,"wall",1920, 50);
+		this.create(0,0,"wall", 50, 1080);
+		this.create(0,1030, "wall",1920, 50 );
+		this.create(1870, 0, "wall", 50, 1080);
 	}
 	FittingOutEngine.prototype.create = function(x, y, type, width, height){
 		if (type == "bumper"){
@@ -25,7 +28,7 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 		}
 		else if (type == "wall"){
 			var wall = {};
-			basicObject.wall(x, y, width, height);
+			basicObject.rect(wall, x, y, width, height);
 			this.renderEngine.addElement("fittingOut", wall);
 		}	
 		else

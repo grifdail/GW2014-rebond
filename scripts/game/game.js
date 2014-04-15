@@ -32,28 +32,40 @@ define(["game/functions/add_event_capabilities",
         
         for (var key in this.canvas){
             this.canvas[key].context = this.canvas[key].getContext("2d");
-            this.canvas[key].width = 1400;
-            this.canvas[key].height = 1000;
+            this.canvas[key].width = 1920;
+            this.canvas[key].height = 1080;
             this.canvas[key].setAttribute("class", "canvas");
             document.body.appendChild(this.canvas[key]);
         }
         this.canvas.background.context.fillStyle = "rgba(220,220,220,1)";
-        this.canvas.background.context.globalAlpha = 0.5;
+        this.canvas.background.context.globalAlpha = 1;
+        this.canvas.bullets.context.globalAlpha = 1;
 
         this.renderEngine = new RenderEngine();
         this.bulletsEngine = new BulletsEngine();
         this.playersEngine = new PlayerEngine();
         this.bulletsEngine.init(this.canvas.bullets);
+
         this.playersEngine.init(this.canvas.bullets);
         this.playersEngine.create(this,25,25,"red");
         this.playersEngine.create(this,1000,25,"blue");
 
 
         this.renderEngine.addCanvas("debug", this.canvas.debug);
+        this.renderEngine.addCanvas("background", this.canvas.background);
+
         // thid.renderEngine.addCanvas("bu")
         this.renderEngine.addGroup("test", "debug");
+
+        this.renderEngine.addGroup("background", "background");
+        var background = {};
+        basicObject.rect(background, 0,0, 1920, 1080);
+        background.image = "background";
+        background.rotation = -Math.PI/2;
+        this.renderEngine.addElement("background", background);
         var carre = {};
         var truc = {};
+
        // this.renderEngine.addSprite(truc, "tank");
        // this.renderEngine.addElement("test", carre);
         collisionEngine.addGroup("bullet", ["bullet", "wall"]);
