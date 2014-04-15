@@ -4,7 +4,7 @@ define(["game/functions/add_event_capabilities",
         "game/functions/bulletsEngine", 
         "game/functions/loadRessource",
         "game/functions/player_manager"], 
-    function (addEventCapabilities, RenderEngine, basicObject, bulletsEngine, loadRessource, PlayerEngine){
+    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine){
     var Game = function Game (){
         this.states = {};
         this.state = "";
@@ -42,7 +42,7 @@ define(["game/functions/add_event_capabilities",
         this.playersEngine = new PlayerEngine();
         this.bulletsEngine.init(this.canvas.bullets);
         this.playersEngine.init(this.canvas.bullets);
-        this.playersEngine.create(25,25,"red");
+        this.playersEngine.create(this,25,25,"red");
 
 
         this.renderEngine.addCanvas("debug", this.canvas.debug);
