@@ -12,9 +12,6 @@ define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine"], f
             //Game.renderEngine.screenShake(10, 20);
         	//Game.bulletsEngine.create(Math.random() * 500+200, Math.random() * 500+200,20, Math.random() * Math.PI*2, 10);
         }
-        for(var i = 0; i < Game.boules.length; i++){
-            Game.boules[i].move();
-        }
         collisionEngine.calcul();
         Game.bulletsEngine.calcul();
         Game.playersEngine.calcul();

@@ -1,6 +1,7 @@
 define([], function (){
 
     function bulletCollision (other, collisionPoint){
+        console.log(this.pos);
         if(other.radius !== undefined){
             if(other.tag == "player"){
                 bulletPlayerCollision.apply(this, arguments);
@@ -23,16 +24,17 @@ define([], function (){
 
     function bulletbulletCollision (bullet, collisionPoint){
         var m2 = {
-            x : bullet.pos.x + bullet.hitbox.offsetX,
-            y : bullet.pos.y + bullet.hitbox.offsetY
+            x : bullet.pos.x + bullet.hitbox[0].offsetX,
+            y : bullet.pos.y + bullet.hitbox[0].offsetY
         };
         var m1 = {
-            x : this.pos.x + this.hitbox.offsetX,
-            y : this.pos.y + this.hitbox.offsetY
+            x : this.pos.x + this.hitbox[0].offsetX,
+            y : this.pos.y + this.hitbox[0].offsetY
         };
+        
         var n = {
-            x : (m2.x - m1.x)/(2*this.hitbox.radius),
-            y : (m2.y - m1.y)/(2*this.hitbox.radius)
+            x : (m2.x - m1.x)/(2*this.hitbox[0].radius),
+            y : (m2.y - m1.y)/(2*this.hitbox[0].radius)
         };
         var g = {
             x : -n.y,
@@ -45,7 +47,6 @@ define([], function (){
 
         this.vel.x = n.x*v2n + g.x*v1g;
         this.vel.y = n.y*v2n +  g.y*v1g;
-
     }
 
     function bulletPlayerCollision (player){

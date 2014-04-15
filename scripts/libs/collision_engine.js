@@ -74,6 +74,8 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 						var currentGroup = this.group[this.group[name].target[m]];
 						for (var k = currentGroup.content.length - 1 ; k >= 0 ; k--){
 							var opponent = currentGroup.content[k];
+							if(opponent === target)
+								continue;
 							if(opponent == undefined || opponent == null){
 								currentGroup.content.splice(k,1);
 								continue;
@@ -134,7 +136,6 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 		var bRealY = b.pos.y + hitboxB.offsetY;
 
 		var norme = Math.sqrt(Math.pow(bRealX - aRealX, 2) + Math.pow(bRealY - aRealY, 2));
-		//console.log(norme);
 		return norme <= hitboxA.radius + hitboxB.radius;
 	}
 
@@ -176,7 +177,7 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 
 		var distanceSqr = Math.pow(collisionPoint.x - circleObject.realX, 2) + Math.pow(collisionPoint.y - circleObject.realY, 2);
 
-		if(distanceSqr <= (circleObject.hitbox.radius *2) * (circleObject.hitbox.radius * 2)){
+		if(distanceSqr <= (circleObject.hitbox.radius * 2) * (circleObject.hitbox.radius * 2)){
 			return collisionPoint;
 		}else 
 			return null; 

@@ -8,12 +8,15 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 		this.renderEngine = new RenderEngine();
 		this.renderEngine.addGroup("fittingOut", "bullets");
 
-		this.create(400, 400, "bumper");
+		// this.create(400, 400, "bumper");
 	}
 	FittingOutEngine.prototype.create = function(x, y, type){
 		if (type == "bumper"){
 			var bumper = {};
 			bumper.radius = 20;
+			// bumper.on("collisionEnter", function(opponent, pos){
+			// 	console.log("Collision avec le fitting out");
+			// },this);
 
 			basicObject.circle(bumper, x, y, bumper.radius);
 			collisionEngine.addElement(bumper);
