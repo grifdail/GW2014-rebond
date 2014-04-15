@@ -12,10 +12,9 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
         window.collisionEngine = collisionEngine;
     }
     PlayerEngine.prototype.create = function(game,x, y,color){
-        var player = new Player(game,this.content.length);
+        var player = new Player(game,this.content.length,color);
         player.pos.x = x;
         player.pos.y = y;
-        player.color = color || "red";
         this.content.push(player);
         this.renderEngine.addElement("players", player);
         collisionEngine.addElement(player, "players");

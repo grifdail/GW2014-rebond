@@ -85,6 +85,7 @@ define(["libs/utils"], function (utils){
 	};
 
 	Renderer.prototype.getSprite = function(name,anim) {
+		console.log(this.sprites,this.sprites[name],name);
 		var sprite = {};
 		sprite.image=name;
 		sprite.anim = anim || "idle";

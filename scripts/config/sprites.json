@@ -1,5 +1,8 @@
 {
 	"boss" : ["images/boss_part_3_hit.png", "config/boss.json"],
-	"tank" : ["images/Tank_vert.png", "config/tank_vert.json"]
+    "tank_green" : ["images/Tank_vert.png", "config/tank_vert.json"],
+    "tank_blue" : ["images/Tank_bleu.png", "config/tank_blue.json"],
+    "tank_red" : ["images/Tank_rouge.png", "config/tank_red.json"],
+	"tank_yellow" : ["images/tank_jaune.png", "config/tank_yellow.json"]
 
 }
