@@ -56,11 +56,17 @@ define([], function (){
 		for (var key in this.content){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {
 				var target = this.content[key].elements[i];
-				window.getElement = target;
 				if (target.color)
 						this.content[key].context.fillStyle = target.color;
 				if (target.image){			//Si c'est une image
+					if (target.rotation){
+						var save = this.content[key].context.save;
+						this.content[key].context.translate(target.posX + target.width, target.posY + target.height);
+						this.content[key].context.rotate(target.rotation);					
+					}
 					this.content[key].context.drawImage(this.images[target.image], target.pos.x, target.pos.y, target.width, target.height);
+					if (target.rotation)
+						this.content[key].context.save
 				}
 				else if (target.radius){		//Si c'est un cercle
 					this.content[key].context.beginPath();
