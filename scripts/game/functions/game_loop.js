@@ -9,7 +9,7 @@ define(["RAF", "Game","game/functions/gamepad_controller"], function (RAF, Game,
 
 
         if (Game.frame % 60 == 0){
-        	Game.bulletsEngine.create(100, 1,20, 0, 10);
+        	Game.bulletsEngine.create(Math.random() * 500+200, Math.random() * 500+200,20, Math.random() * Math.PI*2, 10);
         }
 
         Game.bulletsEngine.calcul();
