@@ -38,11 +38,11 @@ define(["game/functions/add_event_capabilities",
 
         this.renderEngine = new RenderEngine();
         this.bulletsEngine = new bulletsEngine();
-        this.bulletsEngine.init(this.canvas.bullets.context);
+        this.bulletsEngine.init(this.canvas.bullets);
 
 
-
-        this.renderEngine.addGroup("test", this.canvas.debug.context);
+        this.renderEngine.addCanvas("debug", this.canvas.debug);
+        this.renderEngine.addGroup("test", "debug");
         var carre = {};
         basicObject.rect(carre, 10, 5, 100, 50);
        // this.renderEngine.addElement("test", carre);

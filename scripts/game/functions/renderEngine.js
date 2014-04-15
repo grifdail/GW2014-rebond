@@ -2,19 +2,24 @@ define([], function (){
 	var Renderer = function(){
 	}
 	Renderer.prototype.content = {};
-	Renderer.prototype.context = {};
-	Renderer.prototype.addGroup = function(name, context){
+	Renderer.prototype.canvas = {};
+	Renderer.prototype.screenShakeStrength = 0;
+	Renderer.prototype.screenShakeDuration = 0;
+	Renderer.prototype.addGroup = function(name, canvas){
 		if (!this.content[name]){
 			this.content[name] = {};
-			this.content[name].context = this.context[context];
+			if (this.canvas[canvas])
+				this.content[name].context = this.canvas[canvas].context;
+			else
+				console.warn("Tentative dutilisation du canvas " + canvas + "non ajouté. Merci d'utiliser addCanvas");
 			this.content[name].elements = [];
 		}
 	}
-	Renderer.prototype.addContext = function(name, context){
-		if (!this.context[name])
-			this.context[name] = context;
+	Renderer.prototype.addCanvas = function(name, canvas){
+		if (!this.canvas[name])
+			this.canvas[name] = canvas;
 		else
-			console.warn("Le context name " + name + " existe déjà");
+			console.warn("Le canvas name " + name + " existe déjà");
 	}
 	Renderer.prototype.addElement = function(group, target){
 		if (!this.content[group]){
@@ -23,9 +28,13 @@ define([], function (){
 		}
 		this.content[group].elements.push(target);
 	}
+	Renderer.prototype.screenShake = function(timing, strength){
+		this.screenShakeDuration = timing;
+		this.screenShakeStrength = strength;
+	};
 	Renderer.prototype.render = function(){
-		for (var key in this.context){
-			this.context[key].clearRect(0,0,1000,1000);
+		for (var key in this.canvas){
+			this.canvas[key].context.clearRect(0,0,1000,1000);
 		}
 		for (var key in this.content){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {

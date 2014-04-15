@@ -4,9 +4,9 @@ define(["game/functions/basicObject", "game/functions/renderEngine"], function (
 		this.content = [];
 		this.radius = 10;
 	}
-	BulletsEngine.prototype.init = function(context){
+	BulletsEngine.prototype.init = function(canvas){
 		this.renderEngine = new renderEngine();
-		this.renderEngine.addContext("bullets", context);
+		this.renderEngine.addCanvas("bullets", canvas);
 		this.renderEngine.addGroup("bullets", "bullets");
 	}
 	BulletsEngine.prototype.create = function(x, y, radius, direction, speed){
