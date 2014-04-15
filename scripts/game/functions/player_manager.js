@@ -15,7 +15,6 @@ define(["game/functions/player", "game/functions/renderEngine"], function(Player
         player.pos.y = y;
         player.color = color || "red";
         this.content.push(player);
-        console.log(this.content.length)
         this.renderEngine.addElement("players", player);
     }
     PlayerEngine.prototype.calcul = function(){

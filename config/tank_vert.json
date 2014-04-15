@@ -1,0 +1,4 @@
+{
+	"drive" : {"nbAnimation" : 4, "fps" : 20, "loop" : -1, "width" : 128, "height" : 128, "x" : 0, "y" : 0},
+	"stay" : {"nbAnimation" : 5, "fps" : 20, "loop" : -1, "width" : 128, "height" : 128, "x" : 0, "y" : 128}
+}

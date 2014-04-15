@@ -1,4 +1,4 @@
-define([], function (){
+define(["libs/utils"], function (utils){
 	var Renderer = function(){
 	}
 	Renderer.prototype.content = {};
@@ -6,6 +6,7 @@ define([], function (){
 	Renderer.prototype.screenShakeStrength = 0;
 	Renderer.prototype.screenShakeDuration = 0;
 	Renderer.prototype.images = {};
+	Renderer.prototype.sprites = {};
 	Renderer.prototype.addGroup = function(name, canvas){
 		if (!this.content[name]){
 			this.content[name] = {};
@@ -16,6 +17,51 @@ define([], function (){
 			this.content[name].elements = [];
 		}
 	}
+	Renderer.prototype.addSprite = function(name, image, config){
+		config = utils.httpGetData(config);
+		console.log(config);
+		var target = {};
+		for (var list in config){
+			target[list] = {};
+			for (var key in config[list])
+				target[list][key] = config[list][key];
+		}
+
+		var object = {"image" : name, "animation" : target};
+		if (!this.images[name])
+			this.addImage(name, image);
+
+		this.sprites[name] = object;
+	}
+	Renderer.prototype.getSprite = function(target, name){
+
+	}
+	// Renderer.prototype.addSprite = function(name, image, config){
+	// 	target.currentFrame = 0;
+	// 	if (!this.images[name])
+	// 		this.addImage(name, image);
+	// 	target.image = image;
+	// 	target.imageWidth = this.images[image].width;
+	// 	target.imageHeight = this.images[image].height;
+	// 	target.animation = {};
+	// 	for (var name in config){
+	// 		target.animation[name] = {};
+	// 		for (var element in config[name])
+	// 			target.animation[name][key] = config[name][key];
+	// 	}
+	// }
+	Renderer.prototype.sprite = function(){
+
+	}
+	Renderer.prototype.sprite.prototype.changeAnimation = function(animation){
+		if (this.animation[animation]){
+			this.currentFrame = 0;
+			this.animationWidth = this
+		}
+		else
+			console.warn("Attention, tentative de jouer l'animation " + animation + ". Innexistant sur l'objet");
+	}
+
 	Renderer.prototype.addCanvas = function(name, canvas){
 		if (!this.canvas[name])
 			this.canvas[name] = canvas;
