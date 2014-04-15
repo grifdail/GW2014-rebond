@@ -3,6 +3,10 @@ define([], function (){
 	var Utils = function(){		
 	}
 
+	function addAntiCache(url) {
+		return url+="?d="+Date.now();
+	}
+
 	Utils.prototype.loadJSONFiles = function(files){
 		var jsonFiles = { };
 		for (fileName in files){
@@ -19,7 +23,7 @@ define([], function (){
 	Utils.prototype.httpGet = function(theUrl) {
 		var xmlHttp = null;
 		xmlHttp = new XMLHttpRequest();
-		xmlHttp.open("GET", theUrl, false);
+		xmlHttp.open("GET",  addAntiCache(theUrl), false);
 		xmlHttp.send(null);
 		return xmlHttp.responseText;
 	}

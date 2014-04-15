@@ -118,7 +118,14 @@ define(["libs/utils"], function (utils){
 		);
 		if (!(this.frameIndex%config.fps)) {
 			target.sprite.index++;
-			target.sprite.index%=config.nbAnimation;
+			if(target.sprite.index>=config.nbAnimation) {
+				console.log(config.row)
+				if (config.finish) {
+					target.sprite.changeAnimation(config.finish);
+				} else {
+					target.sprite.index = 0;
+				}
+			}
 		}
 		ctx.restore();
 	};
