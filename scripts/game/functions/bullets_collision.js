@@ -23,7 +23,6 @@ define([], function (){
     }
 
     function bulletbulletCollision (bullet, collisionPoint){
-
         var m2 = {
             x : bullet.pos.x + bullet.hitbox[0].offsetX,
             y : bullet.pos.y + bullet.hitbox[0].offsetY

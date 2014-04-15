@@ -5,8 +5,9 @@ define(["game/functions/add_event_capabilities",
         "game/functions/loadRessource",
         "game/functions/player_manager",
         "collisionEngine", 
-        "game/functions/bullets_collision"], 
-    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision){
+        "game/functions/bullets_collision",
+        "game/functions/fittingOutEngine"], 
+    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine){
     var Game = function Game (){
         this.states = {};
         this.state = "";
@@ -49,6 +50,7 @@ define(["game/functions/add_event_capabilities",
 
 
         this.renderEngine.addCanvas("debug", this.canvas.debug);
+        // thid.renderEngine.addCanvas("bu")
         this.renderEngine.addGroup("test", "debug");
         var carre = {};
         var truc = {};
@@ -64,6 +66,9 @@ define(["game/functions/add_event_capabilities",
         for(var i = 0; i < 5; i++){
             this.boules.push(new Projectile(100 + Math.random()* 500, 200 + Math.random() * 500,Math.random() * 10,Math.random() * 10));
         }
+
+        this.fittingOutEngine = new FittingOutEngine();
+        this.fittingOutEngine.init(this.canvas.bullets);
     }
 
 
