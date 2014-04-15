@@ -58,15 +58,12 @@ define([], function (){
 				var target = this.content[key].elements[i];
 				if (target.color)
 						this.content[key].context.fillStyle = target.color;
-				if (target.image){			//Si c'est une image
-					if (target.rotation){
-						var save = this.content[key].context.save;
-						this.content[key].context.translate(target.posX + target.width, target.posY + target.height);
-						this.content[key].context.rotate(target.rotation);					
-					}
-					this.content[key].context.drawImage(this.images[target.image], target.pos.x, target.pos.y, target.width, target.height);
-					if (target.rotation)
-						this.content[key].context.save
+				this.content[key].context.save();
+				if (target.image){	//Si c'est une image
+					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
+					this.content[key].context.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
+					this.content[key].context.rotate(rotation || 0);		
+					this.content[key].context.drawImage(this.images[target.image], -target.width*0.5, -target.height*0.5, target.width, target.height);
 				}
 				else if (target.radius){		//Si c'est un cercle
 					this.content[key].context.beginPath();
@@ -77,6 +74,7 @@ define([], function (){
 					
 					this.content[key].context.fillRect(target.pos.x, target.pos.y, target.width, target.height);
 				}
+				this.content[key].context.restore();
 
 			};
 		}	

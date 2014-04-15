@@ -8,10 +8,10 @@ define([], function(){
                 timer = freq;
                 var nx = this.pos.x+this.radius+Math.cos(fn.rotation)*45-5;
                 var ny = this.pos.y+this.radius+Math.sin(fn.rotation)*45-5;
-                manager.create(nx, ny, 10, fn.rotation, 20, this.color,this.vel);
+                manager.create(nx, ny, 10, fn.rotation, 20, this.color);
             }
         }
-        
+
         fn.update = function() {
             timer--;
         }

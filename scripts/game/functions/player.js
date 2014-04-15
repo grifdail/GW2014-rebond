@@ -13,6 +13,7 @@ define([
         basicObject.image(this.canon, "canon1", 0,0, 64, 64, null);
         this.radius = 32;
         this.rotation = 0;
+        this.rotationAsVec = true;
         this.gamepadController = GamepadController(pad || 0);
         this.physicControler = PhysicControler(0.95);
         this.shoot = ShootController(game.bulletsEngine,20);
