@@ -3,7 +3,7 @@ define([], function(){
     
     return function(game,freq) {
         var timer = 0;
-        var fn = function(vx,vy) {
+        var fn = function() {
             if (timer<0) {
                 timer = freq;
                 var nx = this.pos.x+this.radius+Math.cos(fn.rotation)*45-5;

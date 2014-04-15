@@ -29,7 +29,7 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 			target.hitbox = [];
 
 		var hitbox = {};
-		hitbox.shape = shape;
+		hitbox.shape = shape || "rect";
 		if (shape == "circle")
 			hitbox.radius = width / 2;
 		else{
