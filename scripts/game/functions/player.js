@@ -7,7 +7,10 @@ define([
     "use strict";
     
     function Player(game,pad) {
-        basicObject.circle(this,0,0,null,null,32);
+        //basicObject.circle(this,0,0,null,null,32);
+        basicObject.image(this, "tank1", 0,0, 64, 64, null);
+        this.canon = {};
+        basicObject.image(this.canon, "canon1", 0,0, 64, 64, null);
         this.radius = 32;
         this.rotation = 0;
         this.gamepadController = GamepadController(pad || 0);

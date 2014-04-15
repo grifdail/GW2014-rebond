@@ -27,6 +27,11 @@ define(["vector"], function (Vector){
 		this.basic(target, x, y, null,null, radius);
 		target.shape = "circle";
 	}
+	BasicObject.prototype.image = function(target, image, x, y, width, height){
+		this.basic(target, x, y, width, height, null);
+		target.shape = "rect";
+		target.image = image;
+	}
 
 	BasicObject.prototype.movableCircle = function(target, x, y, radius, direction, speed){
 		this.circle(target, x, y, radius);
@@ -34,6 +39,9 @@ define(["vector"], function (Vector){
 		target.vel.y = Math.sin(direction)*speed || 0;
 		target.direction = direction || 0;
 		target.speed = speed || 10;
+	}
+	BasicObject.prototype.movableImage = function(target, image, x, y, width, height, direction, speed){
+		this.image = image;
 	}
 
 	return new BasicObject();

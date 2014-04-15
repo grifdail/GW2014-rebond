@@ -29,8 +29,8 @@ define(["game/functions/add_event_capabilities",
         
         for (var key in this.canvas){
             this.canvas[key].context = this.canvas[key].getContext("2d");
-            this.canvas[key].width = 1920;
-            this.canvas[key].height = 1080;
+            this.canvas[key].width = 1400;
+            this.canvas[key].height = 1000;
             this.canvas[key].setAttribute("class", "canvas");
             document.body.appendChild(this.canvas[key]);
         }
