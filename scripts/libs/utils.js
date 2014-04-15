@@ -11,7 +11,7 @@ define([], function (){
 				file: httpGetData(files[fileName]) 
 			};
 		}
-		console.info("loadJSONFiles(...) JSON files loaded",jsonFiles );
+		console.info("loadJSONFiles(...) JSON files loaded",jsonFiles);
 		return jsonFiles;
 	}
 

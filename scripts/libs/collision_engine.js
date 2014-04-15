@@ -1,4 +1,4 @@
-define(['addEventCapabilities'], function(addEventCapabilities) {
+define(['game/functions/add_event_capabilities'], function(addEventCapabilities) {
 
 	var CollisionEngine = function(){
 	}
@@ -20,7 +20,7 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 			this.addHitbox(target);
 
 		if(target.on == undefined || target.emit == undefined)
-			addEventCapabilities(Object.getPrototypeOf(target));
+			addEventCapabilities(target);
 
 		this.group[name].content.push(target);	 
 	}
@@ -30,13 +30,18 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 
 		var hitbox = {};
 		hitbox.shape = shape;
-		hitbox.offsetX = offsetX || 0;
-		hitbox.offsetY = offsetY || 0;
 		if (shape == "circle")
-			hitbox.radius = width;
+			hitbox.radius = width / 2;
 		else{
 			hitbox.width = width || target.width || 0;
 			hitbox.height = height || target.height || 0;
+		}
+		if(hitbox.shape == "circle"){
+			hitbox.offsetX = hitbox.radius;
+			hitbox.offsetY = hitbox.radius;
+		}else{
+			hitbox.offsetX = offsetX || 0;
+			hitbox.offsetY = offsetY || 0;
 		}
 		target.hitbox.push(hitbox);
 	}
@@ -61,7 +66,7 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 				for (var j = target.hitbox.length -1 ; j >= 0 ; j--){			//Pour toutes les hitboxs de cet element
 					targetHitbox = target.hitbox[j];
 					for (var k = this.group[name].inBox.length - 1 ; k >= 0 ; k--){	//Pour tout les inBox de ce groupe
-						if(this.isInBox(target.x, target.y, target.hitbox[j], this.group[name].inBox[k]))
+						if(this.isInBox(target.x, target.y, target.hitbox[j], this.group[name].inBox[k])){
 							target.emit("inboxOut", this.group[name].inBox[k]);
 						}
 					}
@@ -80,7 +85,10 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 										target.emit("collisionEnter", opponent);
 									}
 								}else if(target.radius !== undefined || opponentHitbox.radius !== undefined){
-
+									var collisionPoint = this.circleRectCollision(target, targetHitbox, opponent, opponentHitbox);
+									if(collisionPoint !== null){
+										target.emit("collisionEnter", opponent, collisionPoint);
+									}
 								}
 								if (this.rectCollision(target, targetHitbox, opponent, opponentHitbox)){
 									target.emit("collisionEnter", opponent);
@@ -92,7 +100,7 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 			}
 		}
 	}
-	CollisionEngine.prototype.isInBox = function(x, y, target, box){
+	CollisionEngine.prototype.isInBox = function (x, y, target, box){
 		var box = this.box[box];
 		var realX = x + target.offsetX;
 		var realY = y + target.offsetY; 
@@ -120,12 +128,13 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 	}
 
 	CollisionEngine.prototype.circleCollision = function(a, hitboxA, b, hitboxB){
-		var aRealX = a.posX + hitboxA.offsetX;
-		var aRealY = a.posY + hitboxA.offsetY;
-		var bRealX = b.posX + hitboxB.offsetX;
-		var bRealY = b.posY + hitboxB.offsetY;
+		var aRealX = a.pos.x + hitboxA.offsetX;
+		var aRealY = a.pos.y + hitboxA.offsetY;
+		var bRealX = b.pos.x + hitboxB.offsetX;
+		var bRealY = b.pos.y + hitboxB.offsetY;
 
 		var norme = Math.sqrt(Math.pow(bRealX - aRealX, 2) + Math.pow(bRealY - aRealY, 2));
+		//console.log(norme);
 		return norme <= hitboxA.radius + hitboxB.radius;
 	}
 
@@ -133,38 +142,44 @@ define(['addEventCapabilities'], function(addEventCapabilities) {
 		var circleObject = {
 			object : a,
 			hitbox : hitboxA,
-			realX : a.posX + hitboxA.offsetX,
-			realY : a.posY + hitboxA.offsetY
+			realX : a.pos.x + hitboxA.offsetX,
+			realY : a.pos.y + hitboxA.offsetY
 		};
 		var rectObject = {
 			object : b,
 			hitbox : hitboxB,
-			realX : b.posX + hitboxB.offsetX,
-			realY : b.posY + hitboxB.offsetY
+			realX : b.pos.x + hitboxB.offsetX,
+			realY : b.pos.y + hitboxB.offsetY
 		}
-		if(hitboxA.radius !== undefined){
+		if(hitboxA.radius === undefined){
 			var tmp = rectObject;
 			var rectObject = circleObject;
 			var circleObject = tmp;
 		}
 
 		//findClosestPoint
-		var collisionPoint = {x : 0, y : 0};						
+		var collisionPoint = {x : 0, y : 0};	
 		if(circleObject.realX > rectObject.realX + rectObject.hitbox.width){
-			collisionPoint.x = rectCollision.realX + rectObject.hitbox.width;
+			collisionPoint.x = rectObject.realX + rectObject.hitbox.width;
 		}else if(circleObject.realX < rectObject.realX){
 			collisionPoint.x = rectObject.realX;
-		}else
+		}else{
 			collisionPoint.x = circleObject.realX;
+		}
 		if(circleObject.realY > rectObject.realY + rectObject.hitbox.height){
 			collisionPoint.y = rectObject.realY + rectObject.hitbox.height;
 		}else if(circleObject.realY < rectObject.realY){
 			collisionPoint.y = rectObject.realY;
-		}else
+		}else{
 			collisionPoint.y = circleObject.realY;
+		}
 
-		var distance = Math.sqrt(Math.pow(collisionPoint.x - circleObject.realX, 2) + Math.pow(collisionPoint.y - circleObject.realY, 2))
-		return distance <= circleObject.hitbox.radius;
+		var distanceSqr = Math.pow(collisionPoint.x - circleObject.realX, 2) + Math.pow(collisionPoint.y - circleObject.realY, 2);
+
+		if(distanceSqr <= (circleObject.hitbox.radius *2) * (circleObject.hitbox.radius * 2)){
+			return collisionPoint;
+		}else 
+			return null; 
 	}
 
 	return new CollisionEngine();
