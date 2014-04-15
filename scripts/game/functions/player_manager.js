@@ -1,4 +1,4 @@
-define(["game/functions/player", "game/functions/renderEngine"], function(Player, renderEngine){
+define(["game/functions/player", "game/functions/renderEngine", "collisionEngine"], function(Player, renderEngine, collisionEngine){
     "use strict";
     
     var PlayerEngine = function(){
@@ -8,6 +8,8 @@ define(["game/functions/player", "game/functions/renderEngine"], function(Player
         this.renderEngine = new renderEngine();
         this.renderEngine.addCanvas("players", canvas);
         this.renderEngine.addGroup("players", "players");
+        collisionEngine.addGroup("players", null, null);
+        window.collisionEngine = collisionEngine;
     }
     PlayerEngine.prototype.create = function(game,x, y,color){
         var player = new Player(game,this.content.length);
@@ -16,6 +18,7 @@ define(["game/functions/player", "game/functions/renderEngine"], function(Player
         player.color = color || "red";
         this.content.push(player);
         this.renderEngine.addElement("players", player);
+        collisionEngine.addElement(player, "players");
     }
     PlayerEngine.prototype.calcul = function(){
         for (var i = this.content.length - 1; i >= 0; i--) {
