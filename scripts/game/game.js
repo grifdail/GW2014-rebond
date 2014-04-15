@@ -61,7 +61,7 @@ define(["game/functions/add_event_capabilities",
         new Wall(0,0,1350,60);
         new Wall(0,950,1350,60);
         new Wall(1350,0,60,1000);
-        for(var i = 0; i < 4; i++){
+        for(var i = 0; i < 5; i++){
             this.boules.push(new Projectile(100 + Math.random()* 500, 200 + Math.random() * 500,Math.random() * 10,Math.random() * 10));
         }
     }
@@ -76,7 +76,7 @@ define(["game/functions/add_event_capabilities",
     var Projectile = function(x, y, velx, vely){
         this.id = Math.random() * 8000;
         basicObject.circle(this,x,y,null,null,16);
-        this.radius = 32
+        this.radius = 32;
         this.vel.add(new Vector(velx,vely));
         this.move = function(){
             this.pos.x += this.vel.x;
@@ -86,6 +86,7 @@ define(["game/functions/add_event_capabilities",
         collisionEngine.addElement(this, "bullet");
         this.on("collisionEnter", bullet_collision, this);
         game.renderEngine.addElement("test", this);
+        
     }
     var Wall = function (x, y, width, height){
         basicObject.rect(this,x,y,width,height);
