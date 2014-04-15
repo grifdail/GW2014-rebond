@@ -16,7 +16,7 @@ define([
         this.rotationAsVec = true;
         this.gamepadController = GamepadController(pad || 0);
         this.physicControler = PhysicControler(0.95);
-        this.shoot = ShootController(game.bulletsEngine,20);
+        this.shoot = ShootController(game,20);
     }
 
     Player.prototype.update = function() {

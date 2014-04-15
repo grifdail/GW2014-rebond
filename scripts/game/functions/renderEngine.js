@@ -40,7 +40,9 @@ define([], function (){
 		this.screenShakeStrength = strength;
 	};
 	Renderer.prototype.render = function(){
+
 		for (var key in this.canvas){
+			this.canvas[key].context.save();
 			if (this.screenShakeDuration > 0){
 				if (!vecX){
 					var strength = Math.random() * 2 * this.screenShakeStrength - this.screenShakeStrength;
@@ -56,13 +58,14 @@ define([], function (){
 		for (var key in this.content){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {
 				var target = this.content[key].elements[i];
-				if (target.color)
-						this.content[key].context.fillStyle = target.color;
+				if (target.color) {
+					this.content[key].context.fillStyle = target.color;
+				}
 				this.content[key].context.save();
 				if (target.image){	//Si c'est une image
 					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
 					this.content[key].context.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
-					this.content[key].context.rotate(rotation || 0);		
+					this.content[key].context.rotate((rotation || 0) +Math.PI*0.5);		
 					this.content[key].context.drawImage(this.images[target.image], -target.width*0.5, -target.height*0.5, target.width, target.height);
 				}
 				else if (target.radius){		//Si c'est un cercle
@@ -75,13 +78,8 @@ define([], function (){
 					this.content[key].context.fillRect(target.pos.x, target.pos.y, target.width, target.height);
 				}
 				this.content[key].context.restore();
-
 			};
-		}	
-		if (this.screenShakeDuration >= 0){
-			for (var key in this.canvas){
-				this.canvas[key].context.translate(-vecX, -vecY);	
-			}
+			this.content[key].context.restore();	
 		}
 	}
 	return Renderer;
