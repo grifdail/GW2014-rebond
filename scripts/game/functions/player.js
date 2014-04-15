@@ -16,7 +16,7 @@ define([
         this.rotationAsVec = true;
         this.gamepadController = GamepadController(pad || 0);
         this.physicControler = PhysicControler(0.95);
-        this.shoot = ShootController(game,20);
+        this.shoot = ShootController(game,0);
         this.sprite = game.renderEngine.getSprite("tank","stay");
         this.canon = basicObject.basic({}, 0, 0, 64, 64, 32);
         this.canon.sprite = game.renderEngine.getSprite("tank","canon");
