@@ -27,6 +27,9 @@ window.Vector = (function() {
         Vector.prototype.length = function() {
             return Math.sqrt(this.x*this.x+this.y*this.y);
         };
+        Vector.prototype.squarelength = function() {
+            return this.x*this.x+this.y*this.y;
+        };
 
         Vector.prototype.to = function(vec) {
             return new Vector(vec.x-this.x, vec.y-this.y);

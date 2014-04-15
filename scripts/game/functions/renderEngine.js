@@ -1,5 +1,6 @@
 define(["libs/utils"], function (utils){
 	var Renderer = function(){
+		this.frameIndex = 0;
 	}
 	Renderer.prototype.content = {};
 	Renderer.prototype.canvas = {};
@@ -19,7 +20,6 @@ define(["libs/utils"], function (utils){
 	}
 	Renderer.prototype.addSprite = function(name, image, config){
 		config = utils.httpGetData(config);
-		console.log(config);
 		var target = {};
 		for (var list in config){
 			target[list] = {};
@@ -32,8 +32,6 @@ define(["libs/utils"], function (utils){
 			this.addImage(name, image);
 
 		this.sprites[name] = object;
-	}
-	Renderer.prototype.getSprite = function(target, name){
 
 	}
 	// Renderer.prototype.addSprite = function(name, image, config){
@@ -86,18 +84,23 @@ define(["libs/utils"], function (utils){
 		this.screenShakeStrength = strength;
 	};
 
-	Renderer.prototype.getSprite = function(name) {
+	Renderer.prototype.getSprite = function(name,anim) {
 		var sprite = {};
-		sprite.name=n;
-		sprite.anim = 0;
+		sprite.image=name;
+		sprite.anim = anim || "idle";
 		sprite.index = 0;
-		sprite.config = //....;
-		sprite.speed = speed;
+		sprite.config = this.sprites[name];
+		sprite.changeAnimation = function(a) {
+			if (sprite.anim !== a) {
+				sprite.anim = a;
+				sprite.index = 0;
+			}
+		}
 		return sprite
 	};
 
 	Renderer.prototype.render = function(){
-
+		this.frameIndex++;
 		for (var key in this.canvas){
 			this.canvas[key].context.save();
 			if (this.screenShakeDuration > 0){
@@ -123,18 +126,22 @@ define(["libs/utils"], function (utils){
 					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
 					this.content[key].context.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
 					this.content[key].context.rotate((rotation || 0) +Math.PI*0.5);
-					var config = target.sprite.config;
+					var config = target.sprite.config.animation[target.sprite.anim];
 					this.content[key].context.drawImage(
-					                    this.images[target.sprite.image],
-					                    target.sprite.index*config.width, 
-										config.animation[target.sprite.anim].row*config.height,
-					                    config.width, 
+										this.images[target.sprite.image],
+										target.sprite.index*config.width,
+										config.row*config.height,
+										config.width,
 										config.height,
-					                    -target.width*0.5, 
-					                    -target.height*0.5, 
-					                    target.width, 
-					                    target.height
+										-target.width*0.5,
+										-target.height*0.5,
+										target.width,
+										target.height
 					);
+					if (!(this.frameIndex%config.fps)) {
+						target.sprite.index++;
+						target.sprite.index%=config.nbAnimation;
+					}
 				}
 				else if (target.image){	//Si c'est une image
 					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;

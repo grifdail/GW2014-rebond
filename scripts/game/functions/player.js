@@ -17,15 +17,18 @@ define([
         this.gamepadController = GamepadController(pad || 0);
         this.physicControler = PhysicControler(0.95);
         this.shoot = ShootController(game,20);
-        this.sprite = game.rendererEngine.getSprite("tank")
-
-        this.sprite.anim = 2;
+        this.sprite = game.renderEngine.getSprite("tank","stay")
     }
 
     Player.prototype.update = function() {
         this.physicControler();
         this.gamepadController();
         this.shoot.update();
+        if (this.vel.squarelength()>1) {
+            this.sprite.changeAnimation("drive")
+        } else {
+            this.sprite.changeAnimation("stay")
+        }
     };
     return Player;
 });
