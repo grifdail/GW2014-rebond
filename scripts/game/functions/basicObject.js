@@ -15,7 +15,7 @@ define(["vector"], function (Vector){
 			target.height = 2*radius;
 		}
 		target.radius = radius;
-		
+		return target;
 	}
 
 	BasicObject.prototype.rect = function(target, x, y, width, height){

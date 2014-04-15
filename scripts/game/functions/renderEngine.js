@@ -99,6 +99,30 @@ define(["libs/utils"], function (utils){
 		return sprite
 	};
 
+	Renderer.prototype.renderSprite = function(target,ctx) {
+		ctx.save()
+		var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
+		ctx.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
+		ctx.rotate((rotation || 0) +Math.PI*0.5);
+		var config = target.sprite.config.animation[target.sprite.anim];
+		ctx.drawImage(
+			this.images[target.sprite.image],
+			target.sprite.index*config.width,
+			config.row*config.height,
+			config.width,
+			config.height,
+			-target.width*0.5,
+			-target.height*0.5,
+			target.width,
+			target.height
+		);
+		if (!(this.frameIndex%config.fps)) {
+			target.sprite.index++;
+			target.sprite.index%=config.nbAnimation;
+		}
+		ctx.restore();
+	};
+
 	Renderer.prototype.render = function(){
 		this.frameIndex++;
 		for (var key in this.canvas){
@@ -123,25 +147,7 @@ define(["libs/utils"], function (utils){
 				}
 				this.content[key].context.save();
 				if (target.sprite){	//Si c'est une image
-					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
-					this.content[key].context.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
-					this.content[key].context.rotate((rotation || 0) +Math.PI*0.5);
-					var config = target.sprite.config.animation[target.sprite.anim];
-					this.content[key].context.drawImage(
-										this.images[target.sprite.image],
-										target.sprite.index*config.width,
-										config.row*config.height,
-										config.width,
-										config.height,
-										-target.width*0.5,
-										-target.height*0.5,
-										target.width,
-										target.height
-					);
-					if (!(this.frameIndex%config.fps)) {
-						target.sprite.index++;
-						target.sprite.index%=config.nbAnimation;
-					}
+					this.renderSprite(target,this.content[key].context);
 				}
 				else if (target.image){	//Si c'est une image
 					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
@@ -158,9 +164,12 @@ define(["libs/utils"], function (utils){
 					
 					this.content[key].context.fillRect(target.pos.x, target.pos.y, target.width, target.height);
 				}
+				if (target.canon){	//Si c'est une image
+					this.renderSprite(target.canon,this.content[key].context);
+				}
 				this.content[key].context.restore();
 			};
-			this.content[key].context.restore();	
+			this.content[key].context.restore();
 		}
 	}
 	return Renderer;
