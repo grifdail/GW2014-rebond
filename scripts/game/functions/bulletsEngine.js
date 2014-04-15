@@ -32,8 +32,13 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 	}
 	BulletsEngine.prototype.test = function(opponent, position){
 		if (this.transformationTime <= 0){
-			this.color = opponent.color;
-			this.transformationTime = 30;
+			if (this.color == opponent.color){
+				console.log("die");
+			}
+			else{
+				this.color = opponent.color;
+				this.transformationTime = 60;
+			}
 		}
 		// console.log("opponent : " + opponent + " postion : " + position);
 	}
