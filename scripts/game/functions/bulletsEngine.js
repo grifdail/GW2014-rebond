@@ -8,13 +8,14 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		this.renderEngine = new renderEngine();
 		this.renderEngine.addCanvas("bullets", canvas);
 		this.renderEngine.addGroup("bullets", "bullets");
-		CollisionEngine.addGroup("bullets", ["players"], null);
+		CollisionEngine.addGroup("bullets", ["players", "fittingOut"], null);
 	}
 	BulletsEngine.prototype.create = function(x, y, radius, direction, speed, color,vel){
 		var bullet = {};
 		basicObject.movableCircle(bullet, x, y, radius, direction, speed);
 		bullet.vel.x+= vel ? vel.x : 0;
 		bullet.vel.y+= vel ? vel.y : 0;
+		bullet.vel.y = 10;
 		bullet.color = color || "black";
 		bullet.transformationTime = 10;	//10 frame avant que la bullet ne puisse reinteragir avec un joueur
 		this.content.push(bullet);
@@ -22,7 +23,7 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		CollisionEngine.addHitbox(bullet, "circle", 0, 0, bullet.width, bullet.height);
 		CollisionEngine.addElement(bullet, "bullets");
 		var that = this;
-		bullet.on("collisionEnter", that.test, bullet);
+		bullet.on("collisionEnter", that.collision, bullet);
 	}
 	BulletsEngine.prototype.calcul = function(){
 		for (var i = this.content.length - 1; i >= 0; i--) {
@@ -30,8 +31,11 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 			this.content[i].pos.add(this.content[i].vel);
  		};
 	}
-	BulletsEngine.prototype.test = function(opponent, position){
-		if (this.transformationTime <= 0){
+	BulletsEngine.prototype.collision = function(opponent, position){
+		if (opponent.reaction){
+			opponent.reaction(this);
+		}
+		else if (this.transformationTime <= 0){
 			if (this.color == opponent.color){
 				console.log("die");
 			}
