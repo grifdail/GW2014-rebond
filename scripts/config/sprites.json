@@ -1,3 +1,5 @@
 {
-	"boss" : ["images/boss_part_3_hit.png", "config/boss.json"] 
+	"boss" : ["images/boss_part_3_hit.png", "config/boss.json"],
+	"tank" : ["images/tank_vert.png", "config/tank_vert.json"]
+
 }

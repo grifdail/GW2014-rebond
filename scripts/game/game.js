@@ -49,7 +49,8 @@ define(["game/functions/add_event_capabilities",
         this.renderEngine.addCanvas("debug", this.canvas.debug);
         this.renderEngine.addGroup("test", "debug");
         var carre = {};
-        basicObject.rect(carre, 10, 5, 100, 50);
+        var truc = {};
+       // this.renderEngine.addSprite(truc, "tank");
        // this.renderEngine.addElement("test", carre);
     }
 
