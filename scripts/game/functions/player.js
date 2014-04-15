@@ -6,12 +6,12 @@ define([
        ], function(basicObject,GamepadController,PhysicControler,ShootController) {
     "use strict";
     
-    function Player(game) {
+    function Player(game,pad) {
         basicObject.circle(this,0,0,null,null,32);
         this.radius = 32;
         this.rotation = 0;
-        this.gamepadController = GamepadController(0);
-        this.physicControler = PhysicControler(0.8);
+        this.gamepadController = GamepadController(pad || 0);
+        this.physicControler = PhysicControler(0.95);
         this.shoot = ShootController(game.bulletsEngine,20);
     }
 
