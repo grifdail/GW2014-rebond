@@ -9,8 +9,8 @@ define(["game/functions/player", "game/functions/renderEngine"], function(Player
         this.renderEngine.addCanvas("players", canvas);
         this.renderEngine.addGroup("players", "players");
     }
-    PlayerEngine.prototype.create = function(x, y,color){
-        var player = new Player();
+    PlayerEngine.prototype.create = function(game,x, y,color){
+        var player = new Player(game);
         player.pos.x = x;
         player.pos.y = y;
         player.color = color || "red";
