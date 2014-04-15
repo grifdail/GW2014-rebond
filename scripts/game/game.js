@@ -1,8 +1,9 @@
 define(["game/functions/add_event_capabilities", 
-    "game/functions/renderEngine", 
-    "game/functions/basicObject", 
-    "game/functions/bulletsEngine"], 
-    function (addEventCapabilities, RenderEngine, basicObject, bulletsEngine){
+        "game/functions/renderEngine", 
+        "game/functions/basicObject", 
+        "game/functions/bulletsEngine", 
+        "game/functions/loadRessource"],
+    function (addEventCapabilities, RenderEngine, basicObject, bulletsEngine, loadRessource){
 
     var Game = function Game (){
         this.states = {};
@@ -50,7 +51,10 @@ define(["game/functions/add_event_capabilities",
 
     addEventCapabilities(Game);
 
-    var game = new Game();   
+    var game = new Game();  
+    loadRessource(game); 
+
+    window.pGame = game;
 
     return game.instance;
 
