@@ -1,12 +1,13 @@
-define(["libs/utils", "game/functions/sprite"], function (utils, Sprite){
+define(["libs/utils", "game/functions/sprite", "game/functions/renderEngine"], function (utils, Sprite, RenderEngine){
 	var loadRessourceOn = function(target){
 		target.images = {};
 		target.sprites = {};
 
+		var renderEngine = new RenderEngine();
+
 		var get = utils.httpGetData("scripts/config/images.json");
 		for (var key in get){
-			target.images[key] = new Image();
-			target.images[key].src = get[key];
+			renderEngine.addImage(key, get[key]);
 		}
 
 		var get = utils.httpGetData("scripts/config/sprites.json");

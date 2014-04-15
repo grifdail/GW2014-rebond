@@ -6,12 +6,16 @@ define([
        ], function(basicObject,GamepadController,PhysicControler,ShootController) {
     "use strict";
     
-    function Player(game) {
-        basicObject.circle(this,0,0,null,null,32);
+    function Player(game,pad) {
+        //basicObject.circle(this,0,0,null,null,32);
+        basicObject.image(this, "tank1", 0,0, 64, 64, null);
+        this.canon = {};
+        basicObject.image(this.canon, "canon1", 0,0, 64, 64, null);
         this.radius = 32;
         this.rotation = 0;
-        this.gamepadController = GamepadController(0);
-        this.physicControler = PhysicControler(0.8);
+        this.rotationAsVec = true;
+        this.gamepadController = GamepadController(pad || 0);
+        this.physicControler = PhysicControler(0.95);
         this.shoot = ShootController(game.bulletsEngine,20);
     }
 

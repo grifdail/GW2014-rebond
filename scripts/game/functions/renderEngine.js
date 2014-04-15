@@ -5,6 +5,7 @@ define([], function (){
 	Renderer.prototype.canvas = {};
 	Renderer.prototype.screenShakeStrength = 0;
 	Renderer.prototype.screenShakeDuration = 0;
+	Renderer.prototype.images = {};
 	Renderer.prototype.addGroup = function(name, canvas){
 		if (!this.content[name]){
 			this.content[name] = {};
@@ -23,10 +24,16 @@ define([], function (){
 	}
 	Renderer.prototype.addElement = function(group, target){
 		if (!this.content[group]){
-			console.warn("Attention, push dans un gorupe innexistant !");
+			console.warn("Attention, push dans un groupe innexistant !");
 			return false;
 		}
 		this.content[group].elements.push(target);
+	}
+	Renderer.prototype.addImage = function(name, image){
+		if (!this.images[name]){
+			this.images[name] = new Image();
+			this.images[name].src = image;
+		}
 	}
 	Renderer.prototype.screenShake = function(timing, strength){
 		this.screenShakeDuration = timing;
@@ -51,8 +58,13 @@ define([], function (){
 				var target = this.content[key].elements[i];
 				if (target.color)
 						this.content[key].context.fillStyle = target.color;
-				if (this.image)			//Si c'est une image
-					this.content[key].context.drawImage(this.image, this.pos.x, this.pos.y, this.width, this.height);
+				this.content[key].context.save();
+				if (target.image){	//Si c'est une image
+					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
+					this.content[key].context.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
+					this.content[key].context.rotate(rotation || 0);		
+					this.content[key].context.drawImage(this.images[target.image], -target.width*0.5, -target.height*0.5, target.width, target.height);
+				}
 				else if (target.radius){		//Si c'est un cercle
 					this.content[key].context.beginPath();
 					this.content[key].context.arc(target.pos.x+target.radius, target.pos.y+target.radius, target.radius, 0, 2 * Math.PI);
@@ -62,6 +74,7 @@ define([], function (){
 					
 					this.content[key].context.fillRect(target.pos.x, target.pos.y, target.width, target.height);
 				}
+				this.content[key].context.restore();
 
 			};
 		}	

@@ -29,8 +29,8 @@ define(["game/functions/add_event_capabilities",
         
         for (var key in this.canvas){
             this.canvas[key].context = this.canvas[key].getContext("2d");
-            this.canvas[key].width = 960;
-            this.canvas[key].height = 540;
+            this.canvas[key].width = 1400;
+            this.canvas[key].height = 1000;
             this.canvas[key].setAttribute("class", "canvas");
             document.body.appendChild(this.canvas[key]);
         }
@@ -43,6 +43,7 @@ define(["game/functions/add_event_capabilities",
         this.bulletsEngine.init(this.canvas.bullets);
         this.playersEngine.init(this.canvas.bullets);
         this.playersEngine.create(this,25,25,"red");
+        this.playersEngine.create(this,1000,25,"blue");
 
 
         this.renderEngine.addCanvas("debug", this.canvas.debug);
