@@ -31,16 +31,16 @@ define([], function (){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {
 				var target = this.content[key].elements[i];
 				if (this.image)			//Si c'est une image
-					this.content[key].context.drawImage(this.image, this.x, this.y, this.width, this.height);
+					this.content[key].context.drawImage(this.image, this.pos.x, this.pos.y, this.width, this.height);
 				else if (target.radius){ 	//Si c'est un cercle
 					this.content[key].context.beginPath();
-					this.content[key].context.arc(target.x+target.radius/2, target.y+target.radius/2, target.radius, 0, 2 * Math.PI);
+					this.content[key].context.arc(target.pos.x+target.radius/2, target.pos.y+target.radius/2, target.radius, 0, 2 * Math.PI);
 					this.content[key].context.fill();
 				}
 				else{	//Sinon c'est un carre
 					if (target.color)
 						this.content[key].context.fillStyle = target.color;
-					this.content[key].context.fillRect(target.x, target.y, target.width, target.height);
+					this.content[key].context.fillRect(target.pos.x, target.pos.y, target.width, target.height);
 				}
 
 			};
