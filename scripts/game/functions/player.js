@@ -8,6 +8,7 @@ define([
     
     function Player(game) {
         basicObject.circle(this,0,0,null,null,32);
+        // basicObject.image(this, "tank1", 0,0, 64, 64, null);
         this.radius = 32;
         this.rotation = 0;
         this.gamepadController = GamepadController(0);
