@@ -6,9 +6,13 @@ define(["RAF", "Game","game/functions/gamepad_controller"], function (RAF, Game,
         }
         Game.frame++;
         Game.canvas.background.context.fillRect(0, 0, Game.canvas.background.width, Game.canvas.background.height);
+
+
         if (Game.frame % 60 == 0){
-        	Game.bulletsEngine.create(200,200,0);
+        	Game.bulletsEngine.create(100, 1,20, 0, 10);
         }
+
+        Game.bulletsEngine.calcul();
         Game.renderEngine.render();
     }
 
