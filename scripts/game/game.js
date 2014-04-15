@@ -4,7 +4,7 @@ define(["game/functions/add_event_capabilities",
         "game/functions/bulletsEngine", 
         "game/functions/loadRessource",
         "game/functions/player_manager"], 
-    function (addEventCapabilities, RenderEngine, basicObject, bulletsEngine, loadRessource, PlayerEngine){
+    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine){
     var Game = function Game (){
         this.states = {};
         this.state = "";

@@ -15,8 +15,7 @@ define([
     Player.prototype.update = function() {
         this.physicControler();
         this.gamepadController();
-        console.log(this);
-    };
+      };
 
     return Player;
 });
