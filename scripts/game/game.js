@@ -33,7 +33,7 @@ define(["game/functions/add_event_capabilities",
             this.canvas[key].setAttribute("class", "canvas");
             document.body.appendChild(this.canvas[key]);
         }
-        this.canvas.background.context.fillStyle = "rgba(50,50,50,1)";
+        this.canvas.background.context.fillStyle = "rgba(220,220,220,1)";
         this.canvas.background.context.globalAlpha = 0.5;
 
         this.renderEngine = new RenderEngine();

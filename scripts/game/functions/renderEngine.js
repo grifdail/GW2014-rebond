@@ -34,7 +34,19 @@ define([], function (){
 	};
 	Renderer.prototype.render = function(){
 		for (var key in this.canvas){
-			this.canvas[key].context.clearRect(0,0,1000,1000);
+			if (this.screenShakeDuration > 0){
+				if (!vecX){
+					console.log("Hi");
+					var strength = Math.random() * 2 * this.screenShakeStrength - this.screenShakeStrength;
+					var angle = Math.random() * Math.PI*2;
+					var vecX = Math.cos(angle) * strength;
+					var vecY = Math.sin(angle)  * strength;
+					console.log(vecX + " : " + vecY);
+					this.screenShakeDuration--;
+				}
+				this.canvas[key].context.translate(vecX, vecY);	
+			}
+			this.canvas[key].context.clearRect(0,0,this.canvas[key].width,this.canvas[key].width);
 		}
 		for (var key in this.content){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {
@@ -54,6 +66,11 @@ define([], function (){
 
 			};
 		}	
+		if (this.screenShakeDuration >= 0){
+			for (var key in this.canvas){
+				this.canvas[key].context.translate(-vecX, -vecY);	
+			}
+		}
 	}
 	return Renderer;
 });
