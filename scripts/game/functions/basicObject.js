@@ -51,7 +51,7 @@ define(["vector"], function (Vector){
 		this.image = image;
 	}
 	BasicObject.prototype.movableImage2 = function(target, image, x, y, width, height, direction, speed){
-		this.image = image;
+		target.image = image;
 		this.rect(target, x, y, width, height);
 		target.vel.x = Math.cos(direction)*speed || 0;
 		target.vel.y = Math.sin(direction)*speed || 0;

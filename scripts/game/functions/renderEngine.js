@@ -166,7 +166,13 @@ define(["libs/utils"], function (utils){
 
 				this.canvas[key].context.globalCompositeOperation = "source-over";
 				this.canvas[key].context.globalAlpha = 1;
+			}
+			else if (key == "particles"){
+				this.canvas[key].context.globalCompositeOperation = "destination-in";
+				this.canvas[key].context.fillStyle = "rgba(0,0,0,0.7)";
+				this.canvas[key].context.fillRect(0,0,this.canvas[key].width,this.canvas[key].width);
 
+				this.canvas[key].context.globalCompositeOperation = "source-over";
 			}
 			else{
 				this.canvas[key].context.clearRect(0,0,this.canvas[key].width,this.canvas[key].width);
