@@ -26,9 +26,9 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
         // else
         //     console.log("COllision entre fittingOut et opponent failed");
     }
-    PlayerEngine.prototype.calcul = function(){
+    PlayerEngine.prototype.calcul = function(dt){
         for (var i = this.content.length - 1; i >= 0; i--) {
-            this.content[i].update();
+            this.content[i].update(dt);
         };
     }
     return PlayerEngine;

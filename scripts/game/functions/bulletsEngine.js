@@ -34,21 +34,22 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		var that = this;
 		bullet.on("collisionEnter", bulletsCollision, bullet);
 	}
-	BulletsEngine.prototype.calcul = function(){
+	BulletsEngine.prototype.calcul = function(dt){
 		for (var i = this.content.length - 1; i >= 0; i--) {
 			var self = this.content[i];
-			self.lifetime--;
-			self.hurtfull--;
+			self.lifetime-=dt;
+			self.hurtfull-=dt;
 			if (self.lifetime<=0) {
 				self.actife = false;
 				this.content.splice(i,1);
 				this.renderEngine.removeElement("bullets", self);
-				CollisionEngine.removeElement(bullet, "bullets");
+				CollisionEngine.removeElement(self, "bullets");
 				i--;
 				continue;
 			}
-			self.transformationTime--;
-			self.pos.add(self.vel);
+			self.transformationTime-=dt;
+			self.pos.x += self.vel.x*dt;
+			self.pos.y += self.vel.y*dt;
  		};
 	}
 	return BulletsEngine;

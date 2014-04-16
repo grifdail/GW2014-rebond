@@ -3,7 +3,7 @@ define([], function(){
     
     return function(game,freq) {
         var timer = 0;
-        var fn = function() {
+        var fn = function(dt) {
             if (timer<0) {
                 timer = freq;
                 var nx = this.pos.x+this.radius+Math.cos(fn.rotation)*75-5;
@@ -13,8 +13,8 @@ define([], function(){
             }
         }
 
-        fn.update = function() {
-            timer--;
+        fn.update = function(dt) {
+            timer-=dt;
         }
         fn.rotation = 0;
         return fn;
