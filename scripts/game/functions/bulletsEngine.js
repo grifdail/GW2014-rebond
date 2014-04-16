@@ -20,6 +20,7 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		bullet.color = color || "black";
 		bullet.transformationTime = 10;	//10 frame avant que la bullet ne puisse reinteragir avec un joueur
 		this.content.push(bullet);
+		bullet.lifetime = 300;
 		this.renderEngine.addElement("bullets", bullet);
 		CollisionEngine.addHitbox(bullet, "circle", 0, 0, bullet.width, bullet.height);
 		CollisionEngine.addElement(bullet, "bullets");
@@ -28,8 +29,17 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 	}
 	BulletsEngine.prototype.calcul = function(){
 		for (var i = this.content.length - 1; i >= 0; i--) {
-			this.content[i].transformationTime--;
-			this.content[i].pos.add(this.content[i].vel);
+			var self = this.content[i];
+			self.lifetime--;
+			if (self.lifetime<=0) {
+
+				this.content.splice(i,1);
+				this.renderEngine.removeElement("bullets", self);
+				i--;
+				continue;
+			}
+			self.transformationTime--;
+			self.pos.add(self.vel);
  		};
 	}
 	return BulletsEngine;
