@@ -16,7 +16,7 @@ define([],function (){
 				return false;
 			}
 			for(var i = 0; i < this.listeners[e].length; i++){
-				this.listeners[e][i].callback.apply(this.listeners[e][i].instance, args);
+				this.listeners[e][i].callback.apply(this.listeners[e][i].instance || object, args);
 			}
 		}
 

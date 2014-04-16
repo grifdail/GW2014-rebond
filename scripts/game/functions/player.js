@@ -14,9 +14,10 @@ define([
         collisionEngine.addGroup("players", ["bullets", "wall", "players", "fittingOut"], ["border"]);
 
 
-    function Player(game,pad,color) {
+    function Player(game,pad,color,x,y) {
         //basicObject.circle(this,0,0,null,null,32);
-        basicObject.basic(this, 0,0, 96, 96, null);
+        basicObject.basic(this, x||0,y||0, 96, 96, null);
+        this.spawn = {x:x||0,y:y||0};
         this.game = game;
         this.tag = "player";
         this.bumped = false;
@@ -38,9 +39,32 @@ define([
         this.on("collisionEnter", player_collision, this);
         this.on("inboxOut", playerOutOfBound, this);
 
+        this.on("die", function() {
+            //D'apres une idée de Baptiste....
+            //Louis et Julien nie toute responsabilité dans le code suivant !
+            //Nous somme vraiment désolé...
+            //J'espere que vous pourrez nous le pardonner.
+            //L'idée etait trop stupide pour ne pas qu'on l'utilise.
+            this.pos.x = NaN;
+            this.pos.y = NaN;
+            this.life--;
+            if (this.life>0) {
+                this.respawTime = 300;
+            } else {
+                game.emit("player out of life",this);
+            }
+            
+            var that = this;
+            
+        });
     }
 
     Player.prototype.update = function() {
+        this.respawTime--
+        if (this.respawTime===0) {
+            this.pos.x = this.spawn.x;
+            this.pos.y = this.spawn.y;
+        }
         this.bumped = false;
         this.physicControler();
         this.gamepadController();
@@ -52,7 +76,7 @@ define([
         }
         this.canon.pos.x = this.pos.x
         this.canon.pos.y = this.pos.y
-        this.canon.rotation = this.shoot.rotation
+        this.canon.rotation = this.shoot.rotation;
     };
     return Player;
 });
