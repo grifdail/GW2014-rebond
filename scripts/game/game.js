@@ -99,6 +99,11 @@ define(["game/functions/add_event_capabilities",
     loadRessource(game); 
 
     addEventCapabilities(game);
+
+    game.on("players death")
+
+
+
     window.pGame = game;
 
     return game.instance;

@@ -24,6 +24,7 @@ define([
         this.rotation = 0;
         this.color = color;
         this.rotationAsVec = true;
+        this.life = 9;
         this.gamepadController = GamepadController(pad || 0,4);
         this.physicControler = PhysicControler(0.70);
         this.shoot = ShootController(game,20);
@@ -36,6 +37,7 @@ define([
         collisionEngine.addElement(this, "players");
         this.on("collisionEnter", player_collision, this);
         this.on("inboxOut", playerOutOfBound, this);
+
     }
 
     Player.prototype.update = function() {
