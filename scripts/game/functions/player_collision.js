@@ -11,7 +11,6 @@ define([], function(){
         if(!this.bumped){
             this.vel = other.vel;
             this.bumped = true;
-            console.log(this.game);
             this.game.renderEngine.screenShake(5, 15);
         }
         if(!other.bumped){

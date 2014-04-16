@@ -4,11 +4,15 @@ define([
        "game/functions/physic_controller",
        "game/functions/shoot_controller",
        "game/functions/player_collision",
+       "game/functions/player_out_of_bound",
        "collisionEngine"
-       ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, collisionEngine) {
+       ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, playerOutOfBound, collisionEngine) {
     "use strict";
     
-        collisionEngine.addGroup("players", ["bullets", "wall", "players"]);
+        var border = {x: 80, y : 80, width : 1760, height : 920, name : "border"}
+        collisionEngine.addBox("border", border);
+        collisionEngine.addGroup("players", ["bullets", "wall", "players"], ["border"]);
+
 
     function Player(game,pad,color) {
         //basicObject.circle(this,0,0,null,null,32);
@@ -31,6 +35,7 @@ define([
         collisionEngine.addHitbox(this, "circle", 0, 0, this.radius, this.radius);
         collisionEngine.addElement(this, "players");
         this.on("collisionEnter", player_collision, this);
+        this.on("inboxOut", playerOutOfBound, this);
     }
 
     Player.prototype.update = function() {

@@ -66,8 +66,9 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 				for (var j = target.hitbox.length -1 ; j >= 0 ; j--){			//Pour toutes les hitboxs de cet element
 					targetHitbox = target.hitbox[j];
 					for (var k = this.group[name].inBox.length - 1 ; k >= 0 ; k--){	//Pour tout les inBox de ce groupe
-						if(this.isInBox(target.x, target.y, target.hitbox[j], this.group[name].inBox[k])){
-							target.emit("inboxOut", this.group[name].inBox[k]);
+						var outDirection = this.isInBox(target.pos.x, target.pos.y, target.hitbox[j], this.group[name].inBox[k]);
+						if(outDirection){
+							target.emit("inboxOut", this.group[name].inBox[k], outDirection);
 						}
 					}
 					for (var m = this.group[name].target.length - 1 ; m >= 0 ; m--){
@@ -104,18 +105,33 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 	}
 	CollisionEngine.prototype.isInBox = function (x, y, target, box){
 		var box = this.box[box];
+
 		var realX = x + target.offsetX;
 		var realY = y + target.offsetY; 
-		if ( realX < box.x)
-			return "left";
-		if ((realX + target.width) > (box.x + box.width))
-			return "right";
-		if (realY < box.y)
-			return "up";
-		if ((realY + target.height > box.y + box.height))
-			return "down";
-		
-		return false;
+
+		if(target.shape == "circle"){
+			if(realX < box.x)
+				return "left";
+			if(realX + target.radius > box.x + box.width)
+				return "right";
+			if (realY < box.y)
+				return "up";
+			if ((realY + target.radius > box.y + box.height))
+				return "down";
+			else
+				return false;
+		}else{
+			if ( realX < box.x)
+				return "left";
+			if ((realX + target.width) > (box.x + box.width))
+				return "right";
+			if (realY < box.y)
+				return "up";
+			if ((realY + target.height > box.y + box.height))
+				return "down";
+			
+			return false;
+		}
 	}
 	CollisionEngine.prototype.rectCollision = function(a, aHitbox, b, bHitbox){
 		var aRealX = a.posX + aHitbox.offsetX;
