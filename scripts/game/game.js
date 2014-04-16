@@ -52,7 +52,6 @@ define(["game/functions/add_event_capabilities",
         this.playersEngine.create(this,1000,800,"red");
         this.playersEngine.create(this,200,800,"blue");
 
-
         this.renderEngine.addCanvas("debug", this.canvas.debug);
         this.renderEngine.addCanvas("background", this.canvas.background);
 
