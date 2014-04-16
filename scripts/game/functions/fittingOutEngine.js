@@ -13,6 +13,8 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 		this.create(0,0,"wall", 50, 1080);
 		this.create(0,1030, "wall",1920, 50);
 		this.create(1870, 0, "wall", 50, 1080);
+		this.create(700, 700, "wall", 100, 100);
+
 	}
 	FittingOutEngine.prototype.create = function(x, y, type, width, height){
 		if (type == "bumper"){
@@ -37,6 +39,7 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 
 			wall.reaction = function(target){
 				// var direction = Math.atan2(target.vel.y, target.vel.x);
+				console.log("Hi"); 	
 				if (target.pos.x - target.radius <= this.pos.x + this.width && target.pos.x + target.radius > this.pos.x + this.width || //Collision vers la gauche
 					target.pos.x + target.radius >= this.pos.x && target.pos.x - target.radius < wall.pos.x)
 					target.vel.x *= -1;

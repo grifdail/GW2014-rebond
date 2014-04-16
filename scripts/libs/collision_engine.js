@@ -183,5 +183,25 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 			return null; 
 	}
 
+	CollisionEngine.prototype.render = function(context){
+		context.fillStyle = "rgba(255,0,0,0.5";
+		for (var name in this.group){
+			for (var i = this.group[name].content.length - 1; i >= 0; i--) {
+				var target = this.group[name].content[i];
+				for (var j = target.hitbox.length -1 ; j >= 0 ; j--){
+					var targetHitbox = target.hitbox[j];
+					if (target.radius){
+						context.beginPath();
+						context.arc(target.pos.x+targetHitbox.offsetX, target.pos.y+targetHitbox.offsetY, targetHitbox.radius, 0, 2 * Math.PI);
+						context.fill();
+					}
+					else{
+						context.fillRect(target.pos.x + targetHitbox.offsetX, target.pos.y + targetHitbox.offsetY, targetHitbox.width, targetHitbox.height);
+					}
+				}
+			};
+		}
+	}
+
 	return new CollisionEngine();
 });
