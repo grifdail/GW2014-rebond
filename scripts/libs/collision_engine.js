@@ -68,7 +68,7 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 					for (var k = this.group[name].inBox.length - 1 ; k >= 0 ; k--){	//Pour tout les inBox de ce groupe
 						var outDirection = this.isInBox(target.pos.x, target.pos.y, target.hitbox[j], this.group[name].inBox[k]);
 						if(outDirection){
-							target.emit("inboxOut", this.group[name].inBox[k], outDirection);
+							target.emit("inboxOut", this.box[this.group[name].inBox[k]], outDirection);
 						}
 					}
 					for (var m = this.group[name].target.length - 1 ; m >= 0 ; m--){

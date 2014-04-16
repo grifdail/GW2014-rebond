@@ -9,7 +9,7 @@ define([
        ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, playerOutOfBound, collisionEngine) {
     "use strict";
     
-        var border = {x: 80, y : 80, width : 1760, height : 920, name : "border"}
+        var border = {x: 0, y : 0, width : 1920, height : 1020, name : "border"}
         collisionEngine.addBox("border", border);
         collisionEngine.addGroup("players", ["bullets", "wall", "players", "fittingOut"], ["border"]);
 
@@ -30,6 +30,8 @@ define([
         this.sprite = game.renderEngine.getSprite("tank_"+color,"stay");
         this.canon = basicObject.basic({}, 0, 0, 96, 96, 32);
         this.canon.sprite = game.renderEngine.getSprite("tank_"+color,"canon");
+        collisionEngine.addHitbox(this, "circle", 0,0,this.width, this.height);
+        
         collisionEngine.addElement(this, "players");
         this.on("collisionEnter", player_collision, this);
         this.on("inboxOut", playerOutOfBound, this);

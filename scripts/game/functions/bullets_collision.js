@@ -1,7 +1,7 @@
 define([], function (){
 
     function bulletCollision (other, collisionPoint){
-        console.log(this.pos);
+//        console.log(this.pos);
         if(other.radius !== undefined){
             if(other.tag == "player"){
                 bulletPlayerCollision.apply(this, arguments);

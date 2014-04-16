@@ -13,7 +13,7 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 	}
 	BulletsEngine.prototype.create = function(x, y, radius, direction, speed, color,vel){
 		if (this.content.length>10) {
-			console.log(this.content.length);
+			// console.log(this.content.length);
 			var a = this.content.shift();
 			this.renderEngine.removeElement("bullets",a);
 		}
