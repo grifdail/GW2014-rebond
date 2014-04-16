@@ -25,29 +25,7 @@ define(["game/functions/add_event_capabilities",
         }
     }
     Game.prototype.init = function(){
-        this.frame = 0;
-        this.canvas = {};
-        this.canvas.background = document.createElement("canvas");
-        this.canvas.players = document.createElement("canvas");
-        this.canvas.debug = document.createElement("canvas");
-        this.canvas.bullets = document.createElement("canvas");
-        this.canvas.particle = document.createElement("canvas");
         
-        for (var key in this.canvas){
-            this.canvas[key].context = this.canvas[key].getContext("2d");
-            this.canvas[key].width = 1920;
-            this.canvas[key].height = 1080;
-            this.canvas[key].setAttribute("class", "canvas");
-            document.body.appendChild(this.canvas[key]);
-        }
-        this.canvas.background.context.fillStyle = "rgba(220,220,220,1)";
-        this.canvas.background.context.globalAlpha = 1;
-        this.canvas.bullets.context.globalAlpha = 1;
-
-        this.renderEngine = new RenderEngine();
-        this.bulletsEngine = new BulletsEngine();
-        this.playersEngine = new PlayerEngine();
-        this.bulletsEngine.init(this.canvas.bullets);
 
         this.playersEngine.init(this.canvas.players);
         this.playersEngine.create(this,200,200,"yellow");
@@ -90,7 +68,7 @@ define(["game/functions/add_event_capabilities",
         // this.startState("menu");
     }
 
-    function addBackground(render,file) {
+    Game.prototype.addBackground = function(render,file) {
         var background = {};
         basicObject.rect(background, 0,0, 1920, 1080);
         background.image = file;
