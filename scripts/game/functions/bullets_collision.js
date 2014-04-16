@@ -57,7 +57,7 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
     }
 
     function bulletPlayerCollision (player){
-        if (this.color == player.color || this.color == "white"){
+        if ((this.color == player.color || this.color == "white") && this.hurtfull<0) {
             this.emit("die", player);
             player.emit("die", this);
         }
@@ -67,6 +67,7 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
 
             this.image = "bullet_" + player.color;
             this.color = player.color;
+            this.hurtfull = 3;
 
             var vitesseBullets = (this.vel.x != 0)  ? this.vel.x / Math.cos(Math.atan2(this.vel.y, this.vel.x)) : this.vel.y;
 

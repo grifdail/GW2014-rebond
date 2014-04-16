@@ -4,11 +4,11 @@ define(["game/functions/gamepad"], function(gamepad){
 
     var controleType = false;
     function GamepadController (id,speed) {
-        return function() {
+        return function(dt) {
             if (gamepad.gamepads[id]) {
                 var pad = gamepad.gamepads[id].state;
                 if (Math.abs(pad.LEFT_STICK_X)>0.3 || Math.abs(pad.LEFT_STICK_Y) >0.3) {
-                    this.vel.add({x:pad.LEFT_STICK_X*speed,y:pad.LEFT_STICK_Y*speed});
+                    this.vel.add({x:pad.LEFT_STICK_X*speed*dt,y:pad.LEFT_STICK_Y*speed*dt});
                 }
                 //Rotation du canon automatique ?
                 if (Math.abs(pad.RIGHT_STICK_X)>0.5 || Math.abs(pad.RIGHT_STICK_Y) >0.5) {

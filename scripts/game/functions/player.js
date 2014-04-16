@@ -26,9 +26,10 @@ define([
         this.color = color;
         this.rotationAsVec = true;
         this.life = 9;
-        this.gamepadController = GamepadController(pad || 0,4);
+        this.respawTime=-1;
+        this.gamepadController = GamepadController(pad || 0,5);
         this.physicControler = PhysicControler(0.70);
-        this.shoot = ShootController(game,20);
+        this.shoot = ShootController(game,10);
 
         this.sprite = game.renderEngine.getSprite("tank_"+color,"stay");
 
@@ -40,13 +41,9 @@ define([
         this.on("inboxOut", playerOutOfBound, this);
 
         this.on("die", function() {
-            //D'apres une idée de Baptiste....
-            //Louis et Julien nie toute responsabilité dans le code suivant !
-            //Nous somme vraiment désolé...
-            //J'espere que vous pourrez nous le pardonner.
-            //L'idée etait trop stupide pour ne pas qu'on l'utilise.
-            this.pos.x = NaN;
-            this.pos.y = NaN;
+            this.pos.x = this.spawn.x;
+            this.pos.y = this.spawn.y;
+            this.actife = false;
             this.life--;
             if (this.life>0) {
                 this.respawTime = 150;
@@ -54,29 +51,31 @@ define([
                 game.emit("player out of life",this);
             }
             
-            var that = this;
             
         });
     }
 
-    Player.prototype.update = function() {
-        this.respawTime--
-        if (this.respawTime===0) {
-            this.pos.x = this.spawn.x;
-            this.pos.y = this.spawn.y;
+    Player.prototype.update = function(dt) {
+        this.respawTime-=dt;
+        if (this.respawTime<0) {
+            if (this.actife) {
+                this.bumped = false;
+                this.physicControler(dt);
+                this.gamepadController(dt);
+                this.shoot.update(dt);
+                if (this.vel.squarelength()>1) {
+                    this.sprite.changeAnimation("drive")
+                } else {
+                    this.sprite.changeAnimation("stay")
+                }
+                this.canon.pos.x = this.pos.x
+                this.canon.pos.y = this.pos.y
+                this.canon.rotation = this.shoot.rotation;
+            } else {
+                this.actife = true;
+            }
         }
-        this.bumped = false;
-        this.physicControler();
-        this.gamepadController();
-        this.shoot.update();
-        if (this.vel.squarelength()>1) {
-            this.sprite.changeAnimation("drive")
-        } else {
-            this.sprite.changeAnimation("stay")
-        }
-        this.canon.pos.x = this.pos.x
-        this.canon.pos.y = this.pos.y
-        this.canon.rotation = this.shoot.rotation;
+        
     };
     return Player;
 });

@@ -3,7 +3,7 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
     
     return function(game,freq) {
         var timer = 0;
-        var fn = function() {
+        var fn = function(dt) {
             if (timer<0) {
                 var getParticuleEngine = new ParticleEngine();
                 timer = freq;
@@ -15,8 +15,8 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
             }
         }
 
-        fn.update = function() {
-            timer--;
+        fn.update = function(dt) {
+            timer-=dt;
         }
         fn.rotation = 1;
         return fn;
