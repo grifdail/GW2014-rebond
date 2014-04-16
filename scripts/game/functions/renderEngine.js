@@ -153,7 +153,8 @@ define(["libs/utils"], function (utils){
 	Renderer.prototype.render = function(){
 		this.frameIndex++;
 		for (var key in this.canvas){
-
+			console.log(this.canvas);
+			debugger;
 			this.canvas[key].context.save();
 			if (this.screenShakeDuration > 0){
 				if (!vecX){

@@ -25,6 +25,7 @@ define(["game/functions/add_event_capabilities",
         }
     }
     Game.prototype.init = function(){
+        
 
         this.playersEngine.init(this.canvas.players);
         this.playersEngine.create(this,200,200,"yellow");
@@ -57,7 +58,7 @@ define(["game/functions/add_event_capabilities",
         collisionEngine.addGroup("wall", ["bullet"]);
 
         this.fittingOutEngine = new FittingOutEngine();
-        this.fittingOutEngine.init(this.canvas.bullets
+        this.fittingOutEngine.init(this.canvas.bullets);
 
         this.menu = new Menu(); 
         this.particleEngine = new ParticleEngine();
@@ -67,7 +68,7 @@ define(["game/functions/add_event_capabilities",
         // this.startState("menu");
     }
 
-    function addBackground(render,file) {
+    Game.prototype.addBackground = function(render,file) {
         var background = {};
         basicObject.rect(background, 0,0, 1920, 1080);
         background.image = file;

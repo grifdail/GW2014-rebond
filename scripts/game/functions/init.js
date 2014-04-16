@@ -1,6 +1,8 @@
 define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite", "game/functions/button", "game/functions/renderEngine",
-        "game/functions/bulletsEngine", "game/functions/player_manager","game/functions/basicObject", "game/functions/fittingOutEngine"],
- function (game, menu, Page, Sprite, Button, RenderEngine, BulletsEngine, PlayerEngine, basicObject, FittingOutEngine){
+        "game/functions/bulletsEngine", "game/functions/player_manager","game/functions/basicObject", "game/functions/fittingOutEngine", "game/functions/player_manager",
+        "game/functions/particleEngine"],
+ function (game, menu, Page, Sprite, Button, RenderEngine, BulletsEngine, PlayerEngine, basicObject, FittingOutEngine,
+ 	playersEngine, ParticleEngine){
 
 	function init (){
         game.canvas = {};
@@ -8,6 +10,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         game.canvas.players = document.createElement("canvas");
         game.canvas.bullets = document.createElement("canvas");
         game.canvas.debug = document.createElement("canvas");
+        game.canvas.particles = document.createElement("canvas");
         
         for (var key in game.canvas){
             game.canvas[key].context = game.canvas[key].getContext("2d");
@@ -24,7 +27,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         game.bulletsEngine = new BulletsEngine();
         game.playersEngine = new PlayerEngine();
         game.bulletsEngine.init(game.canvas.bullets);
-        game.playersEngine.init(game.canvas.bullets);
+        game.playersEngine.init(game.canvas.players);
         game.playersEngine.create(game,200,200,"yellow");
         game.playersEngine.create(game,1000,200,"green");
         game.playersEngine.create(game,1000,800,"red");
@@ -32,21 +35,36 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 
         game.renderEngine.addCanvas("debug", game.canvas.debug);
         game.renderEngine.addCanvas("background", game.canvas.background);
+        game.renderEngine.addCanvas("players", game.canvas.players);
+        game.renderEngine.addCanvas("particles", game.canvas.particles);
 
         game.renderEngine.addGroup("test", "debug");
-        game.renderEngine.addGroup("background", "background");
 
-        var background = {};
-        basicObject.rect(background, 0,0, 1920, 1080);
-        background.image = "background";
-        background.rotation = -Math.PI/2;
-        game.renderEngine.addElement("background", background);
+        game.renderEngine.addGroup("background", "background");
+        game.addBackground(game.renderEngine,"background1");
+        game.addBackground(game.renderEngine,"background2");
+        game.back1 = game.addBackground(game.renderEngine,"background3");
+        game.back2 = game.addBackground(game.renderEngine,"background3");
+        
+        game.back2.pos.x = game.back1.width;
+        
+        var carre = {};
+        var truc = {};
+
+       // game.renderEngine.addSprite(truc, "tank");
+       // game.renderEngine.addElement("test", carre);
         collisionEngine.addGroup("bullet", ["bullet", "wall", "fittingOut"]);
         collisionEngine.addGroup("wall", ["bullet"]);
 
         game.fittingOutEngine = new FittingOutEngine();
+        console.log(game.canvas.bullets);
         game.fittingOutEngine.init(game.canvas.bullets);
-        
+
+        game.particleEngine = new ParticleEngine();
+        game.particleEngine.init();
+        // game.menu.getStartMenu(game.canvas.debug);
+
+        // game.startState("menu");
 
 
 		var pressStartPage = new Page("pressStartPage");
@@ -64,8 +82,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 		menu.addPage(playerSelectPage);
 
 		menu.activePage = "pressStartPage";
-		game.startState("menu");
+		game.startState("game");
 	}
-
 	return init;
 })
