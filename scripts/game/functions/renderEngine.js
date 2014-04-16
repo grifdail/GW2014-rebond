@@ -125,8 +125,13 @@ define(["libs/utils"], function (utils){
 			target.height
 		);
 		if (goal) {
-			ctx.fillStyle ="white";
-			ctx.fillRect(-20,-300,40,40);
+			ctx.drawImage(
+				this.images[goal],
+				-20,
+				-216,
+				40,
+				216
+			);
 		}
 		if (target.sprite.image=="tank_yellow") {
 			//console.log(config,target.sprite);
@@ -187,7 +192,7 @@ define(["libs/utils"], function (utils){
 					this.content[key].context.fillRect(target.pos.x, target.pos.y, target.width, target.height);
 				}
 				if (target.canon){	//Si c'est une image
-					this.renderSprite(target.canon,this.content[key].context,true);
+					this.renderSprite(target.canon,this.content[key].context,"aim_"+target.color);
 				}
 				this.content[key].context.restore();
 			};
