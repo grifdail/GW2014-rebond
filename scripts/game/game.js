@@ -60,11 +60,13 @@ define(["game/functions/add_event_capabilities",
         this.renderEngine.addGroup("test", "debug");
 
         this.renderEngine.addGroup("background", "background");
-        var background = {};
-        basicObject.rect(background, 0,0, 1920, 1080);
-        background.image = "background";
-        background.rotation = -Math.PI/2;
-        this.renderEngine.addElement("background", background);
+        addBackground(this.renderEngine,"background1");
+        addBackground(this.renderEngine,"background2");
+        this.back1 = addBackground(this.renderEngine,"background3");
+        this.back2 = addBackground(this.renderEngine,"background3");
+        
+        this.back2.pos.x = this.back1.width;
+        
         var carre = {};
         var truc = {};
 
@@ -80,6 +82,15 @@ define(["game/functions/add_event_capabilities",
         // this.menu.getStartMenu(game.canvas.debug);
 
         // this.startState("menu");
+    }
+
+    function addBackground(render,file) {
+        var background = {};
+        basicObject.rect(background, 0,0, 1920, 1080);
+        background.image = file;
+        background.rotation = -Math.PI/2;
+        render.addElement("background", background);
+        return background;
     }
 
 

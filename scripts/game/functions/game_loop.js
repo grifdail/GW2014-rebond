@@ -5,7 +5,9 @@ define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine"], f
             RAF(gameLoop);
         }
         Game.frame++;
-        //Game.canvas.background.context.fillRect(0, 0, Game.canvas.background.width, Game.canvas.background.height);
+        Game.back1.pos.x = (Game.back1.pos.x+1+Game.back1.width)%(Game.back1.width*2)-Game.back1.width;
+        Game.back2.pos.x = (Game.back2.pos.x+1+Game.back1.width)%(Game.back1.width*2)-Game.back1.width;
+
 
 
         collisionEngine.calcul();
