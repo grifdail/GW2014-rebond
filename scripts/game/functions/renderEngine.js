@@ -73,6 +73,13 @@ define(["libs/utils"], function (utils){
 		}
 		this.content[group].elements.push(target);
 	}
+	Renderer.prototype.removeElement = function(group, target){
+		if (!this.content[group]){
+			console.warn("Attention, push dans un groupe innexistant !");
+			return false;
+		}
+		this.content[group].elements.splice(this.content[group].elements.indexOf(target),1);
+	}
 	Renderer.prototype.addImage = function(name, image){
 		if (!this.images[name]){
 			this.images[name] = new Image();
@@ -125,7 +132,6 @@ define(["libs/utils"], function (utils){
 		if (!(this.frameIndex%config.fps)) {
 			target.sprite.index++;
 			if(target.sprite.index>=config.nbAnimation) {
-				console.log(config.row)
 				if (config.finish) {
 					target.sprite.changeAnimation(config.finish);
 				} else {
