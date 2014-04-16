@@ -9,10 +9,10 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 		this.renderEngine.addGroup("fittingOut", "bullets");
 
 		// this.create(400, 400, "bumper");
-		this.create(0,0,"wall",1920, 50);
-		this.create(0,0,"wall", 50, 1080);
-		this.create(0,1030, "wall",1920, 50);
-		this.create(1870, 0, "wall", 50, 1080);
+		this.create(0,0,"wall",1920, 100);
+		this.create(0,0,"wall", 100, 1080);
+		this.create(0,980, "wall",1920, 100);
+		this.create(1820, 0, "wall", 100, 1080);
 		this.create(700, 700, "wall", 100, 100);
 
 	}
@@ -38,21 +38,17 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 			wall.reaction = function(target, collisionPoint){
 				if(collisionPoint){
 					if(collisionPoint.x == this.pos.x){
-						target.pos.x -= target.vel.x * 1.5;
-			            target.pos.y -= target.vel.y * 1.5;
-			            target.vel.x = - target.vel.x * 0.5;
+						target.pos.x = this.pos.x - target.width;
+			            target.vel.x = - target.vel.x * 2;
 					}else if(collisionPoint.x == this.pos.x + this.width){
-						target.pos.x -= target.vel.x * 1.5;
-			            target.pos.y -= target.vel.y * 1.5;
-			            target.vel.x = -target.vel.x * 0.5;
+						target.pos.x = this.pos.x + this.width;
+			            target.vel.x = -target.vel.x * 2;
 					}else if(collisionPoint.y == this.pos.y){
-						target.pos.x -= target.vel.x * 1.5;
-			            target.pos.y -= target.vel.y * 1.5;
-			            target.vel.y = -target.vel.y * 0.5;
+						target.pos.y = this.pos.y - target.height;
+			            target.vel.y = -target.vel.y * 2;
 					}else if(collisionPoint.y == this.pos.y + this.height){
-			            target.pos.x -= target.vel.x * 1.5;
-			            target.pos.y -= target.vel.y * 1.5;
-			            target.vel.y = -target.vel.y * 0.5;
+						target.pos.y = this.pos.y + target.height;
+			            target.vel.y = -target.vel.y * 2;
 					}else{
 						target.vel.x = -target.vel.x;
 						target.vel.y = -target.vel.y;

@@ -28,8 +28,8 @@ define(["game/functions/add_event_capabilities",
         this.canvas = {};
         this.canvas.background = document.createElement("canvas");
         this.canvas.players = document.createElement("canvas");
-        this.canvas.bullets = document.createElement("canvas");
         this.canvas.debug = document.createElement("canvas");
+        this.canvas.bullets = document.createElement("canvas");
         
         for (var key in this.canvas){
             this.canvas[key].context = this.canvas[key].getContext("2d");
@@ -78,6 +78,8 @@ define(["game/functions/add_event_capabilities",
 
         this.menu = new Menu(); 
         // this.menu.getStartMenu(game.canvas.debug);
+
+        // this.startState("menu");
     }
 
 

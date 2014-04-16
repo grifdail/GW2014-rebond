@@ -15,10 +15,10 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
         var player = new Player(game,this.content.length,color);
         player.pos.x = x;
         player.pos.y = y;
+        player.maxVel = 12;
         this.content.push(player);
         this.renderEngine.addElement("players", player);
-        collisionEngine.addHitbox(player, "circle", 0,0,player.width, player.height);
-        collisionEngine.addElement(player, "players");
+        // collisionEngine.addElement(player, "players");
         var that = this;
         player.on("collisionEnter", that.collision, player);
     }

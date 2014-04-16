@@ -4,9 +4,11 @@ define(["RAF", "Game"], function (RAF, Game){
         if(Game.state == "menu") {
             RAF(menuLoop);
         }
-        for (var i = 0; i < Game.menu.buttons.length; i++) {
-            Game.menu.buttons[i]
-        };
+        console.log("Hi");
+        Game.menu.render();
+        // for (var i = 0; i < Game.menu.buttons.length; i++) {
+        //     Game.menu.buttons[i]
+        // };
     }
 
     Game.states["menu"] = menuLoop;
