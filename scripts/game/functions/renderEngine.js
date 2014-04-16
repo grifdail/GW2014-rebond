@@ -128,7 +128,10 @@ define(["libs/utils"], function (utils){
 			ctx.fillStyle ="white";
 			ctx.fillRect(-20,-300,40,40);
 		}
-		
+		if (target.sprite.image=="tank_yellow") {
+			//console.log(config,target.sprite);
+			//debugger;
+		}
 		if (!(this.frameIndex%config.fps)) {
 			target.sprite.index++;
 			if(target.sprite.index>=config.nbAnimation) {
