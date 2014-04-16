@@ -26,7 +26,6 @@ define(["game/functions/add_event_capabilities",
     }
     Game.prototype.init = function(){
         
-
         this.playersEngine.init(this.canvas.players);
         this.playersEngine.create(this,200,200,"yellow");
         this.playersEngine.create(this,1000,200,"green");

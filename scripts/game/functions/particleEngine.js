@@ -42,18 +42,19 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 		this.addParticle(index, 30, x, y, 100, 100, 0,0,null);
 	}
 	ParticleEngine.prototype.choc = function(x, y){
-		for (var i = 1; i > 0; i--) {
+		console.log("Hi");
+
+		for (var i = 100; i > 0; i--) {
 			var direction = Math.random() * Math.PI*2;
 			var lifeTime = Math.random() * 10 + 10;
 			// var color = "rgba(200,100,0,1)";
-			var color = "tank_green";
+			var color = "bullet_green";
 			var speed = Math.random() * 5 + 10;
-			this.addParticle(lifeTime, x, y, 60, 60, direction, speed,"sprite", color, "drive");
+			this.addParticle(lifeTime, x, y, 20, 20, direction, speed,"image", color, "drive");
 		};
 	}
 	ParticleEngine.prototype.calcul = function(){
 		for (var i = this.content.length - 1; i >= 0; i--) {
-			console.log(this.content[i].sprite.config);
 			this.content[i].lifeTime--;	
 			this.content[i].pos.x += this.content[i].vel.x;
 			this.content[i].pos.y += this.content[i].vel.y;

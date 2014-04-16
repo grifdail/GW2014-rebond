@@ -5,6 +5,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
  	playersEngine, ParticleEngine){
 
 	function init (){
+        game.frame = 0;
         game.canvas = {};
         game.canvas.background = document.createElement("canvas");
         game.canvas.players = document.createElement("canvas");
