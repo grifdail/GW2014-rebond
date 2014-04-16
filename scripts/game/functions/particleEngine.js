@@ -1,9 +1,9 @@
 define(["game/functions/renderEngine", "game/functions/basicObject"], function (renderEngine, basicObject){
 	var ParticleEngine = function(canvas){
-		this.content = [];
-		this.canvas = canvas;
 		this.renderer = new renderEngine();
 	}
+	ParticleEngine.prototype.content = [];
+	ParticleEngine.prototype.canvas;
 	ParticleEngine.prototype.init = function(){
 		this.renderer.addGroup("particles", "particles");
 	}
@@ -23,6 +23,7 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 		}
 		else if (what == "circle"){
 			basicObject.movableCircle(particle, x, y, width/2, direction, speed);
+			particle.color = color;
 		}
 		else if (what == "image"){
 			basicObject.movableImage2(particle, color, x, y, width, height,  direction, speed);
@@ -51,6 +52,26 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 			var color = "bullet_green";
 			var speed = Math.random() * 5 + 10;
 			this.addParticle(lifeTime, x, y, 20, 20, direction, speed,"image", color, "drive");
+		};
+	}
+	ParticleEngine.prototype.reptincel = function(x, y){
+		for (var i = 300; i > 0; i--) {
+			var direction = Math.random() * Math.PI*2;
+			var lifeTime = Math.random() * 2 + 4;
+			var vert = (Math.random()*150)|0;
+			var rouge = (Math.random()*100 + 155)|0;
+			var color = "rgba("+rouge+","+vert+",0,0.7)";
+			var speed = Math.random() * 10 + 10;
+			this.addParticle(lifeTime, x, y, 4, 3, direction, speed,"circle", color);
+		};
+	} 
+	Particle.prototype.evoli = function(x, y, color){
+		for (var i = 300; i > 0; i--) {
+			var direction = Math.random() * Math.PI*2;
+			var lifeTime = Math.random() * 4 + 5;
+			var color = color;
+			var speed = Math.random() * 4 + 4;
+			this.addParticle(lifeTime, x, y, 4, 3, direction, speed,"circle", color);
 		};
 	}
 	ParticleEngine.prototype.calcul = function(){

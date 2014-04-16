@@ -9,7 +9,7 @@ define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine"], f
         Game.back2.pos.x = (Game.back2.pos.x+1+Game.back1.width)%(Game.back1.width*2)-Game.back1.width;
 
         if (Game.frame % 60 == 0){
-            Game.particleEngine.choc(200,200);
+            //Game.particleEngine.choc(200,200);
         }
 
         collisionEngine.calcul();

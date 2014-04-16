@@ -1,4 +1,4 @@
-define([], function(){
+define(["game/functions/particleEngine"], function(ParticleEngine){
 
     function playerColision (other, collisionPoint){
         if(other.tag == "player"){
@@ -11,6 +11,7 @@ define([], function(){
     }
 
     function playerPlayerColision (other, collisionPoint){
+        var getParticleEngine = new ParticleEngine();
         var tmpvel = this.vel;
         if(!this.bumped){
             this.vel = other.vel;
@@ -24,7 +25,6 @@ define([], function(){
                 var n = (this.vel.y > 0) ? 1 : -1;
                 this.vel.y = this.maxVel * n;
             }
-
             this.bumped = true;
             this.game.renderEngine.screenShake(5, 15);
             var get = speedCircleCollision(this, other);
@@ -52,6 +52,13 @@ define([], function(){
                 var n = (other.vel.y > 0) ? 1 : -1;
                 other.vel.y = other.maxVel * n;
             }
+            var centerX = this.pos.x + this.width/2;
+            var offsetX = ((other.pos.x + other.width/2) - centerX)/2;
+            var centerY = this.pos.y + this.height/2;
+            var offsetY = ((other.pos.y + other.height/2) - centerY)/2;
+
+            getParticleEngine.reptincel(centerX + offsetX,centerY + offsetY);
+
         }
     }
     function speedCircleCollision (a,b){
