@@ -6,6 +6,8 @@ require.config({
 		"vector"				: "libs/vector",
 		"collisionEngine"		: "libs/collision_engine",
 		"Game"					: "game/game",
+		"Menu"					: "game/functions/menu_controller",
+		"init"					: "game/functions/init",
 		"gameLoop"				: "game/functions/game_loop",
 		"menuLoop"				: "game/functions/menu_loop",
 	},

@@ -1,4 +1,3 @@
-define(["Game", "gameLoop", "menuLoop"], function(Game, gameLoop, menuLoop) {
-    Game.init();
-    Game.startState("game");
+define(["Game", "gameLoop", "menuLoop", "init"], function(Game, gameLoop, menuLoop, init) {
+    init();
 });

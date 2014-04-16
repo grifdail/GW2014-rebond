@@ -34,20 +34,6 @@ define(["libs/utils"], function (utils){
 		this.sprites[name] = object;
 
 	}
-	// Renderer.prototype.addSprite = function(name, image, config){
-	// 	target.currentFrame = 0;
-	// 	if (!this.images[name])
-	// 		this.addImage(name, image);
-	// 	target.image = image;
-	// 	target.imageWidth = this.images[image].width;
-	// 	target.imageHeight = this.images[image].height;
-	// 	target.animation = {};
-	// 	for (var name in config){
-	// 		target.animation[name] = {};
-	// 		for (var element in config[name])
-	// 			target.animation[name][key] = config[name][key];
-	// 	}
-	// }
 	Renderer.prototype.sprite = function(){
 
 	}
@@ -133,9 +119,9 @@ define(["libs/utils"], function (utils){
 				216
 			);
 		}
-		if (target.sprite.image=="tank_yellow") {
-			//console.log(config,target.sprite);
-			//debugger;
+		if (target.sprite.image=="tank_green") {
+			// console.log(config,target.sprite);
+			// debugger;
 		}
 		if (!(this.frameIndex%config.fps)) {
 			target.sprite.index++;
@@ -153,7 +139,6 @@ define(["libs/utils"], function (utils){
 	Renderer.prototype.render = function(){
 		this.frameIndex++;
 		for (var key in this.canvas){
-
 			this.canvas[key].context.save();
 			if (this.screenShakeDuration > 0){
 				if (!vecX){
