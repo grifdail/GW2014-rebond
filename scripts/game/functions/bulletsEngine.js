@@ -19,9 +19,9 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		}
 		var bullet = {};
 		bullet.tag = "bullet";
-		basicObject.movableCircle(bullet, x, y, radius, direction, speed);
-		bullet.vel.x+= vel ? vel.x : 0;
-		bullet.vel.y+= vel ? vel.y : 0;
+		basicObject.image(bullet, "bullet_"+color, x, y, radius*2, radius*2)
+		bullet.vel.x = Math.cos(direction)*speed
+		bullet.vel.y = Math.sin(direction)*speed
 		bullet.color = color || "black";
 		bullet.transformationTime = 10;	//10 frame avant que la bullet ne puisse reinteragir avec un joueur
 		this.content.push(bullet);
