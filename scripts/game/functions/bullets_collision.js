@@ -17,8 +17,12 @@ define([], function (){
         if(collisionPoint.x === wall.pos.x || collisionPoint.x === wall.pos.x + wall.width){
             this.vel.x = -this.vel.x;
         }
-        if(collisionPoint.y === wall.pos.y || collisionPoint.y === wall.pos.y + wall.height){
+        else if(collisionPoint.y === wall.pos.y || collisionPoint.y === wall.pos.y + wall.height){
             this.vel.y = -this.vel.y;
+        }
+        else{
+            this.vel.y = -this.vel.y;
+            this.vel.x = -this.vel.x;
         }
     }
 

@@ -1,4 +1,5 @@
-define(["game/functions/basicObject", "game/functions/renderEngine", "collisionEngine"], function (basicObject, renderEngine, CollisionEngine){
+define(["game/functions/basicObject", "game/functions/renderEngine", "collisionEngine", 
+        "game/functions/bullets_collision"], function (basicObject, renderEngine, CollisionEngine, bulletsCollision){
 
 	var BulletsEngine = function(){
 		this.content = [];
@@ -17,6 +18,7 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 			this.renderEngine.removeElement("bullets",a);
 		}
 		var bullet = {};
+		bullet.tag = "bullet";
 		basicObject.movableCircle(bullet, x, y, radius, direction, speed);
 		bullet.vel.x+= vel ? vel.x : 0;
 		bullet.vel.y+= vel ? vel.y : 0;
@@ -27,7 +29,7 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		CollisionEngine.addHitbox(bullet, "circle", 0, 0, bullet.width, bullet.height);
 		CollisionEngine.addElement(bullet, "bullets");
 		var that = this;
-		bullet.on("collisionEnter", that.collision, bullet);
+		bullet.on("collisionEnter", bulletsCollision, bullet);
 	}
 	BulletsEngine.prototype.calcul = function(){
 		for (var i = this.content.length - 1; i >= 0; i--) {

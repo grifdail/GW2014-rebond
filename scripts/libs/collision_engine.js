@@ -193,14 +193,14 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 
 		var distanceSqr = Math.pow(collisionPoint.x - circleObject.realX, 2) + Math.pow(collisionPoint.y - circleObject.realY, 2);
 
-		if(distanceSqr <= (circleObject.hitbox.radius * 2) * (circleObject.hitbox.radius * 2)){
+		if(distanceSqr <= (circleObject.hitbox.radius ) * (circleObject.hitbox.radius)){
 			return collisionPoint;
 		}else 
 			return null; 
 	}
 
 	CollisionEngine.prototype.render = function(context){
-		context.fillStyle = "rgba(255,0,0,0.5";
+		context.fillStyle = "rgba(255,255,255,0.5";
 		for (var name in this.group){
 			for (var i = this.group[name].content.length - 1; i >= 0; i--) {
 				var target = this.group[name].content[i];

@@ -6,8 +6,9 @@ define(["game/functions/add_event_capabilities",
         "game/functions/player_manager",
         "collisionEngine", 
         "game/functions/bullets_collision",
-        "game/functions/fittingOutEngine"], 
-    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine){
+        "game/functions/fittingOutEngine", 
+        "game/functions/startMenu"],
+    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine, Menu){
     var Game = function Game (){
         this.states = {};
         this.state = "";
@@ -69,11 +70,14 @@ define(["game/functions/add_event_capabilities",
 
        // this.renderEngine.addSprite(truc, "tank");
        // this.renderEngine.addElement("test", carre);
-        collisionEngine.addGroup("bullet", ["bullet", "wall"]);
+        collisionEngine.addGroup("bullet", ["bullet", "wall", "fittingOut"]);
         collisionEngine.addGroup("wall", ["bullet"]);
 
         this.fittingOutEngine = new FittingOutEngine();
         this.fittingOutEngine.init(this.canvas.bullets);
+
+        this.menu = new Menu(); 
+        // this.menu.getStartMenu(game.canvas.debug);
     }
 
 
