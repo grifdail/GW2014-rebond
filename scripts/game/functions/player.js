@@ -49,7 +49,7 @@ define([
             this.pos.y = NaN;
             this.life--;
             if (this.life>0) {
-                this.respawTime = 300;
+                this.respawTime = 150;
             } else {
                 game.emit("player out of life",this);
             }
