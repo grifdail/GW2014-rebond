@@ -68,9 +68,9 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 	ParticleEngine.prototype.evoli = function(x, y, color){
 		for (var i = 300; i > 0; i--) {
 			var direction = Math.random() * Math.PI*2;
-			var lifeTime = Math.random() * 4 + 5;
+			var lifeTime = Math.random() * 3 +2;
 			var color = color;
-			var speed = Math.random() * 4 + 4;
+			var speed = Math.random() * 10 + 10;
 			this.addParticle(lifeTime, x, y, 4, 3, direction, speed,"circle", color);
 		};
 	}
