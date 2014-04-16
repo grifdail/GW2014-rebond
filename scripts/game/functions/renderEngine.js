@@ -85,7 +85,7 @@ define(["libs/utils"], function (utils){
 	};
 
 	Renderer.prototype.getSprite = function(name,anim) {
-		console.log(this.sprites,this.sprites[name],name);
+		//console.log(this.sprites,this.sprites[name],name);
 		var sprite = {};
 		sprite.image=name;
 		sprite.anim = anim || "idle";
@@ -120,7 +120,7 @@ define(["libs/utils"], function (utils){
 		if (!(this.frameIndex%config.fps)) {
 			target.sprite.index++;
 			if(target.sprite.index>=config.nbAnimation) {
-				console.log(config.row)
+			//	console.log(config.row)
 				if (config.finish) {
 					target.sprite.changeAnimation(config.finish);
 				} else {
