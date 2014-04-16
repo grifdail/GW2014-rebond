@@ -49,8 +49,10 @@ define(["game/functions/add_event_capabilities",
         this.bulletsEngine.init(this.canvas.bullets);
 
         this.playersEngine.init(this.canvas.bullets);
-        this.playersEngine.create(this,200,200,"red");
-        this.playersEngine.create(this,1000,200,"blue");
+        this.playersEngine.create(this,200,200,"yellow");
+        this.playersEngine.create(this,1000,200,"green");
+        this.playersEngine.create(this,1000,800,"red");
+        this.playersEngine.create(this,200,800,"blue");
 
         this.renderEngine.addCanvas("debug", this.canvas.debug);
         this.renderEngine.addCanvas("background", this.canvas.background);

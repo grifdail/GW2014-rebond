@@ -16,7 +16,7 @@ define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine"], f
         Game.bulletsEngine.calcul();
         Game.playersEngine.calcul();
         Game.renderEngine.render();
-        collisionEngine.render(Game.canvas.debug.context);
+        //collisionEngine.render(Game.canvas.debug.context);
         // Game.canvas.debug.context.fillRect(0, 0, 1920, 1080);
     }
 

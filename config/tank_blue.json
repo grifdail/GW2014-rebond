@@ -1,6 +1,6 @@
 {
-    "drive" : {"nbAnimation" : 5, "fps" : 4, "loop" : -1, "width" : 128, "height" : 128, "x" : 0, "y" : 0, "row":0},
-    "stay" : {"nbAnimation" : 4, "fps" : 2, "loop" : -1, "width" : 128, "height" : 128, "x" : 0, "y" : 128, "row":1},
+    "stay" : {"nbAnimation" : 4, "fps" : 4, "loop" : -1, "width" : 128, "height" : 128, "x" : 0, "y" : 0, "row":0},
+    "drive" : {"nbAnimation" : 3, "fps" : 4, "loop" : -1, "width" : 128, "height" : 128, "x" : 0, "y" : 128, "row":1},
     "canon" : {"nbAnimation" : 1, "fps" : 4, "loop" : -1, "width" : 128, "height" : 128, "x" : 0, "y" : 128, "row":2},
     "shoot" : {"nbAnimation" : 3, "fps" : 4, "loop" : -1, "width" : 128, "height" : 128, "x" : 0, "y" : 128, "row":2, "finish":"canon"}
 }

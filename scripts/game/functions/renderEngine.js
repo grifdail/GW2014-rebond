@@ -73,6 +73,13 @@ define(["libs/utils"], function (utils){
 		}
 		this.content[group].elements.push(target);
 	}
+	Renderer.prototype.removeElement = function(group, target){
+		if (!this.content[group]){
+			console.warn("Attention, push dans un groupe innexistant !");
+			return false;
+		}
+		this.content[group].elements.splice(this.content[group].elements.indexOf(target),1);
+	}
 	Renderer.prototype.addImage = function(name, image){
 		if (!this.images[name]){
 			this.images[name] = new Image();
@@ -100,7 +107,7 @@ define(["libs/utils"], function (utils){
 		return sprite
 	};
 
-	Renderer.prototype.renderSprite = function(target,ctx) {
+	Renderer.prototype.renderSprite = function(target,ctx,goal) {
 		ctx.save()
 		var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
 		ctx.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
@@ -117,6 +124,14 @@ define(["libs/utils"], function (utils){
 			target.width,
 			target.height
 		);
+		if (goal) {
+			ctx.fillStyle ="white";
+			ctx.fillRect(-20,-300,40,40);
+		}
+		if (target.sprite.image=="tank_yellow") {
+			//console.log(config,target.sprite);
+			//debugger;
+		}
 		if (!(this.frameIndex%config.fps)) {
 			target.sprite.index++;
 			if(target.sprite.index>=config.nbAnimation) {
@@ -172,7 +187,7 @@ define(["libs/utils"], function (utils){
 					this.content[key].context.fillRect(target.pos.x, target.pos.y, target.width, target.height);
 				}
 				if (target.canon){	//Si c'est une image
-					this.renderSprite(target.canon,this.content[key].context);
+					this.renderSprite(target.canon,this.content[key].context,true);
 				}
 				this.content[key].context.restore();
 			};
