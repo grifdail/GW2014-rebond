@@ -25,7 +25,6 @@ define(["game/functions/add_event_capabilities",
     }
     Game.prototype.init = function(){
         this.frame = 0;
-        this.menu = new Menu(); 
         this.canvas = {};
         this.canvas.background = document.createElement("canvas");
         this.canvas.players = document.createElement("canvas");
@@ -76,6 +75,9 @@ define(["game/functions/add_event_capabilities",
 
         this.fittingOutEngine = new FittingOutEngine();
         this.fittingOutEngine.init(this.canvas.bullets);
+
+        this.menu = new Menu(); 
+        // this.menu.getStartMenu(game.canvas.debug);
     }
 
 

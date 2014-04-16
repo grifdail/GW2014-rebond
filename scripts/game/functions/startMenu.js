@@ -5,10 +5,11 @@ define([], function(){
 		this.currentMenu = "";
 		this.currentContext;
 	}
-	Menu.prototype.startMenu = function	(context){
+	Menu.prototype.getStartMenu = function	(context){
 		this.content = {};
 		this.content.basic = [];
 		this.content.basic.push("Bienvenu", 50, 100, 100);
+		this.content.basic.push("Test", 50, 100, 200);
 		this.currentContext = context;
 
 		context.font = '85px Impact';
@@ -27,8 +28,9 @@ define([], function(){
 		target.y = y;
 	}	
 	Menu.prototype.render = function(){
-		for (var elements in this.content[this.currentMenu]){
-
+		for (var i = 0, max = this.content[this.currentMenu].length ; i < max ; i++ ){
+			var get = this.content[this.currentMenu][i];
+			this.currentContext.fillText(get.text,get.x,get.y);
 		}
 	}
 	return Menu;
