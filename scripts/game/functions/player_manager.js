@@ -12,10 +12,9 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
         window.collisionEngine = collisionEngine;
     }
     PlayerEngine.prototype.create = function(game,x, y,color){
-        var player = new Player(game,this.content.length);
+        var player = new Player(game,this.content.length,color);
         player.pos.x = x;
         player.pos.y = y;
-        player.color = color || "red";
         this.content.push(player);
         this.renderEngine.addElement("players", player);
         collisionEngine.addHitbox(player, "circle", 0,0,player.width, player.height);
@@ -24,7 +23,10 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
         player.on("collisionEnter", that.collision, player);
     }
     PlayerEngine.prototype.collision = function(opponent, position){
-        opponent.reaction(this);
+        // if (opponent.reaction)
+        //     opponent.reaction(this);
+        // else
+        //     console.log("COllision entre fittingOut et opponent failed");
     }
     PlayerEngine.prototype.calcul = function(){
         for (var i = this.content.length - 1; i >= 0; i--) {

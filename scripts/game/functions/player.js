@@ -3,26 +3,43 @@ define([
        "game/functions/gamepad_controller",
        "game/functions/physic_controller",
        "game/functions/shoot_controller",
-       ], function(basicObject,GamepadController,PhysicControler,ShootController) {
+       "game/functions/player_collision",
+       "game/functions/player_out_of_bound",
+       "collisionEngine"
+       ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, playerOutOfBound, collisionEngine) {
     "use strict";
     
-    function Player(game,pad) {
+        var border = {x: 80, y : 80, width : 1760, height : 920, name : "border"}
+        collisionEngine.addBox("border", border);
+        collisionEngine.addGroup("players", ["bullets", "wall", "players"], ["border"]);
+
+
+    function Player(game,pad,color) {
         //basicObject.circle(this,0,0,null,null,32);
+        this.game = game;
         basicObject.image(this, "tank1", 0,0, 64, 64, null);
+        this.tag = "player";
+        this.bumped = false;
         this.canon = {};
         basicObject.image(this.canon, "canon1", 0,0, 64, 64, null);
         this.radius = 32;
         this.rotation = 0;
+        this.color = color;
         this.rotationAsVec = true;
         this.gamepadController = GamepadController(pad || 0);
         this.physicControler = PhysicControler(0.95);
-        this.shoot = ShootController(game,20);
-        this.sprite = game.renderEngine.getSprite("tank","stay");
+        this.shoot = ShootController(game,0);
+        this.sprite = game.renderEngine.getSprite("tank_"+color,"stay");
         this.canon = basicObject.basic({}, 0, 0, 64, 64, 32);
-        this.canon.sprite = game.renderEngine.getSprite("tank","canon");
+        this.canon.sprite = game.renderEngine.getSprite("tank_"+color,"canon");
+        collisionEngine.addHitbox(this, "circle", 0, 0, this.radius, this.radius);
+        collisionEngine.addElement(this, "players");
+        this.on("collisionEnter", player_collision, this);
+        this.on("inboxOut", playerOutOfBound, this);
     }
 
     Player.prototype.update = function() {
+        this.bumped = false;
         this.physicControler();
         this.gamepadController();
         this.shoot.update();
