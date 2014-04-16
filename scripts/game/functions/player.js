@@ -26,10 +26,13 @@ define([
         this.rotationAsVec = true;
         this.gamepadController = GamepadController(pad || 0,4);
         this.physicControler = PhysicControler(0.70);
-        this.shoot = ShootController(game,0);
+        this.shoot = ShootController(game,20);
+
         this.sprite = game.renderEngine.getSprite("tank_"+color,"stay");
+
         this.canon = basicObject.basic({}, 0, 0, 96, 96, 32);
         this.canon.sprite = game.renderEngine.getSprite("tank_"+color,"canon");
+
         collisionEngine.addElement(this, "players");
         this.on("collisionEnter", player_collision, this);
         this.on("inboxOut", playerOutOfBound, this);
