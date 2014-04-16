@@ -7,8 +7,9 @@ define(["game/functions/add_event_capabilities",
         "collisionEngine", 
         "game/functions/bullets_collision",
         "game/functions/fittingOutEngine", 
-        "game/functions/startMenu"],
-    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine, Menu){
+        "game/functions/startMenu",
+        "game/functions/particleEngine"],
+    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine, Menu, ParticleEngine){
     var Game = function Game (){
         this.states = {};
         this.state = "";
@@ -30,6 +31,7 @@ define(["game/functions/add_event_capabilities",
         this.canvas.players = document.createElement("canvas");
         this.canvas.debug = document.createElement("canvas");
         this.canvas.bullets = document.createElement("canvas");
+        this.canvas.particle = document.createElement("canvas");
         
         for (var key in this.canvas){
             this.canvas[key].context = this.canvas[key].getContext("2d");
@@ -56,6 +58,7 @@ define(["game/functions/add_event_capabilities",
         this.renderEngine.addCanvas("debug", this.canvas.debug);
         this.renderEngine.addCanvas("background", this.canvas.background);
         this.renderEngine.addCanvas("players", this.canvas.players);
+        this.renderEngine.addCanvas("particles", this.canvas.particle);
 
         // thid.renderEngine.addCanvas("bu")
         this.renderEngine.addGroup("test", "debug");
@@ -80,6 +83,8 @@ define(["game/functions/add_event_capabilities",
         this.fittingOutEngine.init(this.canvas.bullets);
 
         this.menu = new Menu(); 
+        this.particleEngine = new ParticleEngine();
+        this.particleEngine.init();
         // this.menu.getStartMenu(game.canvas.debug);
 
         // this.startState("menu");
