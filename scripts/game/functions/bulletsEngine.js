@@ -23,6 +23,7 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		bullet.vel.x = Math.cos(direction)*speed
 		bullet.vel.y = Math.sin(direction)*speed
 		bullet.color = "white";
+		bullet.hurtfull = 3;
 		bullet.parentColor = color;
 		bullet.transformationTime = 10;	//10 frame avant que la bullet ne puisse reinteragir avec un joueur
 		this.content.push(bullet);
@@ -37,10 +38,12 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		for (var i = this.content.length - 1; i >= 0; i--) {
 			var self = this.content[i];
 			self.lifetime--;
+			self.hurtfull--;
 			if (self.lifetime<=0) {
-
+				self.actife = false;
 				this.content.splice(i,1);
 				this.renderEngine.removeElement("bullets", self);
+				CollisionEngine.removeElement(bullet, "bullets");
 				i--;
 				continue;
 			}

@@ -1,19 +1,20 @@
-define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine"], function (RAF, Game, gamepad, collisionEngine){
+define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","game/functions/deltatime"], function (RAF, Game, gamepad, collisionEngine,deltatime){
 
     function gameLoop (){
         if(Game.state == "game"){
             RAF(gameLoop);
         }
+        var dt =deltatime();
         Game.frame++;
-        Game.back1.pos.x = (Game.back1.pos.x+1+Game.back1.width)%(Game.back1.width*2)-Game.back1.width;
-        Game.back2.pos.x = (Game.back2.pos.x+1+Game.back1.width)%(Game.back1.width*2)-Game.back1.width;
+        Game.back1.pos.x = (Game.back1.pos.x+dt+Game.back1.width)%(Game.back1.width*2)-Game.back1.width;
+        Game.back2.pos.x = (Game.back2.pos.x+dt+Game.back1.width)%(Game.back1.width*2)-Game.back1.width;
 
 
 
-        collisionEngine.calcul();
-        Game.bulletsEngine.calcul();
-        Game.playersEngine.calcul();
-        Game.renderEngine.render();
+        collisionEngine.calcul(dt);
+        Game.bulletsEngine.calcul(dt);
+        Game.playersEngine.calcul(dt);
+        Game.renderEngine.render(dt);
         //collisionEngine.render(Game.canvas.debug.context);
         // Game.canvas.debug.context.fillRect(0, 0, 1920, 1080);
     }

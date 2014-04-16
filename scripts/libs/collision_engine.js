@@ -24,6 +24,13 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 
 		this.group[name].content.push(target);	 
 	}
+
+	CollisionEngine.prototype.removeElement = function(target, name){
+		this.group[name].content.splice(this.group[name].content.indexOf(target));
+	}
+
+
+
 	CollisionEngine.prototype.addHitbox = function(target, shape, offsetX, offsetY, width, height){
 		if (!target.hitbox)
 			target.hitbox = [];
@@ -59,8 +66,12 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 		for (var name in this.group){											//Pour tous les groupes
 			for (var i = this.group[name].content.length - 1; i >= 0; i--) {	//Pour tous les elements du groupe
 				var target = this.group[name].content[i];
+
 				if(target === undefined || target === null){
 					this.group[name].content.splice(i,1);
+					continue;
+				}
+				if (!target.actife) {
 					continue;
 				}
 				for (var j = target.hitbox.length -1 ; j >= 0 ; j--){			//Pour toutes les hitboxs de cet element
@@ -75,10 +86,14 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 						var currentGroup = this.group[this.group[name].target[m]];
 						for (var k = currentGroup.content.length - 1 ; k >= 0 ; k--){
 							var opponent = currentGroup.content[k];
+							
 							if(opponent === target)
 								continue;
 							if(opponent == undefined || opponent == null){
 								currentGroup.content.splice(k,1);
+								continue;
+							}
+							if (!opponent.actife) {
 								continue;
 							}
 							for (var l = opponent.hitbox.length - 1 ; l >= 0 ; l--){

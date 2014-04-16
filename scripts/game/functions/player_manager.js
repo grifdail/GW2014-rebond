@@ -13,8 +13,6 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
     }
     PlayerEngine.prototype.create = function(game,x, y,color){
         var player = new Player(game,this.content.length,color,x,y);
-        //player.pos.x = x;
-        //player.pos.y = y;
         player.maxVel = 12;
         this.content.push(player);
         this.renderEngine.addElement("players", player);

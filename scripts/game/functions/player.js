@@ -45,8 +45,9 @@ define([
             //Nous somme vraiment désolé...
             //J'espere que vous pourrez nous le pardonner.
             //L'idée etait trop stupide pour ne pas qu'on l'utilise.
-            this.pos.x = NaN;
-            this.pos.y = NaN;
+            this.pos.x = 0;
+            this.pos.y = 0;
+            this.actife = false;
             this.life--;
             if (this.life>0) {
                 this.respawTime = 150;
@@ -64,19 +65,22 @@ define([
         if (this.respawTime===0) {
             this.pos.x = this.spawn.x;
             this.pos.y = this.spawn.y;
-        }
-        this.bumped = false;
-        this.physicControler();
-        this.gamepadController();
-        this.shoot.update();
-        if (this.vel.squarelength()>1) {
-            this.sprite.changeAnimation("drive")
+            this.actife = true;
         } else {
-            this.sprite.changeAnimation("stay")
+            this.bumped = false;
+            this.physicControler();
+            this.gamepadController();
+            this.shoot.update();
+            if (this.vel.squarelength()>1) {
+                this.sprite.changeAnimation("drive")
+            } else {
+                this.sprite.changeAnimation("stay")
+            }
+            this.canon.pos.x = this.pos.x
+            this.canon.pos.y = this.pos.y
+            this.canon.rotation = this.shoot.rotation;
         }
-        this.canon.pos.x = this.pos.x
-        this.canon.pos.y = this.pos.y
-        this.canon.rotation = this.shoot.rotation;
+        
     };
     return Player;
 });

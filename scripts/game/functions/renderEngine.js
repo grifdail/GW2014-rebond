@@ -191,7 +191,11 @@ define(["libs/utils"], function (utils){
 		}
 		for (var key in this.content){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {
+
 				var target = this.content[key].elements[i];
+				if (!target.actife) {
+					continue;
+				}
 				if (target.color) {
 					this.content[key].context.fillStyle = target.color;
 				}
