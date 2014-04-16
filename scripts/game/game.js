@@ -78,6 +78,8 @@ define(["game/functions/add_event_capabilities",
 
         this.menu = new Menu(); 
         // this.menu.getStartMenu(game.canvas.debug);
+
+        // this.startState("menu");
     }
 
 
