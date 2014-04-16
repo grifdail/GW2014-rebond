@@ -23,6 +23,10 @@ define([], function (){
             this.vel.y = -this.vel.y;
             this.vel.x = -this.vel.x;
         }
+        if (this.color == "white"){
+            this.color = this.parentColor;
+            this.image = "bullet_"+this.color;
+        }
     }
 
     function bulletbulletCollision (bullet, collisionPoint){
@@ -53,12 +57,13 @@ define([], function (){
     }
 
     function bulletPlayerCollision (player){
-        if (this.color == player.color){
+        if (this.color == player.color || this.color == "white"){
             this.emit("die", player);
             player.emit("die", this);
         }
         else{
-             this.image = "bullet_" + player.color;
+            this.image = "bullet_" + player.color;
+            this.color = player.color;
 
             var vitesseBullets = (this.vel.x != 0)  ? this.vel.x / Math.cos(Math.atan2(this.vel.y, this.vel.x)) : this.vel.y;
 
