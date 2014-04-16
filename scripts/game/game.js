@@ -6,8 +6,9 @@ define(["game/functions/add_event_capabilities",
         "game/functions/player_manager",
         "collisionEngine", 
         "game/functions/bullets_collision",
-        "game/functions/fittingOutEngine"], 
-    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine){
+        "game/functions/fittingOutEngine", 
+        "game/functions/startMenu"],
+    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine, Menu){
     var Game = function Game (){
         this.states = {};
         this.state = "";
@@ -24,6 +25,7 @@ define(["game/functions/add_event_capabilities",
     }
     Game.prototype.init = function(){
         this.frame = 0;
+        this.menu = new Menu(); 
         this.canvas = {};
         this.canvas.background = document.createElement("canvas");
         this.canvas.players = document.createElement("canvas");
