@@ -1,7 +1,6 @@
 define([], function (){
 
     function bulletCollision (other, collisionPoint){
-//        console.log(this.pos);
         if(other.radius !== undefined){
             if(other.tag == "player"){
                 bulletPlayerCollision.apply(this, arguments);
@@ -54,7 +53,15 @@ define([], function (){
     }
 
     function bulletPlayerCollision (player){
-
+        if (this.transformationTime <= 0){
+            if (this.color == player.color){
+                // console.log("die");
+            }
+            else{
+                this.color = player.color;
+                this.transformationTime = 60;
+            }
+        }
     }
 
     return bulletCollision;

@@ -2,5 +2,13 @@
 	"boss" : "images/boss_part_3_hit.png", 
 	"tank1" : "images/Tank_vert_Base.png",
 	"canon1" : "images/Tank_vert_Top.png",
-	"background" : "images/Background.JPG"
+	"background" : "images/Background.JPG",
+    "bullet_yellow" : "images/Bullet_jaune.png",
+    "bullet_green" : "images/Bullet_vert.png",
+    "bullet_red" : "images/Bullet_rouge.png",
+    "bullet_blue" : "images/Bullet_bleu.png",
+    "aim_yellow" : "images/viseurs_jaune.png",
+    "aim_green" : "images/viseurs_vert.png",
+    "aim_red" : "images/viseurs_rouge.png",
+    "aim_blue" : "images/viseurs_bleu.png"
 }
