@@ -40,6 +40,13 @@ define(["vector"], function (Vector){
 		target.direction = direction || 0;
 		target.speed = speed || 10;
 	}
+	BasicObject.prototype.movableRect = function(target, x ,y , width, height, direction, speed){
+		this.rect(target, x, y, width, height);
+		target.vel.x = Math.cos(direction)*speed || 0;
+		target.vel.y = Math.sin(direction)*speed || 0;
+		target.direction = direction || 0;
+		target.speed = speed || 10;
+	}
 	BasicObject.prototype.movableImage = function(target, image, x, y, width, height, direction, speed){
 		this.image = image;
 	}

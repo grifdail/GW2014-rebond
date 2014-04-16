@@ -153,6 +153,7 @@ define(["libs/utils"], function (utils){
 	Renderer.prototype.render = function(){
 		this.frameIndex++;
 		for (var key in this.canvas){
+
 			this.canvas[key].context.save();
 			if (this.screenShakeDuration > 0){
 				if (!vecX){
@@ -164,7 +165,29 @@ define(["libs/utils"], function (utils){
 				}
 				this.canvas[key].context.translate(vecX, vecY);	
 			}
-			this.canvas[key].context.clearRect(0,0,this.canvas[key].width,this.canvas[key].width);
+
+			if (key == "bullets"){
+				this.canvas[key].context.globalCompositeOperation = "destination-in";
+				this.canvas[key].context.fillStyle = "rgba(255,0,0,0.6)";
+				this.canvas[key].context.fillRect(0,0,this.canvas[key].width,this.canvas[key].width);
+
+				this.canvas[key].context.globalCompositeOperation = "source-over";
+			}
+			else if (key == "players"){
+				this.canvas[key].context.globalAlpha = 0.6;
+				this.canvas[key].context.globalCompositeOperation = "source-in";
+				this.canvas[key].context.fillStyle = "rgba(0,0,0,0.3)";
+				this.canvas[key].context.fillRect(0,0,this.canvas[key].width,this.canvas[key].width);
+
+				this.canvas[key].context.globalCompositeOperation = "source-over";
+				this.canvas[key].context.globalAlpha = 1;
+
+			}
+			else{
+				this.canvas[key].context.clearRect(0,0,this.canvas[key].width,this.canvas[key].width);
+			}
+			// this.canvas[key].context.globalAlpha = 1;
+
 		}
 		for (var key in this.content){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {

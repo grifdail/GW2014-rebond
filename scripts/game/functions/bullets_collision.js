@@ -23,6 +23,10 @@ define([], function (){
             this.vel.y = -this.vel.y;
             this.vel.x = -this.vel.x;
         }
+        if (this.color == "white"){
+            this.color = this.parentColor;
+            this.image = "bullet_"+this.color;
+        }
     }
 
     function bulletbulletCollision (bullet, collisionPoint){
@@ -53,14 +57,20 @@ define([], function (){
     }
 
     function bulletPlayerCollision (player){
-        if (this.transformationTime <= 0){
-            if (this.color == player.color){
-                // console.log("die");
-            }
-            else{
-                this.color = player.color;
-                this.transformationTime = 60;
-            }
+        if (this.color == player.color || this.color == "white"){
+            this.emit("die", player);
+            player.emit("die", this);
+        }
+        else{
+            this.image = "bullet_" + player.color;
+            this.color = player.color;
+
+            var vitesseBullets = (this.vel.x != 0)  ? this.vel.x / Math.cos(Math.atan2(this.vel.y, this.vel.x)) : this.vel.y;
+
+            var angle = Math.atan2( (this.pos.y + this.height/2) - (player.pos.y + player.height/2), 
+                                    (this.pos.x + this.width/2) - (player.pos.x + player.width/2) );    
+            this.vel.y = Math.sin(angle) * vitesseBullets;
+            this.vel.x = Math.cos(angle) * vitesseBullets;
         }
     }
 
