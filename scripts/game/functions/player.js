@@ -11,7 +11,7 @@ define([
     
         var border = {x: 80, y : 80, width : 1760, height : 920, name : "border"}
         collisionEngine.addBox("border", border);
-        collisionEngine.addGroup("players", ["bullets", "wall", "players"], ["border"]);
+        collisionEngine.addGroup("players", ["bullets", "wall", "players", "fittingOut"], ["border"]);
 
 
     function Player(game,pad,color) {
@@ -32,7 +32,6 @@ define([
         this.sprite = game.renderEngine.getSprite("tank_"+color,"stay");
         this.canon = basicObject.basic({}, 0, 0, 64, 64, 32);
         this.canon.sprite = game.renderEngine.getSprite("tank_"+color,"canon");
-        collisionEngine.addHitbox(this, "circle", 0, 0, this.radius, this.radius);
         collisionEngine.addElement(this, "players");
         this.on("collisionEnter", player_collision, this);
         this.on("inboxOut", playerOutOfBound, this);

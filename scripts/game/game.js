@@ -67,7 +67,7 @@ define(["game/functions/add_event_capabilities",
 
        // this.renderEngine.addSprite(truc, "tank");
        // this.renderEngine.addElement("test", carre);
-        collisionEngine.addGroup("bullet", ["bullet", "wall"]);
+        collisionEngine.addGroup("bullet", ["bullet", "wall", "fittingOut"]);
         collisionEngine.addGroup("wall", ["bullet"]);
 
         this.fittingOutEngine = new FittingOutEngine();

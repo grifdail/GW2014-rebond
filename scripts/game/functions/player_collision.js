@@ -3,6 +3,10 @@ define([], function(){
     function playerColision (other, collisionPoint){
         if(other.tag == "player"){
             playerPlayerColision.apply(this, arguments)
+        }else if(other.tag == "bullet"){
+
+        }else{
+            other.reaction(this, collisionPoint);
         }
     }
 
