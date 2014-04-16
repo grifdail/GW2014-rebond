@@ -35,16 +35,29 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 			// collisionEngine.addHitbox(wall, x, y, width, height);
 			collisionEngine.addElement(wall, "fittingOut");
 
-			// wall.on("test", wall.collision, wall);
-
-			wall.reaction = function(target){
-				// var direction = Math.atan2(target.vel.y, target.vel.x);
-				console.log("Hi"); 	
-				if (target.pos.x - target.radius <= this.pos.x + this.width && target.pos.x + target.radius > this.pos.x + this.width || //Collision vers la gauche
-					target.pos.x + target.radius >= this.pos.x && target.pos.x - target.radius < wall.pos.x)
-					target.vel.x *= -1;
-				else
-					target.vel.y *= -1;
+			wall.reaction = function(target, collisionPoint){
+				if(collisionPoint){
+					if(collisionPoint.x == this.pos.x){
+						target.pos.x -= target.vel.x * 1.5;
+			            target.pos.y -= target.vel.y * 1.5;
+			            target.vel.x = - target.vel.x * 0.5;
+					}else if(collisionPoint.x == this.pos.x + this.width){
+						target.pos.x -= target.vel.x * 1.5;
+			            target.pos.y -= target.vel.y * 1.5;
+			            target.vel.x = -target.vel.x * 0.5;
+					}else if(collisionPoint.y == this.pos.y){
+						target.pos.x -= target.vel.x * 1.5;
+			            target.pos.y -= target.vel.y * 1.5;
+			            target.vel.y = -target.vel.y * 0.5;
+					}else if(collisionPoint.y == this.pos.y + this.height){
+			            target.pos.x -= target.vel.x * 1.5;
+			            target.pos.y -= target.vel.y * 1.5;
+			            target.vel.y = -target.vel.y * 0.5;
+					}else{
+						target.vel.x = -target.vel.x;
+						target.vel.y = -target.vel.y;
+					}
+				}
 			}
 			this.renderEngine.addElement("fittingOut", wall);
 		}	

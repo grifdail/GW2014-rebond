@@ -1,11 +1,6 @@
-define(["libs/gamepad"], function(){
+define(["game/functions/gamepad"], function(gamepad){
     "use strict";
-    var gamepad = new Gamepad();
-    var pads = [{},{},{},{}];
-
-    if (!gamepad.init()) {
-        alert("Nope ! Pas pour toi ! Vas t'achetez un browser !")
-    }
+    
 
     var controleType = false;
     function GamepadController (id,speed) {
