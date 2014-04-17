@@ -1,4 +1,4 @@
-define(["game/functions/player", "game/functions/renderEngine", "collisionEngine"], function(Player, renderEngine, collisionEngine){
+define(["game/functions/player", "game/functions/renderEngine", "collisionEngine","eventBus"], function(Player, renderEngine, collisionEngine,eventBus){
     "use strict";
     
     var PlayerEngine = function(){
@@ -19,6 +19,18 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
         // collisionEngine.addElement(player, "players");
         var that = this;
         player.on("collisionEnter", that.collision, player);
+        player.on("out of life", function(e) {
+            var nbAlive = 0, lastAlive = e;
+            for (var i = this.content.length - 1; i >= 0; i--) {
+                if (this.content[i].life>0) {
+                    nbAlive++;
+                    lastAlive = this.content[i];
+                }
+            };
+            if (nbAlive<=1) {
+                eventBus.emit("gameOver",lastAlive.color);
+            }
+        });
     }
     PlayerEngine.prototype.collision = function(opponent, position){
         // if (opponent.reaction)

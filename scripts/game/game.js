@@ -27,6 +27,7 @@ define(["game/functions/add_event_capabilities",
             this.state = state;
             this.states[state]();
         }
+        //Bleu vert
     }
 
     Game.prototype.startGame = function (players){
