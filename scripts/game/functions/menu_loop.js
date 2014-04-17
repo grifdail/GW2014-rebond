@@ -1,14 +1,11 @@
-define(["RAF", "Game"], function (RAF, Game){
+define(["RAF", "Game", "Menu"], function (RAF, Game, menu){
 
     function menuLoop (){
         if(Game.state == "menu") {
             RAF(menuLoop);
         }
-        console.log("Hi");
-        Game.menu.render();
-        // for (var i = 0; i < Game.menu.buttons.length; i++) {
-        //     Game.menu.buttons[i]
-        // };
+        menu.pages[menu.activePage].draw();
+        menu.control();
     }
 
     Game.states["menu"] = menuLoop;
