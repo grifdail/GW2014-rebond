@@ -12,7 +12,6 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 		if (what == "sprite"){
 			basicObject.basic(particle, x, y, width, height);
 			particle.sprite = this.renderer.getSprite(color, animation);
-			console.log(particle.sprite.config.animation)
 			particle.pos.x -= particle.sprite.config.animation[particle.sprite.anim].width*0.5;
 			particle.pos.y -= particle.sprite.config.animation[particle.sprite.anim].height*0.5;
 		}
@@ -41,7 +40,6 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 		this.addParticle(index, 30, x, y, 100, 100, 0,0,null);
 	}
 	ParticleEngine.prototype.choc = function(x, y){
-		console.log("Hi");
 		this.addParticle(36, x, y, 256, 256, 0, 0, "sprite", "explosion", "l1");
 		/*
 		for (var i = 100; i > 0; i--) {
