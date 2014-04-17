@@ -5,9 +5,16 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		eventBus.on("screenShake",function(e) {
 			that.screenShake(e.timing, e.strength)
 		});
-		eventBus.on("play explosion",function() {
+		eventBus.on("play explosion",function(e) {
 			that.screenShake(10,10);
-		})
+			that.drawOnce("floor","cratere",e.x,e.y,true)
+		});
+
+		this.bufferFloor = document.createElement("canvas");
+		this.bufferFloor.context = this.bufferFloor.getContext("2d");
+		this.bufferFloor.width = 1920;
+		this.bufferFloor.height = 1080;
+
 	}
 	Renderer.prototype.content = {};
 	Renderer.prototype.canvas = {};
@@ -44,6 +51,22 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 	Renderer.prototype.sprite = function(){
 
 	}
+	
+	Renderer.prototype.drawOnce = function(key,img,x,y,center,rotation) {
+		
+		var img = this.images[img];
+		var offsetX = 0;
+		var offsetY = 0;
+		if (center) {
+			offsetX = img.width*0.5;
+			offsetY = img.height*0.5;
+		}
+		this.content[key].context.save();
+		this.content[key].context.drawImage(img, x-offsetX, y-offsetY);
+		this.content[key].context.restore();
+		
+	};
+	
 	Renderer.prototype.sprite.prototype.changeAnimation = function(animation){
 		if (this.animation[animation]){
 			this.currentFrame = 0;
@@ -126,10 +149,6 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 				216
 			);
 		}
-		if (target.sprite.image=="tank_green") {
-			// console.log(config,target.sprite);
-			// debugger;
-		}
 		if (!(this.frameIndex%config.fps)) {
 			target.sprite.index++;
 			if(target.sprite.index>=config.nbAnimation) {
@@ -174,14 +193,23 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 				this.canvas[key].context.globalCompositeOperation = "source-over";
 				this.canvas[key].context.globalAlpha = 1;
 			}
-			/*
-			else if (key == "particles"){
+			else if (key == "floor"){
+				/*
+				this.bufferFloor.context.clearRect(0,0,this.bufferFloor.width,this.bufferFloor.height);
+				this.bufferFloor.context.drawImage(this.canvas[key],0,0);
+				this.canvas[key].context.globalAlpha = 0.999;
+				this.canvas[key].context.clearRect(0,0,this.bufferFloor.width,this.bufferFloor.height);
+				this.bufferFloor.context.drawImage(this.bufferFloor,0,0);
+				this.canvas[key].context.globalAlpha = 1;
+				*/
 				this.canvas[key].context.globalCompositeOperation = "destination-in";
-				this.canvas[key].context.fillStyle = "rgba(0,0,0,0.7)";
+				this.canvas[key].context.fillStyle = "rgba(255,0,0,0.99)";
 				this.canvas[key].context.fillRect(0,0,this.canvas[key].width,this.canvas[key].width);
 
 				this.canvas[key].context.globalCompositeOperation = "source-over";
-			}*/
+				
+				//this.canvas[key].context.globalAlpha = 1;
+			}
 			else{
 				this.canvas[key].context.clearRect(0,0,this.canvas[key].width,this.canvas[key].width);
 			}

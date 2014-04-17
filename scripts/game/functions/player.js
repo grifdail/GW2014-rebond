@@ -26,7 +26,7 @@ define([
         this.rotation = 0;
         this.color = color;
         this.rotationAsVec = true;
-        this.life = 1;
+        this.life = 9;
         this.respawTime=-1;
         this.gamepadController = GamepadController(pad || 0,4);
         this.physicControler = PhysicControler(0.70);
@@ -58,8 +58,7 @@ define([
                 this.respawTime = 150;
             } else {
                 this.respawTime = NaN; //Ok this is bad !
-                this.emit("out of life",this);
-                
+                this.emit("out of life",this);  
             }
         
             

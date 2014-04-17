@@ -18,7 +18,11 @@ define(["eventBus","libs/howler"], function(eventBus){
 
         eventBus.on("play sound",function(e) {
             sounds[e.sound].play();
-        })
+        });
+
+        eventBus.on("play death commentary",function() {
+            sounds[e.sound].play();
+        });
 
         var audioToLoad = 0;
         function callback() {
