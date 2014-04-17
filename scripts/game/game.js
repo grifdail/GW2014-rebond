@@ -26,6 +26,14 @@ define(["game/functions/add_event_capabilities",
     }
     Game.prototype.startGame = function (players){
         console.log(players);
+        if(players[0])
+            game.playersEngine.create(game,200,200,"blue");
+        if(players[1])
+            game.playersEngine.create(game,1000,200,"green");
+        if(players[2])
+            game.playersEngine.create(game,1000,800,"red");
+        if(players[3])
+            game.playersEngine.create(game,200,800,"yellow");
         game.startState("game");
     }
 

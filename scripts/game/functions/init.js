@@ -29,10 +29,6 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         game.playersEngine = new PlayerEngine();
         game.bulletsEngine.init(game.canvas.bullets);
         game.playersEngine.init(game.canvas.players);
-        game.playersEngine.create(game,200,200,"yellow");
-        game.playersEngine.create(game,1000,200,"green");
-        game.playersEngine.create(game,1000,800,"red");
-        game.playersEngine.create(game,200,800,"blue");
 
         game.renderEngine.addCanvas("debug", game.canvas.debug);
         game.renderEngine.addCanvas("background", game.canvas.background);
