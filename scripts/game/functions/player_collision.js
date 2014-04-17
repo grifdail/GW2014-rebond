@@ -1,5 +1,7 @@
 define(["game/functions/particleEngine"], function(ParticleEngine){
 
+    var CHANGE_CONTROLLE = false;
+
     function playerColision (other, collisionPoint){
         if(other.tag == "player"){
             playerPlayerColision.apply(this, arguments)
@@ -35,6 +37,13 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
                 other.pos.y -= Math.sin(direction) * get/2; 
                 this.pos.x += Math.cos(direction) * get/2;
                 this.pos.y += Math.sin(direction) * get/2; 
+            }
+            ///
+            if (CHANGE_CONTROLLE) {
+                var c = this.gamepadController;
+                this.gamepadController = other.gamepadController;
+                other.gamepadController = c;
+
             }
         }
         if(!other.bumped){
