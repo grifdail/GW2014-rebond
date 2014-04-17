@@ -41,5 +41,9 @@
     "lives_green":  "images/lives_green.png",
     "lives_red":  "images/lives_red.png",
     "lives_yellow":  "images/lives_yellow.png",
-    "center_logo": "images/LOGO_ingame_centre.png"
+    "center_logo": "images/LOGO_ingame_centre.png",
+    "victory_blue": "images/Victory_Blue.png",
+    "victory_green": "images/Victory_Blue.png",
+    "victory_red": "images/Victory_Red.png",
+    "victory_yellow": "images/Victory_Yellow.png"
 }

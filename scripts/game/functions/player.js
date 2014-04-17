@@ -26,7 +26,7 @@ define([
         this.rotation = 0;
         this.color = color;
         this.rotationAsVec = true;
-        this.life = 9;
+        this.life = 1;
         this.respawTime=-1;
         this.gamepadController = GamepadController(pad || 0,4);
         this.physicControler = PhysicControler(0.70);
