@@ -48,8 +48,6 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         var carre = {};
         var truc = {};
 
-       // game.renderEngine.addSprite(truc, "tank");
-       // game.renderEngine.addElement("test", carre);
         collisionEngine.addGroup("bullet", ["bullet", "wall", "fittingOut"]);
         collisionEngine.addGroup("wall", ["bullet"]);
 
@@ -58,10 +56,6 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 
         game.particleEngine = new ParticleEngine();
         game.particleEngine.init();
-        // game.menu.getStartMenu(game.canvas.debug);
-
-        // game.startState("menu");
-
 
 		var pressStartPage = new Page("pressStartPage");
 		var bg = new Sprite({name : "bg",x : 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["rampage_rooster"], context : game.canvas.background.context});
@@ -93,6 +87,22 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         playerSelectPage.addElement(perso4btn);
         playerSelectPage.SetActiveElement(perso1btn);
 		menu.addPage(playerSelectPage);
+
+        var winPage = new Page("winPage");
+        var bgWin = new Sprite({name : "bgWin", x : 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["noir"], context : game.canvas.background.context})
+        var winnerTxt = new Sprite({name : "winnerTxt", x : 500, y : 100, width : 900, height : 150, image : game.renderEngine.images["rampage_rooster"], context : game.canvas.background.context});
+        var winnerImage = new Sprite({name : "winnerImage", x : 750, y : 300, width : 300, height : 400, image : game.renderEngine.images["bicCoc"], context : game.canvas.background.context});
+        var replay = new Button({name : "replay", x : 700, y : 750, width : 450, height : 100, image : game.renderEngine.images["rampage_rooster"], overImage : game.renderEngine.images["coqLonel"], callback : function(){menu.mimeJr();}, context : game.canvas.background.context});
+        var returnToMenu = new Button({name : "returnToMenu", x : 700, y : 900, width : 450, height : 100, image : game.renderEngine.images["rampage_rooster"], overImage : game.renderEngine.images["coqLonel"], callback : function(){menu.abra();}, context : game.canvas.background.context});
+        replay.down = returnToMenu;
+        returnToMenu.up = replay;
+        winPage.addElement(bgWin);
+        winPage.addElement(winnerTxt);
+        winPage.addElement(winnerImage);
+        winPage.addElement(replay);
+        winPage.addElement(returnToMenu);
+        winPage.SetActiveElement(replay);
+        menu.addPage(winPage);
 
 		menu.activePage = "pressStartPage";
 		game.startState("menu");

@@ -94,6 +94,18 @@ define(["game/functions/gamepad", "Game"], function (gamepad, Game){
         Game.startGame([this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK]);
     }
 
+    MenuController.prototype.mimeJr = function (){
+        Game.startGame([this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK]);
+    }
+
+    MenuController.prototype.abra = function (){
+        this.joueur1OK = true;
+        this.joueur2OK = false;
+        this.joueur3OK = false;
+        this.joueur4OK = false;
+        this.activePage = "playerSelect";
+    }
+
     var menu = new MenuController();
 
     return menu;
