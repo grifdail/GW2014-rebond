@@ -8,14 +8,18 @@ define(["game/functions/add_event_capabilities",
         "game/functions/bullets_collision",
         "game/functions/fittingOutEngine", 
         "game/functions/startMenu",
-        "game/functions/particleEngine"],
-    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine, Menu, ParticleEngine){
+        "game/functions/particleEngine",
+        "game/functions/audio"],
+    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine, Menu, ParticleEngine,loadSound){
     var Game = function Game (){
         this.states = {};
         this.state = "";
         this.gameObjects = {};
 
         this.instance = this;
+        loadSound(function() {
+            
+        });
     }
 
     Game.prototype.startState = function (state){
