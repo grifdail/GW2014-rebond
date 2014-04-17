@@ -21,10 +21,10 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
         player.on("collisionEnter", that.collision, player);
         player.on("out of life", function(e) {
             var nbAlive = 0, lastAlive = e;
-            for (var i = this.content.length - 1; i >= 0; i--) {
-                if (this.content[i].life>0) {
+            for (var i = that.content.length - 1; i >= 0; i--) {
+                if (that.content[i].life>0) {
                     nbAlive++;
-                    lastAlive = this.content[i];
+                    lastAlive = that.content[i];
                 }
             };
             if (nbAlive<=1) {
