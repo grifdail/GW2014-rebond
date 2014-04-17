@@ -1,6 +1,19 @@
-define(["game/functions/renderEngine", "game/functions/basicObject"], function (renderEngine, basicObject){
-	var ParticleEngine = function(canvas){
+define(["game/functions/renderEngine", "game/functions/basicObject", "eventBus"], function (renderEngine, basicObject, eventBus){
+	var ParticleEngine = function(canvas,game){
 		this.renderer = new renderEngine();
+		var that = this;
+		eventBus.on("play explosion", function(e) {
+			that.choc(e.x,e.y);
+		});
+		eventBus.on("play collision particle", function(e) {
+			that.reptincel(e.x,e.y);
+		});
+		eventBus.on("play collision player-bullet", function(e) {
+			that.evoli(e.x,e.y,e.color);
+		});
+		eventBus.on("play particle douille", function(e) {
+			that.douille(e.x,e.y,e.rotation,e.offset);
+		});
 	}
 	ParticleEngine.prototype.content = [];
 	ParticleEngine.prototype.canvas;
@@ -43,16 +56,7 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 	ParticleEngine.prototype.choc = function(x, y){
 		console.log("Hi");
 		this.addParticle(36, x, y, 256, 256, 0, 0, "sprite", "explosion", "l1");
-		/*
-		for (var i = 100; i > 0; i--) {
-			var direction = Math.random() * Math.PI*2;
-			var lifeTime = Math.random() * 10 + 10;
-			// var color = "rgba(200,100,0,1)";
-			var color = "bullet_green";
-			var speed = Math.random() * 5 + 10;
-			this.addParticle(lifeTime, x, y, 20, 20, direction, speed,"image", color, "drive");
-		};
-		*/
+		this.addParticle(36, x, y, 512, 512, 0, 0, "sprite", "shockwave", "l1");
 	}
 	ParticleEngine.prototype.reptincel = function(x, y){
 		if (this.content.length > 500)
