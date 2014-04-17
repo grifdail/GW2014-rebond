@@ -38,10 +38,10 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         game.renderEngine.addGroup("test", "debug");
 
         game.renderEngine.addGroup("background", "background");
-        game.addBackground(game.renderEngine,"background1");
-        game.addBackground(game.renderEngine,"background2");
-        game.back1 = game.addBackground(game.renderEngine,"background3");
-        game.back2 = game.addBackground(game.renderEngine,"background3");
+        // game.addBackground(game.renderEngine,"background1", 0, 0, 1920, 1080);
+        game.addBackground(game.renderEngine,"background2", 0, 0, 1920, 1080);
+        game.back1 = game.addBackground(game.renderEngine,"background3", 0, 351, 2200, 377);
+        game.back2 = game.addBackground(game.renderEngine,"background3", 0, 351, 2200, 377);
         
         game.back2.pos.x = game.back1.width;
         

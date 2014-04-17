@@ -24,6 +24,7 @@ define(["game/functions/add_event_capabilities",
             this.states[state]();
         }
     }
+
     Game.prototype.startGame = function (players){
         console.log(players);
         if(players[0])
@@ -37,9 +38,9 @@ define(["game/functions/add_event_capabilities",
         game.startState("game");
     }
 
-    Game.prototype.addBackground = function(render,file) {
+    Game.prototype.addBackground = function(render,file, x, y, width, height) {
         var background = {};
-        basicObject.rect(background, 0,0, 1920, 1080);
+        basicObject.rect(background, x, y, width, height);
         background.image = file;
         background.rotation = -Math.PI/2;
         render.addElement("background", background);
