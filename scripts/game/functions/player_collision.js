@@ -1,5 +1,7 @@
 define(["game/functions/particleEngine"], function(ParticleEngine){
 
+    var CHANGE_CONTROLLE = false;
+
     function playerColision (other, collisionPoint){
         if(other.tag == "player"){
             playerPlayerColision.apply(this, arguments)
@@ -36,6 +38,13 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
                 this.pos.x += Math.cos(direction) * get/2;
                 this.pos.y += Math.sin(direction) * get/2; 
             }
+            ///
+            if (CHANGE_CONTROLLE) {
+                var c = this.gamepadController;
+                this.gamepadController = other.gamepadController;
+                other.gamepadController = c;
+
+            }
         }
         if(!other.bumped){
 
@@ -57,7 +66,7 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
             var centerY = this.pos.y + this.height/2;
             var offsetY = ((other.pos.y + other.height/2) - centerY)/2;
 
-            getParticleEngine.reptincel(centerX + offsetX,centerY + offsetY);
+            getParticleEngine.choc(centerX + offsetX,centerY + offsetY);
 
         }
     }

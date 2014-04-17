@@ -29,8 +29,6 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 		this.group[name].content.splice(this.group[name].content.indexOf(target));
 	}
 
-
-
 	CollisionEngine.prototype.addHitbox = function(target, shape, offsetX, offsetY, width, height){
 		if (!target.hitbox)
 			target.hitbox = [];

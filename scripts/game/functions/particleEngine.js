@@ -10,16 +10,11 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 	ParticleEngine.prototype.addParticle = function(lifeTime, x, y, width, height, direction, speed, what, color, animation, acc){
 		var particle = {};
 		if (what == "sprite"){
+			basicObject.basic(particle, x, y, width, height);
 			particle.sprite = this.renderer.getSprite(color, animation);
-			particle.pos = {};
-			particle.pos.x = x;
-			particle.pos.y = y;
-			particle.vel = {};
-			particle.vel.x = 10;
-			particle.vel.y = 10;
-			// console.log(particle.sprite);
-			// console.log(particle);
-			// basicObject.movableRect(particle, x, y, width, height, direction, speed);
+			console.log(particle.sprite.config.animation)
+			particle.pos.x -= particle.sprite.config.animation[particle.sprite.anim].width*0.5;
+			particle.pos.y -= particle.sprite.config.animation[particle.sprite.anim].height*0.5;
 		}
 		else if (what == "circle"){
 			basicObject.movableCircle(particle, x, y, width/2, direction, speed);
@@ -46,7 +41,8 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 	}
 	ParticleEngine.prototype.choc = function(x, y){
 		console.log("Hi");
-
+		this.addParticle(36, x, y, 256, 256, 0, 0, "sprite", "explosion", "l1");
+		/*
 		for (var i = 100; i > 0; i--) {
 			var direction = Math.random() * Math.PI*2;
 			var lifeTime = Math.random() * 10 + 10;
@@ -55,6 +51,7 @@ define(["game/functions/renderEngine", "game/functions/basicObject"], function (
 			var speed = Math.random() * 5 + 10;
 			this.addParticle(lifeTime, x, y, 20, 20, direction, speed,"image", color, "drive");
 		};
+		*/
 	}
 	ParticleEngine.prototype.reptincel = function(x, y){
 		if (this.content.length > 500)

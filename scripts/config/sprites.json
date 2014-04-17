@@ -2,6 +2,7 @@
     "tank_green" : ["images/Tank_vert.png", "config/tank_vert.json"],
     "tank_blue" : ["images/Tank_bleu.png", "config/tank_blue.json"],
     "tank_red" : ["images/Tank_rouge.png", "config/tank_red.json"],
-	"tank_yellow" : ["images/tank_jaune.png", "config/tank_yellow.json"]
+	"tank_yellow" : ["images/tank_jaune.png", "config/tank_yellow.json"],
+    "explosion" : ["images/Explosion_Grosse.png", "config/explosion.json"]
 
 }
