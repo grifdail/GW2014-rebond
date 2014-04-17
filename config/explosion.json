@@ -1,0 +1,7 @@
+{
+    "l1" : {"nbAnimation" : 4, "fps" : 1, "loop" : -1, "width" : 256, "height" : 256, "row":0, "finish":"l2"},
+    "l2" : {"nbAnimation" : 4, "fps" : 1, "loop" : -1, "width" : 256, "height" : 256, "row":1, "finish":"l3"},
+    "l3" : {"nbAnimation" : 4, "fps" : 1, "loop" : -1, "width" : 256, "height" : 256, "row":2, "finish":"l4"},
+    "l4" : {"nbAnimation" : 4, "fps" : 1, "loop" : -1, "width" : 256, "height" : 256, "row":3, "finish":"l5"},
+    "l5" : {"nbAnimation" : 4, "fps" : 1, "loop" : -1, "width" : 256, "height" : 256, "row":4}
+}

@@ -1,6 +1,7 @@
 define(["game/functions/menuSprite"], function (Sprite){
 
     var Button = function (args){
+        this.name = args.name;
         this.tag = "button";
         this.overImage = args.overImage;
         this.normalImage = args.image;
@@ -14,6 +15,14 @@ define(["game/functions/menuSprite"], function (Sprite){
 
     Button.prototype.draw = function draw (){
         this.sprite.draw();
+    }
+
+    Button.prototype.metamorph = function metamorph (bool){
+        if(bool)
+            this.sprite.image = this.overImage;
+        else
+            this.sprite.image = this.normalImage;
+
     }
 
     return Button;

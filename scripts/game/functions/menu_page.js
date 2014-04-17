@@ -2,18 +2,18 @@ define([], function (){
 
     var MenuPage = function (name){
         this.name = name;
-        this.elements = [];
+        this.elements = {};
         this.activeElement;
     }
 
     MenuPage.prototype.draw = function draw(){
-        for(var i = 0; i < this.elements.length; i++){
-            this.elements[i].draw();
+        for(elem in this.elements){
+           this.elements[elem].draw();
         }
     }
 
     MenuPage.prototype.addElement = function (elem){
-        this.elements.push(elem);
+        this.elements[elem.name] = elem;
     }
 
     MenuPage.prototype.SetActiveElement = function(elem){

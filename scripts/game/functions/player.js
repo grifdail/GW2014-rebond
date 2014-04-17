@@ -30,6 +30,7 @@ define([
         this.gamepadController = GamepadController(pad || 0,5);
         this.physicControler = PhysicControler(0.70);
         this.shoot = ShootController(game,10);
+        this.canDie = 0;
 
         this.sprite = game.renderEngine.getSprite("tank_"+color,"stay");
 
@@ -41,6 +42,9 @@ define([
         this.on("inboxOut", playerOutOfBound, this);
 
         this.on("die", function() {
+            if (this.canDie>0) {
+                return;
+            }
             this.pos.x = this.spawn.x;
             this.pos.y = this.spawn.y;
             this.actife = false;
@@ -48,6 +52,7 @@ define([
             if (this.life>0) {
                 this.respawTime = 150;
             } else {
+                this.respawTime = NaN
                 game.emit("player out of life",this);
             }
             
@@ -57,6 +62,7 @@ define([
 
     Player.prototype.update = function(dt) {
         this.respawTime-=dt;
+        this.canDie -= dt;
         if (this.respawTime<0) {
             if (this.actife) {
                 this.bumped = false;
@@ -73,6 +79,7 @@ define([
                 this.canon.rotation = this.shoot.rotation;
             } else {
                 this.actife = true;
+                this.canDie = 30
             }
         }
         

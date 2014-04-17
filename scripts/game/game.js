@@ -24,47 +24,18 @@ define(["game/functions/add_event_capabilities",
             this.states[state]();
         }
     }
-    Game.prototype.init = function(){
-        
-        this.playersEngine.init(this.canvas.players);
-        this.playersEngine.create(this,200,200,"yellow");
-        this.playersEngine.create(this,1000,200,"green");
-        this.playersEngine.create(this,1000,800,"red");
-        this.playersEngine.create(this,200,800,"blue");
 
-        this.renderEngine.addCanvas("debug", this.canvas.debug);
-        this.renderEngine.addCanvas("background", this.canvas.background);
-        this.renderEngine.addCanvas("players", this.canvas.players);
-        this.renderEngine.addCanvas("particles", this.canvas.particle);
-
-        // thid.renderEngine.addCanvas("bu")
-        this.renderEngine.addGroup("test", "debug");
-
-        this.renderEngine.addGroup("background", "background");
-        // addBackground(this.renderEngine,"background1",0, 0, 1920, 1080);
-        // addBackground(this.renderEngine,"background2",0, 0, 1920, 1080);
-        // this.back1 = addBackground(this.renderEngine,"background3",0, 0, 1920, 1080);
-        // this.back2 = addBackground(this.renderEngine,"background3",0, 0, 1920, 1080);
-        
-        this.back2.pos.x = this.back1.width;
-        
-        var carre = {};
-        var truc = {};
-
-       // this.renderEngine.addSprite(truc, "tank");
-       // this.renderEngine.addElement("test", carre);
-        collisionEngine.addGroup("bullet", ["bullet", "wall", "fittingOut"]);
-        collisionEngine.addGroup("wall", ["bullet"]);
-
-        this.fittingOutEngine = new FittingOutEngine();
-        this.fittingOutEngine.init(this.canvas.bullets);
-
-        this.menu = new Menu(); 
-        this.particleEngine = new ParticleEngine();
-        this.particleEngine.init();
-        // this.menu.getStartMenu(game.canvas.debug);
-
-        // this.startState("menu");
+    Game.prototype.startGame = function (players){
+        console.log(players);
+        if(players[0])
+            game.playersEngine.create(game,200,200,"blue");
+        if(players[1])
+            game.playersEngine.create(game,1000,200,"green");
+        if(players[2])
+            game.playersEngine.create(game,1000,800,"red");
+        if(players[3])
+            game.playersEngine.create(game,200,800,"yellow");
+        game.startState("game");
     }
 
     Game.prototype.addBackground = function(render,file, x, y, width, height) {
