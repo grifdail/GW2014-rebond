@@ -17,6 +17,7 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 		this.create(482,697, "wall", 96, 96, "bloc_rebond");
 		this.create(1342,257, "wall", 96, 96, "bloc_rebond");
 		this.create(1342,697, "wall", 96, 96, "bloc_rebond");
+		this.create(900, 500, "magneti", 128, 128, "gravity");
 
 		// this.create(700, 700, "wall", 100, 100);
 
@@ -65,15 +66,22 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 			}
 			this.renderEngine.addElement("fittingOut", wall);
 		}	
-		else if (type == "blocRebond"){
-			var blocRebond = {};
-			basicObject.image(blocRebond, "bloc_rebond", x, y, 128, 128);
+		else if (type == "magneti"){
+			var magneti = {};
+			basicObject.rect(magneti, x, y, width, height);
+			magneti.color = "rgba(0,255,0,1)";
+			magneti.tag = "magneti";
+			var that = magneti;
+			// collisionEngine.addHitbox(magneti, x, y, width, height);
+			// magneti.image = image; 
+			collisionEngine.addHitbox(magneti, "circle", 0, 0, width, height);
+			magneti.hitbox[0].radius = 500;
+			// magneti.hitbox[0].radius = 500;
+			// magneti.hitbox[0].offsetX = x + width/2 - rayon/2
+			console.log(magneti.hitbox);
+			collisionEngine.addElement(magneti, "fittingOut");
 
-			// blocRebond.color = "rgba(0,255,0,1)";
-			var that = blocRebond;
-			collisionEngine.addElement(blocRebond, "fittingOut");
-
-			blocRebond.reaction = function(target, collisionPoint){
+			magneti.reaction = function(target, collisionPoint){
 				if(collisionPoint){
 					if(collisionPoint.x == this.pos.x){
 						target.pos.x = this.pos.x - target.width;
@@ -93,7 +101,7 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 					}
 				}
 			}
-			this.renderEngine.addElement("fittingOut", blocRebond);
+			this.renderEngine.addElement("fittingOut", magneti);
 		}
 		else
 			console.warn("Attentio tentative d'ajout d'un type de fittingOut inexistant");
