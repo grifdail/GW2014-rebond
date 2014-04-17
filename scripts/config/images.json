@@ -45,5 +45,9 @@
     "victory_blue": "images/Victory_Blue.png",
     "victory_green": "images/Victory_Blue.png",
     "victory_red": "images/Victory_Red.png",
-    "victory_yellow": "images/Victory_Yellow.png"
+    "victory_yellow": "images/Victory_Yellow.png",
+    "credits_0": "images/Credits_0.png",
+    "credits_1": "images/Credits_1.png",
+    "playTitle_1": "images/PlayTitle_1.png",
+    "playTitle_0": "images/PlayTitle_0.png"
 }
