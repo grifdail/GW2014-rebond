@@ -13,22 +13,25 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
     }
 
     function bulletWallCollision (wall, collisionPoint){
-
-        if(collisionPoint.x === wall.pos.x || collisionPoint.x === wall.pos.x + wall.width){
-            this.vel.x = -this.vel.x;
+        if (collisionPoint)
+            if(collisionPoint.x === wall.pos.x || collisionPoint.x === wall.pos.x + wall.width){
+                this.vel.x = -this.vel.x;
+            }
+            else if(collisionPoint.y === wall.pos.y || collisionPoint.y === wall.pos.y + wall.height){
+                this.vel.y = -this.vel.y;
+            }
+            else{
+                this.vel.y = -this.vel.y;
+                this.vel.x = -this.vel.x;
+                this.lifetime = -20;
+            }
+            if (this.color == "white"){
+                this.color = this.parentColor;
+                this.image = "bullet_"+this.color;
+            }
         }
-        else if(collisionPoint.y === wall.pos.y || collisionPoint.y === wall.pos.y + wall.height){
-            this.vel.y = -this.vel.y;
-        }
-        else{
-            this.vel.y = -this.vel.y;
-            this.vel.x = -this.vel.x;
-            this.lifetime = -20;
-        }
-        if (this.color == "white"){
-            this.color = this.parentColor;
-            this.image = "bullet_"+this.color;
-        }
+        else
+            console.log("Hi");
     }
 
     function bulletbulletCollision (bullet, collisionPoint){

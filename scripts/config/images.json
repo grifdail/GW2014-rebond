@@ -23,5 +23,6 @@
     "coqLonelBlack":   "images/coqLonelBlack.png",
     "start_to_join":   "images/start_to_join.png",
     "start_to_leave":   "images/start_to_leave.png",
-    "start_to_play":   "images/start_to_play.png"
+    "start_to_play":   "images/start_to_play.png",
+    "bloc_rebond": "images/bloc_absorbant_3.png"
 }

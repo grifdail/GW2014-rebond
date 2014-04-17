@@ -37,6 +37,9 @@ define(["game/functions/add_event_capabilities",
             game.playersEngine.create(game,200,800,"yellow");
         game.startState("game");
     }
+    Game.prototype.startGameNo = function(){
+        this.startGame([true, true, true , true]);
+    }
 
     Game.prototype.addBackground = function(render,file, x, y, width, height) {
         var background = {};
