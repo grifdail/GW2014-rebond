@@ -39,10 +39,8 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 			wall.color = "rgba(0,0,0,0)";
 			var that = wall;
 			// collisionEngine.addHitbox(wall, x, y, width, height);
-			if (image){
+			if (image)
 				wall.image = image;
-				collisionEngine.addHitbox(wall, "circle", 0,0, 96,96);
-			}
 						collisionEngine.addElement(wall, "fittingOut");
 
 			wall.reaction = function(target, collisionPoint){

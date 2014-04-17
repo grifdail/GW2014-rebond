@@ -54,7 +54,6 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         collisionEngine.addGroup("wall", ["bullet"]);
 
         game.fittingOutEngine = new FittingOutEngine();
-        console.log(game.canvas.bullets);
         game.fittingOutEngine.init(game.canvas.bullets);
 
         game.particleEngine = new ParticleEngine();
