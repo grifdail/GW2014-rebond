@@ -1,6 +1,13 @@
-define(["libs/utils"], function (utils){
+define(["libs/utils","eventBus"], function (utils,eventBus){
 	var Renderer = function(){
 		this.frameIndex = 0;
+		var that = this;
+		eventBus.on("screenShake",function(e) {
+			that.screenShake(e.timing, e.strength)
+		});
+		eventBus.on("play explosion",function() {
+			that.screenShake(10,10);
+		})
 	}
 	Renderer.prototype.content = {};
 	Renderer.prototype.canvas = {};

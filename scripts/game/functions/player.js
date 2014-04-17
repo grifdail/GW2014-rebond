@@ -30,7 +30,7 @@ define([
         this.respawTime=-1;
         this.gamepadController = GamepadController(pad || 0,4);
         this.physicControler = PhysicControler(0.70);
-        this.shoot = ShootController(game,10,15);
+        this.shoot = ShootController(game,20,15);
         this.canDie = 0;
 
         this.sprite = game.renderEngine.getSprite("tank_"+color,"stay");
