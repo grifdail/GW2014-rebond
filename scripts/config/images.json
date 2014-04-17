@@ -23,5 +23,14 @@
     "coqLonelBlack":   "images/coqLonelBlack.png",
     "start_to_join":   "images/start_to_join.png",
     "start_to_leave":   "images/start_to_leave.png",
-    "start_to_play":   "images/start_to_play.png"
+    "start_to_play":   "images/start_to_play.png",
+    "interface_blue":   "images/interface_blue.png",
+    "interface_green":   "images/interface_green.png",
+    "interface_red":   "images/interface_red.png",
+    "interface_yellow":   "images/interface_yellow.png",
+    "lives_blue":  "images/lives_blue.png",
+    "lives_green":  "images/lives_green.png",
+    "lives_red":  "images/lives_red.png",
+    "lives_yellow":  "images/lives_yellow.png",
+    "center_logo": "images/LOGO_ingame_centre.png"
 }
