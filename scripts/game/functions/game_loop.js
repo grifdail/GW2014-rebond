@@ -1,4 +1,4 @@
-define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","game/functions/deltatime"], function (RAF, Game, gamepad, collisionEngine,deltatime){
+define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","game/functions/deltatime", "game/functions/drawGUI"], function (RAF, Game, gamepad, collisionEngine,deltatime, drawGUI){
 
     function gameLoop (){
         if(Game.state == "game"){
@@ -18,6 +18,7 @@ define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","ga
         Game.playersEngine.calcul(dt);
         Game.renderEngine.render(dt);
         Game.particleEngine.calcul(dt);
+        drawGUI();
 
         //collisionEngine.render(Game.canvas.debug.context);
         // Game.canvas.debug.context.fillRect(0, 0, 1920, 1080);

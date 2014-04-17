@@ -13,7 +13,6 @@ define(["eventBus"], function(eventBus){
     }
 
     function bulletWallCollision (wall, collisionPoint){
-
         if(collisionPoint.x === wall.pos.x || collisionPoint.x === wall.pos.x + wall.width){
             this.vel.x = -this.vel.x;
         }
