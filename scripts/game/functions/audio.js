@@ -23,6 +23,8 @@ define(["eventBus","libs/howler"], function(eventBus){
             "commentary11":createAudio("audio/COMMENTAIRES/commentaire13.ogg"),
             "commentary12":createAudio("audio/COMMENTAIRES/commentaire14.ogg"),
             "commentary13":createAudio("audio/COMMENTAIRES/commentaire15.ogg"),
+            "musicGame":createAudio("audio/musiques/MUSIQUE DE LA PARTIE.ogg"),
+            "musicMenu":createAudio("audio/musiques/MUSIQUE ECRAN TITRE+selectiondeperso.ogg"),
         };
 
         eventBus.on("play explosion",function() {
@@ -31,6 +33,19 @@ define(["eventBus","libs/howler"], function(eventBus){
 
         eventBus.on("play sound",function(e) {
             sounds[e.sound].play();
+        });
+
+        var music = null;
+        eventBus.on("play music",function(e) {
+            if (e.sound === music) {
+                return;
+            }
+            if (music) {
+               sounds[music].fadeOut(0,1000) 
+            }
+            sounds[e.sound].loop = true;
+            sounds[e.sound].fadeIn(1,1000);
+            music = e.sound;
         });
 
         eventBus.on("play death commentary",function() {
