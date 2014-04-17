@@ -50,6 +50,7 @@ define([
                 x:this.pos.x+this.width*0.5,
                 y:this.pos.y+this.height*0.5
             });
+             eventBus.emit("play death commentary");
             this.pos.x = this.spawn.x;
             this.pos.y = this.spawn.y;
             this.actife = false;

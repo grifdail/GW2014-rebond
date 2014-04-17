@@ -26,6 +26,7 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
                 }
             }else{
                 if(gamepad.gamepads[0].state.FACE_1 != 0){
+                    console.log("hello");
                     this.joueur1StartUp = false;
                     if(this.pages[this.activePage].activeElement.callback)
                         this.pages[this.activePage].activeElement.callback();
@@ -117,7 +118,7 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
             if(joueursOk[i])
                 okNb++;
         }
-        if(okNb >= 2)
+        //if(okNb >= 2)
             Game.startGame(joueursOk);
     }
 
