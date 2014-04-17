@@ -13,6 +13,13 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
     }
 
     function bulletWallCollision (wall, collisionPoint){
+        console.log(wall.width + " : " + wall.height + " :" + wall.pos);
+        console.log(this.width + " : " + this.height + " :" + this.pos);
+        if (this.pos.x > wall.pos.x && this.pos.x + this.width < wall.pos.x + wall.width && this.pos.y > wall.y && this.pos.y + this.height < wall.pos.y + wall.height){
+            console.log("je doit moyrir");
+            this.lifetime = -20;
+        }
+
         if(collisionPoint.x === wall.pos.x || collisionPoint.x === wall.pos.x + wall.width){
             this.vel.x = -this.vel.x;
         }
