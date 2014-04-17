@@ -1,8 +1,8 @@
 define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite", "game/functions/button", "game/functions/renderEngine",
         "game/functions/bulletsEngine", "game/functions/player_manager","game/functions/basicObject", "game/functions/fittingOutEngine", "game/functions/player_manager",
-        "game/functions/particleEngine", "game/functions/evenbus"],
+        "game/functions/particleEngine", "eventBus"],
  function (game, menu, Page, Sprite, Button, RenderEngine, BulletsEngine, PlayerEngine, basicObject, FittingOutEngine,
- 	playersEngine, ParticleEngine, evenbus){
+ 	playersEngine, ParticleEngine, eventBus){
 
 	function init (){
         game.frame = 0;
@@ -68,24 +68,22 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 		
 		var playerSelectPage = new Page("playerSelect");
 		var bgSelect = new Sprite({name : "bg",x: 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["selectBg"], context : game.canvas.background.context});
-        var perso1 = new Sprite({name : "perso1", x : 0, y : 200, width : 480, height : 600, image : game.renderEngine.images["bicCoc"], context : game.canvas.background.context});
-        var perso1btn = new Button({name : "perso1btn", x : 200, y : 600, width : 200, height : 100, image : game.renderEngine.images["start_to_play"], overImage : game.renderEngine.images["start_to_play"], context : game.canvas.background.context, callback : function(){menu.bulbizarre();}});
-        var perso2 = new Button({name : "perso2", x : 480, y : 200, width : 480, height : 600, image : game.renderEngine.images["coqLonelBlack"], overImage : game.renderEngine.images["coqLonel"], context : game.canvas.background.context});
-		var perso2btn = new Button({name : "perso2btn", x : 640, y : 600, width : 200, height : 100, image : game.renderEngine.images["start_to_join"], overImage : game.renderEngine.images["start_to_leave"], context : game.canvas.background.context});
-        var perso3 = new Button({name : "perso3", x : 960, y : 200, width : 480, height : 600, image : game.renderEngine.images["coqLonelBlack"], overImage : game.renderEngine.images["coqLonel"], context : game.canvas.background.context});
-        var perso3btn = new Button({name : "perso3btn", x : 1150, y : 600, width : 200, height : 100, image : game.renderEngine.images["start_to_join"], overImage : game.renderEngine.images["start_to_leave"], context : game.canvas.background.context});
-        var perso4 = new Button({name : "perso4", x : 1440, y : 200, width : 480, height : 600, image : game.renderEngine.images["coqLonelBlack"], overImage : game.renderEngine.images["coqLonel"], context : game.canvas.background.context});
-        var perso4btn = new Button({name : "perso4btn", x : 1600, y : 600, width : 200, height : 100, image : game.renderEngine.images["start_to_join"], overImage : game.renderEngine.images["start_to_leave"], context : game.canvas.background.context});
+        var perso1 = new Sprite({name : "perso1", x : 120, y : 200, width : 400, height : 550, image : game.renderEngine.images["blue_1"], context : game.canvas.background.context});
+        var perso2 = new Button({name : "perso2", x : 500, y : 200, width : 400, height : 550, image : game.renderEngine.images["red_0"], overImage : game.renderEngine.images["red_1"], context : game.canvas.background.context});
+		var perso3 = new Button({name : "perso3", x : 900, y : 200, width : 400, height : 550, image : game.renderEngine.images["yellow_0"], overImage : game.renderEngine.images["yellow_1"], context : game.canvas.background.context});
+        var perso4 = new Button({name : "perso4", x : 1300, y : 200, width : 400, height : 550, image : game.renderEngine.images["green_0"], overImage : game.renderEngine.images["green_1"], context : game.canvas.background.context});
+        var playGame = new Button({name : "Game", x : 750, y : 800, width : 400, height : 120, image : game.renderEngine.images["play_0"], overImage : game.renderEngine.images["play_1"], context : game.canvas.background.context, callback : function (){menu.bulbizarre();}});
+        var backToTitle = new Button({name : "backToTitle", x : 750, y : 920, width : 400, height : 120, image : game.renderEngine.images["back_0"], overImage : game.renderEngine.images["back_1"], context : game.canvas.background.context, callback : function (){menu.abra()}});
+        backToTitle.up = playGame;
+        playGame.down = backToTitle;
         playerSelectPage.addElement(bgSelect)
         playerSelectPage.addElement(perso1);
-        playerSelectPage.addElement(perso1btn);
         playerSelectPage.addElement(perso2);
-        playerSelectPage.addElement(perso2btn);
         playerSelectPage.addElement(perso3);
-        playerSelectPage.addElement(perso3btn);
         playerSelectPage.addElement(perso4);
-        playerSelectPage.addElement(perso4btn);
-        playerSelectPage.SetActiveElement(perso1btn);
+        playerSelectPage.addElement(backToTitle);
+        playerSelectPage.addElement(playGame);
+        playerSelectPage.SetActiveElement(backToTitle);
 		menu.addPage(playerSelectPage);
 
         var winPage = new Page("winPage");
@@ -103,7 +101,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         winPage.addElement(returnToMenu);
         winPage.SetActiveElement(replay);
         menu.addPage(winPage);
-        evenbus.on("gameOver", function (color){this.activePage = "winPage"; game.startState("menu");}, this)
+        eventBus.on("gameOver", function (color){this.activePage = "winPage"; game.startState("menu");}, this)
 
 		menu.activePage = "pressStartPage";
 		game.startState("menu");

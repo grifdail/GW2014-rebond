@@ -10,6 +10,7 @@ define(["eventBus"], function(eventBus){
                 var ny = this.pos.y+this.radius+Math.sin(fn.rotation)*75-5;
                 game.bulletsEngine.create(nx, ny, 20, fn.rotation, speed, this.color);
                 this.canon.sprite.changeAnimation("shoot");
+                eventBus.emit("play sound",{sound:"tir"});
                 eventBus.emit("play particle douille", {
                     x:this.pos.x + this.width/2,
                     y:this.pos.y + this.height/2,

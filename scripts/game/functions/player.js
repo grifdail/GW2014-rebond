@@ -58,10 +58,10 @@ define([
                 this.respawTime = 150;
             } else {
                 this.respawTime = NaN; //Ok this is bad !
-                eventBus.emit("player out of life",this);
+                this.emit("out of life",this);
                 
             }
-            
+        
             
         });
     }

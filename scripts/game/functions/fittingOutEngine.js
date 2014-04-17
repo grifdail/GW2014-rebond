@@ -17,7 +17,7 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 		this.create(482,697, "wall", 96, 96, "bloc_rebond");
 		this.create(1342,257, "wall", 96, 96, "bloc_rebond");
 		this.create(1342,697, "wall", 96, 96, "bloc_rebond");
-		this.create(900, 500, "magneti", 128, 128, "gravity");
+		//this.create(900, 500, "magneti", 128, 128, "gravity");
 
 		// this.create(700, 700, "wall", 100, 100);
 

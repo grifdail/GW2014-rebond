@@ -90,7 +90,7 @@ define(["eventBus"], function(eventBus){
                 y: this.pos.y+this.height/2,
                 color:player.color
             });
-
+            eventBus.emit("play sound",{sound:"change_color"});
             this.image = "bullet_" + player.color;
             this.color = player.color;
             this.hurtfull = 3;
