@@ -1,4 +1,4 @@
-define(["game/functions/particleEngine"], function(ParticleEngine){
+define(["eventBus"], function(eventBus){
 
     function bulletCollision (other, collisionPoint){
         if(other.radius !== undefined){
@@ -82,8 +82,11 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
             player.emit("die", this);
         }
         else{
-            var getParticleEngine = new ParticleEngine();
-            getParticleEngine.evoli(this.pos.x + this.width/2, this.pos.y+this.height/2, player.color);
+            eventBus.emit("play collision player-bullet", {
+                x:this.pos.x + this.width/2,
+                y: this.pos.y+this.height/2,
+                color:player.color
+            });
 
             this.image = "bullet_" + player.color;
             this.color = player.color;

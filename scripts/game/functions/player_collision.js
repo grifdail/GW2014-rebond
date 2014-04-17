@@ -1,4 +1,4 @@
-define(["game/functions/particleEngine"], function(ParticleEngine){
+define(["eventBus"], function(eventBus){
 
     var CHANGE_CONTROLLE = false;
 
@@ -13,7 +13,6 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
     }
 
     function playerPlayerColision (other, collisionPoint){
-        var getParticleEngine = new ParticleEngine();
         var tmpvel = this.vel;
         if(!this.bumped){
             this.vel = other.vel;
@@ -66,8 +65,10 @@ define(["game/functions/particleEngine"], function(ParticleEngine){
             var centerY = this.pos.y + this.height/2;
             var offsetY = ((other.pos.y + other.height/2) - centerY)/2;
 
-            getParticleEngine.choc(centerX + offsetX,centerY + offsetY);
-
+            eventBus.emit("play collision particle", {
+                x:centerX + offsetX,
+                y:centerY + offsetY,
+            });
         }
     }
     function speedCircleCollision (a,b){

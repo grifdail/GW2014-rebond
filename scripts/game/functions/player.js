@@ -5,8 +5,9 @@ define([
        "game/functions/shoot_controller",
        "game/functions/player_collision",
        "game/functions/player_out_of_bound",
-       "collisionEngine"
-       ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, playerOutOfBound, collisionEngine) {
+       "collisionEngine",
+       "eventBus"
+       ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, playerOutOfBound, collisionEngine,eventBus) {
     "use strict";
     
         var border = {x: 0, y : 0, width : 1920, height : 1020, name : "border"}
@@ -27,9 +28,9 @@ define([
         this.rotationAsVec = true;
         this.life = 9;
         this.respawTime=-1;
-        this.gamepadController = GamepadController(pad || 0,5);
+        this.gamepadController = GamepadController(pad || 0,4);
         this.physicControler = PhysicControler(0.70);
-        this.shoot = ShootController(game,10);
+        this.shoot = ShootController(game,10,15);
         this.canDie = 0;
 
         this.sprite = game.renderEngine.getSprite("tank_"+color,"stay");
@@ -45,6 +46,10 @@ define([
             if (this.canDie>0) {
                 return;
             }
+            eventBus.emit("play explosion",{
+                x:this.pos.x+this.width*0.5,
+                y:this.pos.y+this.height*0.5
+            });
             this.pos.x = this.spawn.x;
             this.pos.y = this.spawn.y;
             this.actife = false;
@@ -52,8 +57,9 @@ define([
             if (this.life>0) {
                 this.respawTime = 150;
             } else {
-                this.respawTime = NaN
-                game.emit("player out of life",this);
+                this.respawTime = NaN; //Ok this is bad !
+                eventBus.emit("player out of life",this);
+                
             }
             
             
@@ -79,7 +85,7 @@ define([
                 this.canon.rotation = this.shoot.rotation;
             } else {
                 this.actife = true;
-                this.canDie = 30
+                this.canDie = 60
             }
         }
         

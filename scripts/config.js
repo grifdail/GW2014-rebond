@@ -10,6 +10,7 @@ require.config({
 		"init"					: "game/functions/init",
 		"gameLoop"				: "game/functions/game_loop",
 		"menuLoop"				: "game/functions/menu_loop",
+		"eventBus"				: "game/functions/eventbus"
 	},
 	shim: {
 		'socketio': {
