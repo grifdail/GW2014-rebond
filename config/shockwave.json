@@ -1,0 +1,4 @@
+{
+    "l1" : {"nbAnimation" : 5, "fps" : 1, "loop" : -1, "width" : 512, "height" : 512, "row":0, "finish":"l2"},
+    "l2" : {"nbAnimation" : 5, "fps" : 1, "loop" : -1, "width" : 512, "height" : 512, "row":1}
+}
