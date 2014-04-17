@@ -13,7 +13,7 @@ define(["eventBus"], function(eventBus){
     }
 
     function bulletWallCollision (wall, collisionPoint){
-        if (wall.tag == "magneti"){
+        if (wall.tag == "magnetiRange"){
             var speed = (this.vel.x != 0) ? this.vel.x / Math.cos(Math.atan2(this.vel.y, this.vel.x)) : this.vel.y;
             var angleBullet = Math.atan2(this.vel.y, this.vel.x);
             angleBullet = (angleBullet < 0) ? (Math.PI + angleBullet) + Math.PI : angleBullet;
@@ -21,9 +21,10 @@ define(["eventBus"], function(eventBus){
             angleToGravity = (angleToGravity < 0) ? (Math.PI + angleToGravity) + Math.PI : angleToGravity;
 
             var difference = angleBullet - angleToGravity; 
+
             if (Math.abs(difference) > Math.PI){
                 if (angleBullet < Math.PI)
-                    difference = angleBullet - (Math.atan2(wall.pos.y - this.y, wall.pos.x - this.x));
+                    difference = angleBullet - (Math.atan2(wall.pos.y - this.pos.y, wall.pos.x - this.pos.x));
                 else
                     difference  =angleBullet - (angleToGravity+Math.PI*2);          
             }   
@@ -31,6 +32,8 @@ define(["eventBus"], function(eventBus){
 
             this.vel.x = Math.cos(newDirection) * speed;
             this.vel.y = Math.sin(newDirection) * speed;
+
+
         }
         else if(collisionPoint.x === wall.pos.x || collisionPoint.x === wall.pos.x + wall.width){
             this.vel.x = -this.vel.x;

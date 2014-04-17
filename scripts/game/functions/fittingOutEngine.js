@@ -70,16 +70,25 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 			var magneti = {};
 			basicObject.rect(magneti, x, y, width, height);
 			magneti.color = "rgba(0,255,0,1)";
-			magneti.tag = "magneti";
-			var that = magneti;
+			magneti.tag = "magnetiAsset";
+			collisionEngine.addElement(magneti, "fittingOut");
+
+
 			// collisionEngine.addHitbox(magneti, x, y, width, height);
 			// magneti.image = image; 
-			collisionEngine.addHitbox(magneti, "circle", 0, 0, width, height);
-			magneti.hitbox[0].radius = 500;
+
+			magneti.range = {};
+			basicObject.rect(magneti.range, x+width/2, y+width/2, 0, 0);
+			magneti.range.tag = "magnetiRange"
+
+			collisionEngine.addHitbox(magneti.range, "circle", 0, 0, width, height);
+			magneti.range.hitbox[0].radius = 500;
 			// magneti.hitbox[0].radius = 500;
 			// magneti.hitbox[0].offsetX = x + width/2 - rayon/2
-			console.log(magneti.hitbox);
-			collisionEngine.addElement(magneti, "fittingOut");
+			collisionEngine.addElement(magneti.range, "fittingOut");
+			magneti.range.reaction = function(){
+
+			}
 
 			magneti.reaction = function(target, collisionPoint){
 				if(collisionPoint){
