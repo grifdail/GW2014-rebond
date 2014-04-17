@@ -18,7 +18,7 @@ define(["game/functions/add_event_capabilities",
 
         this.instance = this;
         loadSound(function() {
-            
+
         });
     }
 
@@ -57,12 +57,6 @@ define(["game/functions/add_event_capabilities",
 
     var game = new Game();  
     loadRessource(game); 
-
-    addEventCapabilities(game);
-
-    game.on("players death")
-
-
 
     window.pGame = game;
 
