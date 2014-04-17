@@ -64,8 +64,12 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 
 		var pressStartPage = new Page("pressStartPage");
 		var bg = new Sprite({name : "bg",x : 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["rampage_rooster"], context : game.canvas.menu.context});
-		var pressStart = new Button({name : "pressStart",x : 750, y : 800, width : 400, height : 200, image : game.renderEngine.images["press_start"], overImage : game.renderEngine.images["press_start_over"], context : game.canvas.menu.context})
-		pressStartPage.addElement(bg);
+        var pressStart = new Button({name : "pressStart",x : 72, y : 800, width : 1776, height : 207, image : game.renderEngine.images["playTitle_0"], overImage : game.renderEngine.images["playTitle_1"], context : game.canvas.menu.context});
+		var credits = new Button({name : "credits",x : 72, y : 900, width : 1776, height : 207, image : game.renderEngine.images["credits_0"], overImage : game.renderEngine.images["credits_1"], context : game.canvas.menu.context});
+        credits.up = pressStart;
+        pressStart.down = credits;
+        pressStartPage.addElement(bg);
+		pressStartPage.addElement(credits);
 		pressStartPage.addElement(pressStart);
 		pressStart.callback = function(){menu.activePage = "playerSelect";};
 		pressStartPage.SetActiveElement(pressStart);
