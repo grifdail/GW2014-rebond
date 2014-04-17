@@ -111,7 +111,14 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
     }
 
     MenuController.prototype.bulbizarre = function (){
-        Game.startGame([this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK]);
+        var joueursOk = [this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK];
+        var okNb = 0;
+        for(var i = 0; i < joueursOk.length; i++){
+            if(joueursOk[i])
+                okNb++;
+        }
+        if(okNb >= 2)
+            Game.startGame(joueursOk);
     }
 
     MenuController.prototype.mimeJr = function (){
@@ -123,6 +130,11 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
         this.joueur2OK = false;
         this.joueur3OK = false;
         this.joueur4OK = false;
+        for(var elem in this.pages["playerSelect"].elements){
+            if(this.pages["playerSelect"].elements[elem].sprite){
+                this.pages["playerSelect"].elements[elem].sprite.image = this.pages["playerSelect"].elements[elem].normalImage;
+            }
+        }
         this.activePage = "pressStartPage";
     }
 
