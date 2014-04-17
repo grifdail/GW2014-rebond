@@ -69,8 +69,8 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 
 
 		var pressStartPage = new Page("pressStartPage");
-		var bg = new Sprite({x : 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["rampage_rooster"], context : game.canvas.background.context});
-		var pressStart = new Button({x : 750, y : 800, width : 400, height : 200, image : game.renderEngine.images["press_start"], overImage : game.renderEngine.images["press_start_over"], context : game.canvas.background.context})
+		var bg = new Sprite({name : "bg",x : 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["rampage_rooster"], context : game.canvas.background.context});
+		var pressStart = new Button({name : "pressStart",x : 750, y : 800, width : 400, height : 200, image : game.renderEngine.images["press_start"], overImage : game.renderEngine.images["press_start_over"], context : game.canvas.background.context})
 		pressStartPage.addElement(bg);
 		pressStartPage.addElement(pressStart);
 		pressStart.callback = function(){menu.activePage = "playerSelect";};
@@ -78,12 +78,29 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 		menu.addPage(pressStartPage);
 		
 		var playerSelectPage = new Page("playerSelect");
-		var bgSelect = new Sprite({x: 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["background"], context : game.canvas.background.context});
-		playerSelectPage.addElement(bgSelect)
+		var bgSelect = new Sprite({name : "bg",x: 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["noir"], context : game.canvas.background.context});
+        var perso1 = new Sprite({name : "perso1", x : 0, y : 200, width : 480, height : 600, image : game.renderEngine.images["bicCoc"], context : game.canvas.background.context});
+        var perso1btn = new Button({name : "perso1btn", x : 200, y : 600, width : 200, height : 100, image : game.renderEngine.images["start_to_play"], overImage : game.renderEngine.images["start_to_play"], context : game.canvas.background.context, callback : function(){menu.bulbizarre();}});
+        var perso2 = new Button({name : "perso2", x : 480, y : 200, width : 480, height : 600, image : game.renderEngine.images["coqLonelBlack"], overImage : game.renderEngine.images["coqLonel"], context : game.canvas.background.context});
+		var perso2btn = new Button({name : "perso2btn", x : 640, y : 600, width : 200, height : 100, image : game.renderEngine.images["start_to_join"], overImage : game.renderEngine.images["start_to_leave"], context : game.canvas.background.context});
+        var perso3 = new Button({name : "perso3", x : 960, y : 200, width : 480, height : 600, image : game.renderEngine.images["coqLonelBlack"], overImage : game.renderEngine.images["coqLonel"], context : game.canvas.background.context});
+        var perso3btn = new Button({name : "perso3btn", x : 1150, y : 600, width : 200, height : 100, image : game.renderEngine.images["start_to_join"], overImage : game.renderEngine.images["start_to_leave"], context : game.canvas.background.context});
+        var perso4 = new Button({name : "perso4", x : 1440, y : 200, width : 480, height : 600, image : game.renderEngine.images["coqLonelBlack"], overImage : game.renderEngine.images["coqLonel"], context : game.canvas.background.context});
+        var perso4btn = new Button({name : "perso4btn", x : 1600, y : 600, width : 200, height : 100, image : game.renderEngine.images["start_to_join"], overImage : game.renderEngine.images["start_to_leave"], context : game.canvas.background.context});
+        playerSelectPage.addElement(bgSelect)
+        playerSelectPage.addElement(perso1);
+        playerSelectPage.addElement(perso1btn);
+        playerSelectPage.addElement(perso2);
+        playerSelectPage.addElement(perso2btn);
+        playerSelectPage.addElement(perso3);
+        playerSelectPage.addElement(perso3btn);
+        playerSelectPage.addElement(perso4);
+        playerSelectPage.addElement(perso4btn);
+        playerSelectPage.SetActiveElement(perso1btn);
 		menu.addPage(playerSelectPage);
 
 		menu.activePage = "pressStartPage";
-		game.startState("game");
+		game.startState("menu");
 	}
 	return init;
 })

@@ -1,6 +1,7 @@
 define([], function (){
 
     var MenuSprite = function(args){
+        this.name = args.name;
         this.tag = "sprite";
         this.x = args.x;
         this.y = args.y;

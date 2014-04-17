@@ -1,4 +1,4 @@
-define(["game/functions/gamepad"], function (gamepad){
+define(["game/functions/gamepad", "Game"], function (gamepad, Game){
 
     var MenuController = function (){
         this.pages = {};
@@ -26,6 +26,7 @@ define(["game/functions/gamepad"], function (gamepad){
                 }
             }else{
                 if(gamepad.gamepads[0].state.START_FORWARD != 0){
+                    this.joueur1StartUp = false;
                     if(this.pages[this.activePage].activeElement.callback)
                         this.pages[this.activePage].activeElement.callback();
                 }
@@ -59,38 +60,41 @@ define(["game/functions/gamepad"], function (gamepad){
                 }
             }
         }
-        if(gamepad.gamepads[1] && this.activePage === "playerSelect" && this.joueur2StartUp){
-            if(gamepad.gamepads[1].state.START_FORWARD !== 0){
-                joueur2StartUp = false;
-                joueur2OK = !joueur2OK;
-            }else{
-                joueur2StartUp = true;
+        if(gamepad.gamepads[1] && this.activePage === "playerSelect" ){
+            if(gamepad.gamepads[1].state.START_FORWARD !== 0 && this.joueur2StartUp){
+                this.joueur2StartUp = false;
+                this.joueur2OK = !this.joueur2OK;
+                this.pages[this.activePage].elements.perso2.metamorph(this.joueur2OK);
+                this.pages[this.activePage].elements.perso2btn.metamorph(this.joueur2OK);
+            }else if (gamepad.gamepads[1].state.START_FORWARD === 0){
+                this.joueur2StartUp = true;
             }
         }
-        if(gamepad.gamepads[2] && this.activePage === "playerSelect" && this.joueur3StartUp){
-            if(gamepad.gamepads[2].state.START_FORWARD !== 0){
-                joueur3StartUp = false;
-                joueur3OK = !joueur2OK;
-            }else{
-                joueur3StartUp = true;
+        if(gamepad.gamepads[2] && this.activePage === "playerSelect"){
+            if(gamepad.gamepads[2].state.START_FORWARD !== 0 && this.joueur3StartUp){
+                this.joueur3StartUp = false;
+                this.joueur3OK = !this.joueur2OK;
+                this.pages[this.activePage].elements.perso3.metamorph(this.joueur3OK);
+            }else if(gamepad.gamepads[2].state.START_FORWARD === 0){
+                this.joueur3StartUp = true;
             }
         }
-        if(gamepad.gamepads[3] && this.activePage === "playerSelect" && this.joueur4StartUp){
-            if(gamepad.gamepads[3].state.START_FORWARD !== 0){
-                joueur4StartUp = false;
-                joueur4OK = !joueur2OK;
-            }else{
-                joueur4StartUp = true;
+        if(gamepad.gamepads[3] && this.activePage === "playerSelect"){
+            if(gamepad.gamepads[3].state.START_FORWARD !== 0 && this.joueur4StartUp){
+                this.joueur4StartUp = false;
+                this.joueur4OK = !this.joueur2OK;
+                this.pages[this.activePage].elements.perso4.metamorph(this.joueur4OK);
+            }else if(gamepad.gamepads[3].state.START_FORWARD === 0){
+                this.joueur4StartUp = true;
             }
         }
     }
 
+    MenuController.prototype.bulbizarre = function (){
+        Game.startGame([this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK]);
+    }
 
     var menu = new MenuController();
-    console.log(gamepad);
-    // menu.gamepad.bind(Gamepad.EVENT.AXIS_CHANGED, function(e){
-    //     console.log(e);
-    // });
 
     return menu;
 
