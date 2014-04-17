@@ -41,10 +41,10 @@ define(["game/functions/add_event_capabilities",
         this.renderEngine.addGroup("test", "debug");
 
         this.renderEngine.addGroup("background", "background");
-        addBackground(this.renderEngine,"background1");
-        addBackground(this.renderEngine,"background2");
-        this.back1 = addBackground(this.renderEngine,"background3");
-        this.back2 = addBackground(this.renderEngine,"background3");
+        // addBackground(this.renderEngine,"background1",0, 0, 1920, 1080);
+        // addBackground(this.renderEngine,"background2",0, 0, 1920, 1080);
+        // this.back1 = addBackground(this.renderEngine,"background3",0, 0, 1920, 1080);
+        // this.back2 = addBackground(this.renderEngine,"background3",0, 0, 1920, 1080);
         
         this.back2.pos.x = this.back1.width;
         
@@ -67,9 +67,9 @@ define(["game/functions/add_event_capabilities",
         // this.startState("menu");
     }
 
-    Game.prototype.addBackground = function(render,file) {
+    Game.prototype.addBackground = function(render,file, x, y, width, height) {
         var background = {};
-        basicObject.rect(background, 0,0, 1920, 1080);
+        basicObject.rect(background, x, y, width, height);
         background.image = file;
         background.rotation = -Math.PI/2;
         render.addElement("background", background);
