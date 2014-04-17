@@ -86,6 +86,7 @@ define([
             } else {
                 this.actife = true;
                 this.canDie = 60
+                eventBus.emit("play particle plume",{x:this.pos.x+this.width*0.5,y:this.pos.y+this.height*0.5})
             }
         }
         
