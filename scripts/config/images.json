@@ -16,7 +16,7 @@
     "douille" : "images/douille.png",
     "rampage_rooster" : "images/rampage_rooster.jpg",
     "press_start" : "images/press_start.png",
-    "noir"  :   "images/noir.png",
+    "selectBg"  :   "images/Menu_Selection_Background.jpg",
     "bicCoc":   "images/bigCoc.png",
     "bigCocBlack":   "images/bigCocBlack.png",
     "coqLonel":   "images/coqLonel.png",

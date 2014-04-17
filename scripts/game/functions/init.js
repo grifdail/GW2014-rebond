@@ -1,8 +1,8 @@
 define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite", "game/functions/button", "game/functions/renderEngine",
         "game/functions/bulletsEngine", "game/functions/player_manager","game/functions/basicObject", "game/functions/fittingOutEngine", "game/functions/player_manager",
-        "game/functions/particleEngine"],
+        "game/functions/particleEngine", "game/functions/evenbus"],
  function (game, menu, Page, Sprite, Button, RenderEngine, BulletsEngine, PlayerEngine, basicObject, FittingOutEngine,
- 	playersEngine, ParticleEngine){
+ 	playersEngine, ParticleEngine, evenbus){
 
 	function init (){
         game.frame = 0;
@@ -67,7 +67,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 		menu.addPage(pressStartPage);
 		
 		var playerSelectPage = new Page("playerSelect");
-		var bgSelect = new Sprite({name : "bg",x: 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["noir"], context : game.canvas.background.context});
+		var bgSelect = new Sprite({name : "bg",x: 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["selectBg"], context : game.canvas.background.context});
         var perso1 = new Sprite({name : "perso1", x : 0, y : 200, width : 480, height : 600, image : game.renderEngine.images["bicCoc"], context : game.canvas.background.context});
         var perso1btn = new Button({name : "perso1btn", x : 200, y : 600, width : 200, height : 100, image : game.renderEngine.images["start_to_play"], overImage : game.renderEngine.images["start_to_play"], context : game.canvas.background.context, callback : function(){menu.bulbizarre();}});
         var perso2 = new Button({name : "perso2", x : 480, y : 200, width : 480, height : 600, image : game.renderEngine.images["coqLonelBlack"], overImage : game.renderEngine.images["coqLonel"], context : game.canvas.background.context});
@@ -89,7 +89,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 		menu.addPage(playerSelectPage);
 
         var winPage = new Page("winPage");
-        var bgWin = new Sprite({name : "bgWin", x : 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["noir"], context : game.canvas.background.context})
+        var bgWin = new Sprite({name : "bgWin", x : 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["selectBg"], context : game.canvas.background.context})
         var winnerTxt = new Sprite({name : "winnerTxt", x : 500, y : 100, width : 900, height : 150, image : game.renderEngine.images["rampage_rooster"], context : game.canvas.background.context});
         var winnerImage = new Sprite({name : "winnerImage", x : 750, y : 300, width : 300, height : 400, image : game.renderEngine.images["bicCoc"], context : game.canvas.background.context});
         var replay = new Button({name : "replay", x : 700, y : 750, width : 450, height : 100, image : game.renderEngine.images["rampage_rooster"], overImage : game.renderEngine.images["coqLonel"], callback : function(){menu.mimeJr();}, context : game.canvas.background.context});
@@ -103,6 +103,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         winPage.addElement(returnToMenu);
         winPage.SetActiveElement(replay);
         menu.addPage(winPage);
+        evenbus.on("gameOver", function (color){this.activePage = "winPage"; game.startState("menu");}, this)
 
 		menu.activePage = "pressStartPage";
 		game.startState("menu");
