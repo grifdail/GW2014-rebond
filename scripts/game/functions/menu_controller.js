@@ -73,7 +73,7 @@ define(["game/functions/gamepad", "Game"], function (gamepad, Game){
         if(gamepad.gamepads[2] && this.activePage === "playerSelect"){
             if(gamepad.gamepads[2].state.START_FORWARD !== 0 && this.joueur3StartUp){
                 this.joueur3StartUp = false;
-                this.joueur3OK = !this.joueur2OK;
+                this.joueur3OK = !this.joueur3OK;
                 this.pages[this.activePage].elements.perso3.metamorph(this.joueur3OK);
             }else if(gamepad.gamepads[2].state.START_FORWARD === 0){
                 this.joueur3StartUp = true;
@@ -82,7 +82,7 @@ define(["game/functions/gamepad", "Game"], function (gamepad, Game){
         if(gamepad.gamepads[3] && this.activePage === "playerSelect"){
             if(gamepad.gamepads[3].state.START_FORWARD !== 0 && this.joueur4StartUp){
                 this.joueur4StartUp = false;
-                this.joueur4OK = !this.joueur2OK;
+                this.joueur4OK = !this.joueur4OK;
                 this.pages[this.activePage].elements.perso4.metamorph(this.joueur4OK);
             }else if(gamepad.gamepads[3].state.START_FORWARD === 0){
                 this.joueur4StartUp = true;
@@ -92,6 +92,18 @@ define(["game/functions/gamepad", "Game"], function (gamepad, Game){
 
     MenuController.prototype.bulbizarre = function (){
         Game.startGame([this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK]);
+    }
+
+    MenuController.prototype.mimeJr = function (){
+        Game.startGame([this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK]);
+    }
+
+    MenuController.prototype.abra = function (){
+        this.joueur1OK = true;
+        this.joueur2OK = false;
+        this.joueur3OK = false;
+        this.joueur4OK = false;
+        this.activePage = "playerSelect";
     }
 
     var menu = new MenuController();
