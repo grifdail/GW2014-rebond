@@ -36,11 +36,12 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 			self.hurtfull-=dt;
 			if (self.lifetime<=0) {
 				self.actife = false;
-				this.content.splice(i,1);
 				this.renderEngine.removeElement("bullets", self);
-				CollisionEngine.removeElement(self, "bullets");
-				i--;
-				continue;
+				collisionEngine.group.bullets.content.splice(i, 1)
+				// CollisionEngine.removeElement(self, "bullets");
+				// console.log(CollisionEngine);
+				this.content.splice(i,1);
+ 				continue;
 			}
 			self.transformationTime-=dt;
 			self.pos.x += self.vel.x*dt;
