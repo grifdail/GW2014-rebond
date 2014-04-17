@@ -68,7 +68,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 		
 		var playerSelectPage = new Page("playerSelect");
 		var bgSelect = new Sprite({name : "bg",x: 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["selectBg"], context : game.canvas.background.context});
-        var perso1 = new Sprite({name : "perso1", x : 120, y : 200, width : 400, height : 550, image : game.renderEngine.images["blue_1"], context : game.canvas.background.context});
+        var perso1 = new Button({name : "perso1", x : 120, y : 200, width : 400, height : 550, image : game.renderEngine.images["blue_0"], overImage : game.renderEngine.images["blue_1"], context : game.canvas.background.context});
         var perso2 = new Button({name : "perso2", x : 500, y : 200, width : 400, height : 550, image : game.renderEngine.images["red_0"], overImage : game.renderEngine.images["red_1"], context : game.canvas.background.context});
 		var perso3 = new Button({name : "perso3", x : 900, y : 200, width : 400, height : 550, image : game.renderEngine.images["yellow_0"], overImage : game.renderEngine.images["yellow_1"], context : game.canvas.background.context});
         var perso4 = new Button({name : "perso4", x : 1300, y : 200, width : 400, height : 550, image : game.renderEngine.images["green_0"], overImage : game.renderEngine.images["green_1"], context : game.canvas.background.context});

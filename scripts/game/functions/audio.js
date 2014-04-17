@@ -6,6 +6,10 @@ define(["eventBus","libs/howler"], function(eventBus){
             "explosion":createAudio("audio/EXPLOSION.ogg"),
             "tir":createAudio("audio/TIR.ogg"),
             "change_color":createAudio("audio/color_change.ogg"),
+            "perso_blue":createAudio("audio/SOUND_SELECTION_BLEU.ogg"),
+            "perso_red":createAudio("audio/SOUND_SELECTION_ROUGE.ogg"),
+            "perso_yellow":createAudio("audio/SOUND_SELECTION_JAUNE.ogg"),
+            "perso_green":createAudio("audio/SOUND_SELECTION_VERT.ogg")
         };
 
         eventBus.on("play explosion",function() {
