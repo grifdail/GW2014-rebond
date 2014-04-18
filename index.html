@@ -7,11 +7,10 @@
   <body>
   	<script>
   		var nbImage = 0;
-  		var totalImage = 63;
+  		var totalImage = 62;
   		function changeLoader(){
   			var nb = (nbImage/totalImage*100)|0;
-  			console.log(nbImage);
-  			if (nb <= 100)
+  			if (nb < 100)
 	  			document.getElementById("chargement").innerHTML = "Chargement <br />"+ nb+"%";
 	  		else
 	  			document.getElementById("chargement").innerHTML = "";
