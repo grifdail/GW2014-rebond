@@ -49,7 +49,7 @@ define(["eventBus","libs/howler"], function(eventBus){
         });
 
         eventBus.on("play death commentary",function() {
-            if (Math.random()>0.5) {
+            if (Math.random()>0.33) {
                 return
             };
             var m = Math.floor(Math.random()*13+1);

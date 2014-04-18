@@ -9,6 +9,8 @@ define(["RAF", "Game", "Menu", "game/functions/deltatime", "game/functions/drawG
         Game.renderEngine.render(dt);
         menu.pages[menu.activePage].draw();
         menu.control();
+
+        renderEngine.render();
     }
 
     Game.states["menu"] = menuLoop;
