@@ -43,7 +43,7 @@ define(["eventBus","libs/howler"], function(eventBus){
             if (music) {
                sounds[music].fadeOut(0,1000) 
             }
-            sounds[e.sound].loop = true;
+            sounds[e.sound].loop(true);
             sounds[e.sound].fadeIn(1,1000);
             music = e.sound;
         });
