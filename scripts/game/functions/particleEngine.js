@@ -109,7 +109,7 @@ define(["game/functions/renderEngine", "game/functions/basicObject", "eventBus"]
 				this.vel.x *= 0.7;
 				this.vel.y *= 0.7;
 			}
-			var p = this.addParticle(20,x, y, 64, 64, Math.random()*Math.PI*2, 35,"image", "plume", null, rollback);
+			var p = this.addParticle(20,x, y, 32, 32, Math.random()*Math.PI*2, 35,"image", "plume", null, rollback);
 			p.axe = Math.random()*0.5-0.25;
 
 		}
