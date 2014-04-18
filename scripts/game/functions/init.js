@@ -65,7 +65,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 		var pressStartPage = new Page("pressStartPage");
 		var bg = new Sprite({name : "bg",x : 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["rampage_rooster"], context : game.canvas.menu.context});
         var pressStart = new Button({name : "pressStart",x : 72, y : 800, width : 1776, height : 207, image : game.renderEngine.images["playTitle_0"], overImage : game.renderEngine.images["playTitle_1"], context : game.canvas.menu.context});
-		var credits = new Button({name : "credits",x : 72, y : 900, width : 1776, height : 207, image : game.renderEngine.images["credits_0"], overImage : game.renderEngine.images["credits_1"], context : game.canvas.menu.context});
+		var credits = new Button({name : "credits",x : 72, y : 900, width : 1776, height : 207, image : game.renderEngine.images["credits_0"], overImage : game.renderEngine.images["credits_1"], context : game.canvas.menu.context, callback : function(){menu.activePage = "credits";}});
         credits.up = pressStart;
         pressStart.down = credits;
         pressStartPage.addElement(bg);
@@ -106,6 +106,14 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         winPage.addElement(returnToMenu);
         winPage.SetActiveElement(replay);
         menu.addPage(winPage);
+
+        var creditsPage = new Page("credits");
+        var creditsBg = new Sprite({name : "creditsBg", x : 0, y : 0, width : 1920, height : 1080, image : game.renderEngine.images["menu_credits"], context : game.canvas.menu.context});
+        var returnToMenu2 = new Button({name : "backToTitle", x : 750, y : 920, width : 400, height : 120, image : game.renderEngine.images["back_0"], overImage : game.renderEngine.images["back_1"], context : game.canvas.menu.context, callback : function (){menu.back()}});
+        creditsPage.addElement(creditsBg);
+        creditsPage.addElement(returnToMenu2);
+        creditsPage.SetActiveElement(returnToMenu2);
+        menu.addPage(creditsPage);
 
         var pausePage = new Page("pause");
         var pauseBg = new Sprite({name : "pauseBg", x : 0, y: 0, width : 1920, height : 1080, image : game.renderEngine.images["menu_pause"], context : game.canvas.menu.context});

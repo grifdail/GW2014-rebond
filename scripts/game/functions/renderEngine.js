@@ -16,6 +16,13 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		this.bufferFloor.height = 1080;
 
 	}
+	Renderer.prototype.clean = function() {
+		for (var key in this.canvas){
+			this.canvas[key].context.clearRect(0,0,this.canvas[key].width,this.canvas[key].height);	
+		}
+		this.screenShakeDuration = 0;
+	};
+
 	Renderer.prototype.content = {};
 	Renderer.prototype.canvas = {};
 	Renderer.prototype.screenShakeStrength = 0;
@@ -48,9 +55,10 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		this.sprites[name] = object;
 
 	}
-	Renderer.prototype.sprite = function(){
 
-	}
+
+
+	Renderer.prototype.sprite = function(){}
 	
 	Renderer.prototype.drawOnce = function(key,img,x,y,center,rotation) {
 		

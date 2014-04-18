@@ -14,7 +14,7 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
     PlayerEngine.prototype.create = function(game,x, y,color){
         var player = new Player(game,this.content.length,color,x,y);
         player.maxVel = 12;
-        player.life = 10;
+        player.life = 9;
         this.content.push(player);
         this.renderEngine.addElement("players", player);
         // collisionEngine.addElement(player, "players");
@@ -41,6 +41,17 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
         // else
         //     console.log("COllision entre fittingOut et opponent failed");
     }
+
+    PlayerEngine.prototype.clean = function(){
+        console.log(this)
+        for (var i = this.content.length - 1; i >= 0; i--) {
+            var player = this.content[i];
+            this.renderEngine.removeElement("players", player);
+            collisionEngine.removeElement(player,"players");
+            this.content.splice(i,1);
+        };
+    }
+
     PlayerEngine.prototype.calcul = function(dt){
         for (var i = this.content.length - 1; i >= 0; i--) {
             this.content[i].update(dt);

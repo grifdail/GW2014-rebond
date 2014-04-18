@@ -52,6 +52,14 @@ define(["game/functions/renderEngine", "game/functions/basicObject", "eventBus"]
 		this.renderer.addElement("particles", particle);
 		return particle;
 	}
+	ParticleEngine.prototype.clean = function(){
+		for (var i = this.content.length - 1; i >= 0; i--) {
+            var player = this.content[i];
+            this.renderer.removeElement("particles", player);
+            this.content.splice(i,1);
+        };
+	}
+
 	ParticleEngine.prototype.basicExplode = function(x, y){
 		var index = this.content.length-1;
 		this.addParticle(index, 30, x, y, 100, 100, 0,0,null);
