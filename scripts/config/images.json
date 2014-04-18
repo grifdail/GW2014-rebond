@@ -54,5 +54,6 @@
     "playTitle_0": "images/PlayTitle_0.png",
     "menu_pause": "images/menu_pause.png",
     "menu_credits": "images/MenuCredits.png",
-    "background4" : "images/GW_background_3.png"
+    "background4" : "images/GW_background_3.png",
+    "bouton_menu" : "images/bouton_menu.png"
 }

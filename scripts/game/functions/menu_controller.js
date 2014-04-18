@@ -126,7 +126,7 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
             if(joueursOk[i])
                 okNb++;
         }
-        //if(okNb >= 2)
+        if(okNb >= 2)
             Game.startGame(joueursOk);
     }
 
