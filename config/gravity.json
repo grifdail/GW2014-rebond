@@ -1,0 +1,5 @@
+{
+    "compte" : {"nbAnimation" : 5, "fps" : 20, "loop" : 1, "width" : 350, "height" : 350, "x" : 0, "y" : 350, "row":1, "finish":"morceaux"},
+    "clignote" : {"nbAnimation" : 2, "fps" : 40, "loop" : -1, "width" : 350, "height" : 350, "x" : 0, "y" : 0, "row":0},
+    "morceaux" : {"nbAnimation" : 1, "fps" : 10, "loop" : -1, "width" : 350, "height" : 350, "x" : 0, "y" : 700, "row":2}
+}

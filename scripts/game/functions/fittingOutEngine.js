@@ -17,11 +17,12 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 		this.create(482,697, "wall", 96, 96, "bloc_rebond");
 		this.create(1342,257, "wall", 96, 96, "bloc_rebond");
 		this.create(1342,697, "wall", 96, 96, "bloc_rebond");
-		//this.create(900, 500, "magneti", 128, 128, "gravity");
+		// this.create(960, 540, "magneti", 128, 128, "bullet_red");
 
 		// this.create(700, 700, "wall", 100, 100);
 
 	}
+	FittingOutEngine.prototype.gravity;
 	FittingOutEngine.prototype.create = function(x, y, type, width, height, image){
 		if (type == "bumper"){
 			var bumper = {};
@@ -68,21 +69,31 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 		}	
 		else if (type == "magneti"){
 			var magneti = {};
-			basicObject.rect(magneti, x, y, width, height);
+			magneti.sprite = this.renderEngine.getSprite("gravity", "clignote");
+			basicObject.rect(magneti, x-width/2, y-width/2, width, height);
 			magneti.color = "rgba(0,255,0,1)";
 			magneti.tag = "magnetiAsset";
 			collisionEngine.addElement(magneti, "fittingOut");
 
 
 			// collisionEngine.addHitbox(magneti, x, y, width, height);
-			// magneti.image = image; 
 
 			magneti.range = {};
-			basicObject.rect(magneti.range, x+width/2, y+width/2, 0, 0);
+			basicObject.rect(magneti.range, x, y, 0, 0);
 			magneti.range.tag = "magnetiRange"
 
 			collisionEngine.addHitbox(magneti.range, "circle", 0, 0, width, height);
-			magneti.range.hitbox[0].radius = 500;
+			magneti.range.hitbox[0].radius = 0;
+			magneti.range.display = {};
+			basicObject.circle(magneti.range.display, x, y, 100);
+			// magneti.range.display.pos =L {};
+			// magneti.range.display.pos.x = x-500;
+			// magneti.range.display.pos.y = y-500;
+			// magneti.range.display.radius = 500;
+			magneti.range.display.color = "rgba(0,0,0,0.3)";
+
+
+			this.renderEngine.addElement("bullets", magneti.range.display);
 			// magneti.hitbox[0].radius = 500;
 			// magneti.hitbox[0].offsetX = x + width/2 - rayon/2
 			collisionEngine.addElement(magneti.range, "fittingOut");
@@ -111,6 +122,32 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 				}
 			}
 			this.renderEngine.addElement("fittingOut", magneti);
+			magneti.maxSafeTime = 120;
+			magneti.safeTime = 120;
+			magneti.maxGravityDuration;
+			magneti.gravityDuration = 300;
+			magneti.gravityOk = false;
+			magneti.status = "clignote";
+			magneti.haveStart = false;
+			magneti.negativeForRange = false;
+			magneti.update = function(dt){
+				this.safeTime -= dt;
+				if (this.sprite.animation != "compte" && this.safeTime < 0 && !this.haveStart){
+					this.sprite.changeAnimation("compte");
+					this.haveStart = true;
+					console.log("Je suis dans la premiere");
+				}
+				if (this.sprite.animation == "morceaux"){
+					console.log("Hi");
+					this.range.hitbox[0].radius += dt;
+					this.range.display.radius += dt;
+					this.range.display.x -= dt;
+					this.range.display.y -= dt;
+
+				}
+			}
+
+			this.gravity = magneti;
 		}
 		else
 			console.warn("Attentio tentative d'ajout d'un type de fittingOut inexistant");
