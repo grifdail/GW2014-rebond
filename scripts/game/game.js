@@ -9,8 +9,9 @@ define(["game/functions/add_event_capabilities",
         "game/functions/fittingOutEngine", 
         "game/functions/startMenu",
         "game/functions/particleEngine",
-        "game/functions/audio"],
-    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine, Menu, ParticleEngine,loadSound){
+        "game/functions/audio",
+        "eventBus"],
+    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine, Menu, ParticleEngine,loadSound, eventBus){
     var Game = function Game (){
         this.states = {};
         this.state = "";
@@ -26,20 +27,27 @@ define(["game/functions/add_event_capabilities",
         if(this.states[state] !== undefined){            
             this.state = state;
             this.states[state]();
+            if (state === "menu") {
+                eventBus.emit("play music",{sound:"musicMenu"});
+            }
+            if (state === "game") {
+                eventBus.emit("play music",{sound:"musicGame"});
+            }
         }
         //Bleu vert
     }
 
     Game.prototype.startGame = function (players){
+
         console.log(players);
         if(players[0])
             game.playersEngine.create(game,200,200,"blue");
         if(players[1])
-            game.playersEngine.create(game,1000,200,"green");
+            game.playersEngine.create(game,1000,200,"red");
         if(players[2])
-            game.playersEngine.create(game,1000,800,"red");
+            game.playersEngine.create(game,1000,800,"yellow");
         if(players[3])
-            game.playersEngine.create(game,200,800,"yellow");
+            game.playersEngine.create(game,200,800,"green");
         game.startState("game");
     }
     Game.prototype.startGameNo = function(){

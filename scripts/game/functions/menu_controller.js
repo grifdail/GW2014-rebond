@@ -1,6 +1,6 @@
 define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, eventBus){
-
     var MenuController = function (){
+        console.log(gamepad);
         this.pages = {};
         this.activePage = "";
         this.newMove = true;
@@ -26,6 +26,7 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
                 }
             }else{
                 if(gamepad.gamepads[0].state.FACE_1 != 0){
+                    console.log("hello");
                     this.joueur1StartUp = false;
                     if(this.pages[this.activePage].activeElement.callback)
                         this.pages[this.activePage].activeElement.callback();
@@ -68,6 +69,14 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
                 if(this.joueur1OK){
                     eventBus.emit("play sound", {sound : "perso_blue"});
                 }
+            }else if (gamepad.gamepads[0].state.START_FORWARD === 0 && gamepad.gamepads[0].state.FACE_1 == 0){
+                this.joueur1StartUp = true;
+            }
+        }
+        if(gamepad.gamepads[0] && this.activePage === "pause" ){
+            if((gamepad.gamepads[0].state.START_FORWARD !== 0) && this.joueur1StartUp){
+                this.joueur1StartUp = false;
+                Game.startState("game");
             }else if (gamepad.gamepads[0].state.START_FORWARD === 0 && gamepad.gamepads[0].state.FACE_1 == 0){
                 this.joueur1StartUp = true;
             }
@@ -117,7 +126,7 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
             if(joueursOk[i])
                 okNb++;
         }
-        if(okNb >= 2)
+        //if(okNb >= 2)
             Game.startGame(joueursOk);
     }
 

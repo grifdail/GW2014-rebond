@@ -4,6 +4,7 @@ define(["RAF", "Game", "Menu"], function (RAF, Game, menu){
         if(Game.state == "menu") {
             RAF(menuLoop);
         }
+        Game.renderEngine.canvas.menu.context.clearRect(0,0,1920,1080);
         menu.pages[menu.activePage].draw();
         menu.control();
     }

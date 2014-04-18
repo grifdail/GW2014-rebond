@@ -1,4 +1,4 @@
-define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","game/functions/deltatime", "game/functions/drawGUI"], function (RAF, Game, gamepad, collisionEngine,deltatime, drawGUI){
+define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","game/functions/deltatime", "game/functions/drawGUI", "Menu", "game/functions/gamepad"], function (RAF, Game, gamepad, collisionEngine,deltatime, drawGUI, menu, gp){
 
     function gameLoop (){
         if(Game.state == "game"){
@@ -12,6 +12,15 @@ define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","ga
         if (Game.frame % 60 == 0){
             //Game.particleEngine.choc(200,200);
         }
+        if(gp.gamepads[0]){
+            if((gp.gamepads[0].state.START_FORWARD !== 0) && menu.joueur1StartUp){
+                menu.joueur1StartUp = false;
+                menu.activePage = "pause";
+                Game.startState("menu");
+            }else if (gp.gamepads[0].state.START_FORWARD === 0 && gp.gamepads[0].state.FACE_1 == 0){
+                menu.joueur1StartUp = true;
+            }
+        }
 
         collisionEngine.calcul(dt);
         Game.bulletsEngine.calcul(dt);
@@ -21,8 +30,7 @@ define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","ga
         if (Game.fittingOutEngine.gravity)
             Game.fittingOutEngine.gravity.update(dt);
         drawGUI();
-
-        // collisionEngine.render(Game.canvas.debug.context);
+        //collisionEngine.render(Game.canvas.debug.context);
         // Game.canvas.debug.context.fillRect(0, 0, 1920, 1080);
     }
 

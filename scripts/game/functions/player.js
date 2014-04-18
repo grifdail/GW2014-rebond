@@ -26,7 +26,7 @@ define([
         this.rotation = 0;
         this.color = color;
         this.rotationAsVec = true;
-        this.life = 9;
+        this.life = 1;
         this.respawTime=-1;
         this.gamepadController = GamepadController(pad || 0,4);
         this.physicControler = PhysicControler(0.70);
@@ -50,6 +50,7 @@ define([
                 x:this.pos.x+this.width*0.5,
                 y:this.pos.y+this.height*0.5
             });
+             eventBus.emit("play death commentary");
             this.pos.x = this.spawn.x;
             this.pos.y = this.spawn.y;
             this.actife = false;
@@ -58,8 +59,7 @@ define([
                 this.respawTime = 150;
             } else {
                 this.respawTime = NaN; //Ok this is bad !
-                this.emit("out of life",this);
-                
+                this.emit("out of life",this);  
             }
         
             
@@ -71,6 +71,13 @@ define([
         this.canDie -= dt;
         if (this.respawTime<0) {
             if (this.actife) {
+                if (this.canDie > 0 ){
+                    if (this.canDie % 10 >= 5){
+                        this.invertDisplay = true;
+                    }
+                    else 
+                        this.invertDisplay = false;
+                }
                 this.bumped = false;
                 this.physicControler(dt);
                 this.gamepadController(dt);
@@ -86,6 +93,7 @@ define([
             } else {
                 this.actife = true;
                 this.canDie = 60
+                eventBus.emit("play particle plume",{x:this.pos.x+this.width*0.5,y:this.pos.y+this.height*0.5})
             }
         }
         

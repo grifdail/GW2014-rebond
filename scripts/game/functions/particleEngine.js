@@ -14,6 +14,9 @@ define(["game/functions/renderEngine", "game/functions/basicObject", "eventBus"]
 		eventBus.on("play particle douille", function(e) {
 			that.douille(e.x,e.y,e.rotation,e.offset);
 		});
+		eventBus.on("play particle plume", function(e) {
+			that.plume(e.x,e.y);
+		});
 	}
 	ParticleEngine.prototype.content = [];
 	ParticleEngine.prototype.canvas;
@@ -47,6 +50,7 @@ define(["game/functions/renderEngine", "game/functions/basicObject", "eventBus"]
 		particle.rollback = rollback;
 		this.content.push(particle);
 		this.renderer.addElement("particles", particle);
+		return particle;
 	}
 	ParticleEngine.prototype.basicExplode = function(x, y){
 		var index = this.content.length-1;
@@ -83,11 +87,25 @@ define(["game/functions/renderEngine", "game/functions/basicObject", "eventBus"]
 		var offsetX = Math.cos(rotateInvert) * offset;
 		var offsetY = Math.sin(rotateInvert) * offset;
 		var rollback = function(){
-			this.rotation += Math.random() * 2 - 1 ; 
+			this.rotation += (Math.random() * 2 - 1)*this.lifeTime*0.1; 
 			this.vel.x *= 0.7;
 			this.vel.y *= 0.7;
 		}
-		this.addParticle(10, x-10 + offsetX, y-10 + offsetY, 20, 20, rotateInvert, 35,"image", "douille", null, rollback);
+		this.addParticle(20, x-10 + offsetX, y-10 + offsetY, 20, 20, rotateInvert, 35,"image", "douille", null, rollback);
+	}
+
+	ParticleEngine.prototype.plume = function(x, y){
+		for (var i = 10; i > 0; i--) {
+			var rollback = function(){
+				this.rotation += this.axe || 2 ; 
+				this.vel.x *= 0.7;
+				this.vel.y *= 0.7;
+			}
+			var p = this.addParticle(20,x, y, 64, 64, Math.random()*Math.PI*2, 35,"image", "plume", null, rollback);
+			p.axe = Math.random()*0.5-0.25;
+
+		}
+		
 	}
 	ParticleEngine.prototype.calcul = function(){
 		for (var i = this.content.length - 1; i >= 0; i--) {
