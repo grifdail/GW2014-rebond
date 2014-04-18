@@ -43,9 +43,9 @@ define(["game/functions/add_event_capabilities",
         if(players[0])
             game.playersEngine.create(game,200,200,"blue");
         if(players[1])
-            game.playersEngine.create(game,1000,200,"red");
+            game.playersEngine.create(game,1500,200,"red");
         if(players[2])
-            game.playersEngine.create(game,1000,800,"yellow");
+            game.playersEngine.create(game,1500,800,"yellow");
         if(players[3])
             game.playersEngine.create(game,200,800,"green");
         game.startState("game");
