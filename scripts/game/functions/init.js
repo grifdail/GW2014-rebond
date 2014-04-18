@@ -82,7 +82,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         var backToTitle = new Button({name : "backToTitle", x : 750, y : 920, width : 400, height : 120, image : game.renderEngine.images["back_0"], overImage : game.renderEngine.images["back_1"], context : game.canvas.menu.context, callback : function (){menu.abra()}});
         backToTitle.up = playGame;
         playGame.down = backToTitle;
-        playerSelectPage.addElement(bgSelect)
+        playerSelectPage.addElement(bgSelect);
         playerSelectPage.addElement(perso1);
         playerSelectPage.addElement(perso2);
         playerSelectPage.addElement(perso3);
