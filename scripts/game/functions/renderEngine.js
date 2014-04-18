@@ -109,6 +109,10 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		if (!this.images[name]){
 			this.images[name] = new Image();
 			this.images[name].src = image;
+			this.images[name].onload = function(){
+				window.nbImage++;
+				window.changeLoader();
+			}
 		}
 	}
 	Renderer.prototype.screenShake = function(timing, strength){
@@ -176,6 +180,7 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		for (var key in this.canvas){
 			this.canvas[key].context.save();
 			if (this.screenShakeDuration > 0){
+
 				if (!vecX){
 					var strength = Math.random() * 2 * this.screenShakeStrength - this.screenShakeStrength;
 					var angle = Math.random() * Math.PI*2;

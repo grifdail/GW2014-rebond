@@ -5,6 +5,22 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+  	<script>
+  		var nbImage = 0;
+  		var totalImage = 63;
+  		function changeLoader(){
+  			var nb = (nbImage/totalImage*100)|0;
+  			console.log(nbImage);
+  			if (nb <= 100)
+	  			document.getElementById("chargement").innerHTML = "Chargement <br />"+ nb+"%";
+	  		else
+	  			document.getElementById("chargement").innerHTML = "";
+
+  		}
+  	</script>
+  	<div id="chargement">
+  		Chargement <br />
+  	</div>
     <script data-main="scripts/config" src="./scripts/libs/require.js"></script>
   </body>
 </html>
