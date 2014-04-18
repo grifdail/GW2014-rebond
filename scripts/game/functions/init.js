@@ -8,6 +8,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         game.frame = 0;
         game.canvas = {};
         game.canvas.background = document.createElement("canvas");
+        game.canvas.floor = document.createElement("canvas");
         game.canvas.players = document.createElement("canvas");
         game.canvas.bullets = document.createElement("canvas");
         game.canvas.debug = document.createElement("canvas");
@@ -33,6 +34,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 
         game.renderEngine.addCanvas("debug", game.canvas.debug);
         game.renderEngine.addCanvas("background", game.canvas.background);
+        game.renderEngine.addCanvas("floor", game.canvas.floor);
         game.renderEngine.addCanvas("players", game.canvas.players);
         game.renderEngine.addCanvas("particles", game.canvas.particles);
         game.renderEngine.addCanvas("menu", game.canvas.menu);
@@ -40,6 +42,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         game.renderEngine.addGroup("test", "debug");
 
         game.renderEngine.addGroup("background", "background");
+        game.renderEngine.addGroup("floor", "floor");
         // game.addBackground(game.renderEngine,"background1", 0, 0, 1920, 1080);
         game.addBackground(game.renderEngine,"background2", 0, 0, 1920, 1080);
         game.back1 = game.addBackground(game.renderEngine,"background3", 0, 351, 2200, 377);
