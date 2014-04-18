@@ -105,7 +105,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
 		menu.addPage(playerSelectPage);
 
         var winPage = new Page("winPage");
-        var winnerImage = new Sprite({name : "winnerImage", x : 0, y : 150, width : 1920, height : 543, image : undefined, context : game.canvas.menu.context});
+        var winnerImage = new Sprite({name : "winnerImage", x : 0, y : 225, width : 1920, height : 543, image : undefined, context : game.canvas.menu.context});
         var replay = new Button({name : "Game", x : 750, y : 800, width : 400, height : 120, image : game.renderEngine.images["play_0"], overImage : game.renderEngine.images["play_1"], context : game.canvas.menu.context, callback : function (){menu.start();}});
         var returnToMenu = new Button({name : "backToTitle", x : 750, y : 920, width : 400, height : 120, image : game.renderEngine.images["back_0"], overImage : game.renderEngine.images["back_1"], context : game.canvas.menu.context, callback : function (){menu.back()}});
         replay.down = returnToMenu;
