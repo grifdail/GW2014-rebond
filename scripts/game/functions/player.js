@@ -71,6 +71,13 @@ define([
         this.canDie -= dt;
         if (this.respawTime<0) {
             if (this.actife) {
+                if (this.canDie > 0 ){
+                    if (this.canDie % 10 >= 5){
+                        this.invertDisplay = true;
+                    }
+                    else 
+                        this.invertDisplay = false;
+                }
                 this.bumped = false;
                 this.physicControler(dt);
                 this.gamepadController(dt);

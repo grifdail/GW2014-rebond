@@ -218,7 +218,8 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		}
 		for (var key in this.content){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {
-
+				if (this.content[key].elements[i].invertDisplay)
+					continue;
 				var target = this.content[key].elements[i];
 				if (!target.actife) {
 					continue;

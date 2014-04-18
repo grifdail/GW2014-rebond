@@ -15,7 +15,6 @@ define(["game/functions/renderEngine", "game/functions/basicObject", "eventBus"]
 			that.douille(e.x,e.y,e.rotation,e.offset);
 		});
 		eventBus.on("play particle plume", function(e) {
-			console.log("edddaaaaaaaa")
 			that.plume(e.x,e.y);
 		});
 	}
@@ -96,7 +95,6 @@ define(["game/functions/renderEngine", "game/functions/basicObject", "eventBus"]
 	}
 
 	ParticleEngine.prototype.plume = function(x, y){
-		console.log("eddd")
 		for (var i = 10; i > 0; i--) {
 			var rollback = function(){
 				this.rotation += this.axe || 2 ; 
