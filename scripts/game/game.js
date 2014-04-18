@@ -38,7 +38,10 @@ define(["game/functions/add_event_capabilities",
     }
 
     Game.prototype.startGame = function (players){
-
+        game.playersEngine.clean();
+        game.particleEngine.clean();
+        game.bulletsEngine.clean();
+        game.renderEngine.clean();
         console.log(players);
         if(players[0])
             game.playersEngine.create(game,200,200,"blue");

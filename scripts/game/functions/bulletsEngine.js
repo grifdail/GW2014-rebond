@@ -11,6 +11,16 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		this.renderEngine.addGroup("bullets", "bullets");
 		CollisionEngine.addGroup("bullets", ["players", "fittingOut"], null);
 	}
+
+	BulletsEngine.prototype.clean = function(){
+		for (var i = this.content.length - 1; i >= 0; i--) {
+            var player = this.content[i];
+            this.renderEngine.removeElement("bullets", player);
+            collisionEngine.removeElement(player,"bullets");
+            this.content.splice(i,1);
+        };
+	}
+
 	BulletsEngine.prototype.create = function(x, y, radius, direction, speed, color,vel){
 		var bullet = {};
 		bullet.tag = "bullet";
