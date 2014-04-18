@@ -14,19 +14,28 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         game.canvas.debug = document.createElement("canvas");
         game.canvas.particles = document.createElement("canvas");
         game.canvas.menu = document.createElement("canvas");
+        game.main = document.createElement("canvas");
         
         for (var key in game.canvas){
             game.canvas[key].context = game.canvas[key].getContext("2d");
             game.canvas[key].width = 1920;
             game.canvas[key].height = 1080;
-            game.canvas[key].setAttribute("class", "canvas");
-            document.body.appendChild(game.canvas[key]);
+            //game.canvas[key].setAttribute("class", "canvas");
+            //document.body.appendChild(game.canvas[key]);
         }
+
+        game.main.context = game.canvas[key].getContext("2d");
+        game.main.width = 1920;
+        game.main.height = 1080;
+        game.main.setAttribute("class", "canvas");
+        document.body.appendChild(game.main);
+        document.body.appendChild(game.canvas.menu);
+
         game.canvas.background.context.fillStyle = "rgba(220,220,220,1)";
         game.canvas.background.context.globalAlpha = 1;
         game.canvas.bullets.context.globalAlpha = 1;
 
-        game.renderEngine = new RenderEngine();
+        game.renderEngine = new RenderEngine(game.main);
         game.bulletsEngine = new BulletsEngine();
         game.playersEngine = new PlayerEngine();
         game.bulletsEngine.init(game.canvas.bullets);

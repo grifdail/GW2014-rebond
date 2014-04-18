@@ -1,5 +1,5 @@
 define(["libs/utils","eventBus"], function (utils,eventBus){
-	var Renderer = function(){
+	var Renderer = function(main){
 		this.frameIndex = 0;
 		var that = this;
 		eventBus.on("screenShake",function(e) {
@@ -15,6 +15,7 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		this.bufferFloor.width = 1920;
 		this.bufferFloor.height = 1080;
 
+		this.main = main;
 	}
 	Renderer.prototype.clean = function() {
 		for (var key in this.canvas){
@@ -260,6 +261,11 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 				this.content[key].context.restore();
 			};
 			this.content[key].context.restore();
+		}
+		var a = ["background","floor","players","bullets","particles"]
+		for (var i = 0; i<a.length; i++){
+			this.main.context.drawImage(this.canvas[a[i]],0,0);
+
 		}
 	}
 	return Renderer;

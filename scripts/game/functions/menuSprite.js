@@ -7,7 +7,7 @@ define([], function (){
         this.y = args.y;
         this.width = args.width;
         this.height = args.height;
-        this.context = args.context
+        this.context = args.context;
         this.image = args.image;
     }
 
