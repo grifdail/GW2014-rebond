@@ -85,7 +85,7 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         var backToTitle = new Button({name : "backToTitle", x : 750, y : 920, width : 400, height : 120, image : game.renderEngine.images["back_0"], overImage : game.renderEngine.images["back_1"], context : game.canvas.menu.context, callback : function (){menu.abra()}});
         backToTitle.up = playGame;
         playGame.down = backToTitle;
-        playerSelectPage.addElement(bgSelect)
+        playerSelectPage.addElement(bgSelect);
         playerSelectPage.addElement(perso1);
         playerSelectPage.addElement(perso2);
         playerSelectPage.addElement(perso3);
@@ -105,8 +105,14 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         winPage.addElement(replay);
         winPage.addElement(returnToMenu);
         winPage.SetActiveElement(replay);
-
         menu.addPage(winPage);
+
+        var pausePage = new Page("pause");
+        var pauseBg = new Sprite({name : "pauseBg", x : 0, y: 0, width : 1920, height : 1080, image : game.renderEngine.images["menu_pause"], context : game.canvas.menu.context});
+        pausePage.addElement(pauseBg);
+        pausePage.SetActiveElement(pauseBg);
+        menu.addPage(pausePage);
+
         eventBus.on("gameOver", function (color){ menu.pages["winPage"].elements.winnerImage.image = game.renderEngine.images["victory_"+ color];menu.activePage = "winPage"; game.startState("menu");}, this)
 
 		menu.activePage = "pressStartPage";
