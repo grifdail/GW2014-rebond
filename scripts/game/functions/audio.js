@@ -37,6 +37,7 @@ define(["eventBus","libs/howler"], function(eventBus){
 
         var music = null;
         eventBus.on("play music",function(e) {
+            console.log("helloaaaaaaaaa");
             if (e.sound === music) {
                 return;
             }
