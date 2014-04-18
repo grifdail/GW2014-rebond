@@ -4,6 +4,6 @@
     "tank_red" : ["images/Tank_rouge.png", "config/tank_red.json"],
 	"tank_yellow" : ["images/tank_jaune.png", "config/tank_yellow.json"],
     "explosion" : ["images/Explosion_Grosse.png", "config/explosion.json"],
-    "shockwave" : ["images/Shockwave.png", "config/shockwave.json"]
-
+    "shockwave" : ["images/Shockwave.png", "config/shockwave.json"],
+    "gravity" : ["images/spritesheet_puisdegravite.png", "config/gravity.json"]
 }

@@ -24,13 +24,5 @@ define([], function (){
             elem.sprite.image = elem.overImage;
     }
 
-    MenuPage.prototype.mimeJr = function (){
-
-    }
-
-    MenuPage.prototype.abra = function (){
-        
-    }
-
     return MenuPage;
 })

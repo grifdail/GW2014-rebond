@@ -14,6 +14,7 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
     PlayerEngine.prototype.create = function(game,x, y,color){
         var player = new Player(game,this.content.length,color,x,y);
         player.maxVel = 12;
+        player.life = 10;
         this.content.push(player);
         this.renderEngine.addElement("players", player);
         // collisionEngine.addElement(player, "players");
@@ -54,6 +55,8 @@ define(["game/functions/player", "game/functions/renderEngine", "collisionEngine
     PlayerEngine.prototype.calcul = function(dt){
         for (var i = this.content.length - 1; i >= 0; i--) {
             this.content[i].update(dt);
+            // if (this.content[i].life <= 0)
+            //     this.alive--;
         };
     }
     return PlayerEngine;
