@@ -175,16 +175,7 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		this.frameIndex++;
 		for (var key in this.canvas){
 			this.canvas[key].context.save();
-			if (this.screenShakeDuration > 0){
-				if (!vecX){
-					var strength = Math.random() * 2 * this.screenShakeStrength - this.screenShakeStrength;
-					var angle = Math.random() * Math.PI*2;
-					var vecX = Math.cos(angle) * strength;
-					var vecY = Math.sin(angle)  * strength;
-					this.screenShakeDuration--;
-				}
-				this.canvas[key].context.translate(vecX, vecY);	
-			}
+			
 
 			if (key == "bullets"){
 				this.canvas[key].context.globalCompositeOperation = "destination-in";
@@ -262,11 +253,18 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 			};
 			this.content[key].context.restore();
 		}
-		var a = ["background","floor","players","bullets","particles"]
-		for (var i = 0; i<a.length; i++){
+		this.main.context.save();
+		if (this.screenShakeDuration > 0) {
+			var vx = Math.random() * 2 * this.screenShakeStrength - this.screenShakeStrength;
+			var vy = Math.random() * 2 * this.screenShakeStrength - this.screenShakeStrength;
+			this.screenShakeDuration--;
+			this.main.context.translate(vx, vy);	
+		};
+		var a = ["background","floor","players","bullets","particles","menu"];
+		for (var i = 0; i<a.length; i++) {
 			this.main.context.drawImage(this.canvas[a[i]],0,0);
-
 		}
+		this.main.context.restore();
 	}
 	return Renderer;
 });
