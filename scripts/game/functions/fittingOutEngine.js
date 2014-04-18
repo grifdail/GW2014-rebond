@@ -86,10 +86,10 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 			magneti.range.hitbox[0].radius = 0;
 			magneti.range.display = {};
 			basicObject.circle(magneti.range.display, x, y, 100);
-			// magneti.range.display.pos =L {};
-			// magneti.range.display.pos.x = x-500;
-			// magneti.range.display.pos.y = y-500;
-			// magneti.range.display.radius = 500;
+			magneti.range.display.pos = {};
+			magneti.range.display.pos.x = x-500;
+			magneti.range.display.pos.y = y-500;
+			magneti.range.display.radius = 500;
 			magneti.range.display.color = "rgba(0,0,0,0.3)";
 
 
