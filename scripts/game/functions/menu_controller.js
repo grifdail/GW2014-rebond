@@ -119,7 +119,7 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
         }
     }
 
-    MenuController.prototype.bulbizarre = function (){
+    MenuController.prototype.start = function (){
         var joueursOk = [this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK];
         var okNb = 0;
         for(var i = 0; i < joueursOk.length; i++){
@@ -130,11 +130,11 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
             Game.startGame(joueursOk);
     }
 
-    MenuController.prototype.mimeJr = function (){
+    MenuController.prototype.again = function (){
         Game.startGame([this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK]);
     }
 
-    MenuController.prototype.abra = function (){
+    MenuController.prototype.back = function (){
         this.joueur1OK = true;
         this.joueur2OK = false;
         this.joueur3OK = false;
