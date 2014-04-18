@@ -176,7 +176,7 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		ctx.restore();
 	};
 
-	Renderer.prototype.render = function(){
+	Renderer.prototype.render = function(dt){
 		this.frameIndex++;
 		for (var key in this.canvas){
 			this.canvas[key].context.save();
@@ -220,7 +220,7 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 			// this.canvas[key].context.globalAlpha = 1;
 
 		}
-		window.drawGUI();
+		window.drawGUI(dt);
 		for (var key in this.content){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {
 				if (this.content[key].elements[i].invertDisplay)

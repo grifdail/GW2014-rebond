@@ -1,6 +1,7 @@
 define(["Game"], function (game){
 
     var lightOn = true;
+    var timePast = 0;
 
     function drawGUI (dt){
         var ctx = game.renderEngine.content.particles.context
@@ -20,8 +21,11 @@ define(["Game"], function (game){
             ctx.drawImage(game.renderEngine.images["interface_" + game.playersEngine.content[3].color], 1480, 970);
             ctx.drawImage(game.renderEngine.images["lives_" + game.playersEngine.content[3].color], 585 - game.playersEngine.content[3].life * 65 , 0, 65, 65, 1520, 975, 65, 65);
         }
-        if(game.frame % 10 === 0)
+        timePast += dt;
+        if(timePast > 15){
             lightOn = !lightOn;
+            timePast = 0;
+        }
         ctx.drawImage(game.renderEngine.images["center_logo"], lightOn * 138, 0, 138, 138, 892, 930, 138, 138);
 
     }
