@@ -235,15 +235,16 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 				if (target.color) {
 					this.content[key].context.fillStyle = target.color;
 				}
-				this.content[key].context.save();
 				if (target.sprite){	//Si c'est une image
 					this.renderSprite(target,this.content[key].context);
 				}
 				else if (target.image){	//Si c'est une image
+					this.content[key].context.save();
 					var rotation = target.rotationAsVec ? Math.atan2(target.vel.y,target.vel.x) : target.rotation || 0;
 					this.content[key].context.translate(target.pos.x + target.width*0.5, target.pos.y + target.height*0.5);
 					this.content[key].context.rotate((rotation || 0) +Math.PI*0.5);
 					this.content[key].context.drawImage(this.images[target.image], -target.width*0.5, -target.height*0.5, target.width, target.height);
+					this.content[key].context.restore();
 				}
 				else if (target.radius){		//Si c'est un cercle
 					this.content[key].context.beginPath();
@@ -257,7 +258,6 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 				if (target.canon){	//Si c'est une image
 					this.renderSprite(target.canon,this.content[key].context,"aim_"+target.color);
 				}
-				this.content[key].context.restore();
 			};
 			this.content[key].context.restore();
 		}
