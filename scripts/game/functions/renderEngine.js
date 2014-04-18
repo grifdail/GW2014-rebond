@@ -91,6 +91,7 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		else
 			console.warn("Le canvas name " + name + " existe déjà");
 	}
+
 	Renderer.prototype.addElement = function(group, target){
 		if (!this.content[group]){
 			console.warn("Attention, push dans un groupe innexistant !");
@@ -225,6 +226,7 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 			// this.canvas[key].context.globalAlpha = 1;
 
 		}
+		window.drawGUI();
 		for (var key in this.content){
 			for (var i = this.content[key].elements.length - 1; i >= 0; i--) {
 				if (this.content[key].elements[i].invertDisplay)
@@ -268,5 +270,6 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 
 		}
 	}
+
 	return Renderer;
 });

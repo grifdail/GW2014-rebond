@@ -1,4 +1,4 @@
-define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","game/functions/deltatime", "game/functions/drawGUI", "Menu", "game/functions/gamepad"], function (RAF, Game, gamepad, collisionEngine,deltatime, drawGUI, menu, gp){
+define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","game/functions/deltatime", "Menu", "game/functions/gamepad"], function (RAF, Game, gamepad, collisionEngine,deltatime, menu, gp){
 
     function gameLoop (){
         if(Game.state == "game"){
@@ -29,7 +29,6 @@ define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","ga
         Game.particleEngine.calcul(dt);
         if (Game.fittingOutEngine.gravity)
             Game.fittingOutEngine.gravity.update(dt);
-        drawGUI();
         //collisionEngine.render(Game.canvas.debug.context);
         // Game.canvas.debug.context.fillRect(0, 0, 1920, 1080);
     }

@@ -2,8 +2,8 @@ define(["Game"], function (game){
 
     var lightOn = true;
 
-    function drawGUI (){
-        var ctx = game.renderEngine.content.particles.context;
+    function drawGUI (dt){
+        var ctx = game.renderEngine.content.particles.context
         if(game.playersEngine.content[0]){
             ctx.drawImage(game.renderEngine.images["interface_" + game.playersEngine.content[0].color], 250, 970);
             ctx.drawImage(game.renderEngine.images["lives_" + game.playersEngine.content[0].color], 585 - game.playersEngine.content[0].life * 65 , 0, 65, 65, 290, 975, 65, 65);
@@ -26,5 +26,6 @@ define(["Game"], function (game){
 
     }
 
+    window.drawGUI = drawGUI;
     return drawGUI;
 })

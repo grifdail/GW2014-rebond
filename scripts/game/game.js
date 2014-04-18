@@ -42,7 +42,6 @@ define(["game/functions/add_event_capabilities",
         game.particleEngine.clean();
         game.bulletsEngine.clean();
         game.renderEngine.clean();
-        console.log(players);
         if(players[0])
             game.playersEngine.create(game,200,200,"blue");
         if(players[1])
