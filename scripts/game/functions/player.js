@@ -8,7 +8,7 @@ define([
        "collisionEngine",
        "eventBus",
        "game/functions/queryString",
-       "game/functions/iaControler"
+       "game/functions/keyboardControler"
        ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, playerOutOfBound, collisionEngine,eventBus,queryString,keyboardControler) {
     "use strict";
     

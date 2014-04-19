@@ -27,20 +27,50 @@ define([], function(){
         if (e.keyCode==68) {keyboardGamepad.LEFT_STICK_X          =0;}
         if (e.keyCode==13) {keyboardGamepad.START_FORWARD         =0;}
         if (e.keyCode==32) {keyboardGamepad.RIGHT_BOTTOM_SHOULDER =0;}
-        console.log(keyboardGamepad)
     });
 
+    function getMousePos (e) {
+        var mouseX, mouseY;
+        var factorX = 1/(window.mainCanvas.clientWidth/window.mainCanvas.width);
+        var factorY = 1/(window.mainCanvas.clientHeight/window.mainCanvas.height);
+        if(e.offsetX) {
+            mouseX = e.offsetX*factorX;
+            mouseY = e.offsetY*factorY;
+        }
+        else if(e.layerX) {
+            mouseX = e.layerX*factorX;
+            mouseY = e.layerY*factorY;
+        }
+        console.log(factorX)
+        return {x:mouseX || 0,y:mouseY || 0}
+        
+    };
+
+    var mouse = {x:0,y:0};
+
     function GamepadController (id,speed) {
+        console.log("aajajajaja",window.mainCanvas)
+        window.mainCanvas.addEventListener("mousemove",function (e) {
+            console.log("hehe")
+            mouse = getMousePos(e);
+        });
+
+        window.mainCanvas.addEventListener("mousedown",function (e) {
+            keyboardGamepad.RIGHT_BOTTOM_SHOULDER = 1;
+        });
+
+        window.mainCanvas.addEventListener("mouseup",function (e) {
+            keyboardGamepad.RIGHT_BOTTOM_SHOULDER = 0;
+        });
+
         return function(dt) {
             var pad = keyboardGamepad;
-            console.log(pad);
+            
             if (Math.abs(pad.LEFT_STICK_X)>0.3 || Math.abs(pad.LEFT_STICK_Y) >0.3) {
                 this.vel.add({x:pad.LEFT_STICK_X*speed*dt,y:pad.LEFT_STICK_Y*speed*dt});
             }
-            //Rotation du canon automatique ?
-            if (Math.abs(pad.RIGHT_STICK_X)>0.5 || Math.abs(pad.RIGHT_STICK_Y) >0.5) {
-                this.shoot.rotation = Math.atan2(pad.RIGHT_STICK_Y,pad.RIGHT_STICK_X);
-            }
+            var dir = this.pos.to(mouse);
+            this.shoot.rotation = Math.atan2(dir.y,dir.x);
             if (pad.RIGHT_BOTTOM_SHOULDER ||
                 pad.LEFT_BOTTOM_SHOULDER || 
                 pad.RIGHT_TOP_SHOULDER || 

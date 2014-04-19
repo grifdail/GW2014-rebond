@@ -13,8 +13,8 @@ define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite",
         game.canvas.bullets = document.createElement("canvas");
         game.canvas.debug = document.createElement("canvas");
         game.canvas.particles = document.createElement("canvas");
-        game.canvas.menu = document.createElement("canvas");
-        game.main = document.createElement("canvas");
+        window.mainCanvas =game.canvas.menu = document.createElement("canvas");
+        /*window.mainCanvas = */game.main = document.createElement("canvas");
         
         for (var key in game.canvas){
             game.canvas[key].context = game.canvas[key].getContext("2d");
