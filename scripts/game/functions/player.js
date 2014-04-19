@@ -6,8 +6,10 @@ define([
        "game/functions/player_collision",
        "game/functions/player_out_of_bound",
        "collisionEngine",
-       "eventBus"
-       ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, playerOutOfBound, collisionEngine,eventBus) {
+       "eventBus",
+       "game/functions/queryString",
+       "game/functions/iaControler"
+       ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, playerOutOfBound, collisionEngine,eventBus,queryString,keyboardControler) {
     "use strict";
     
         var border = {x: 0, y : 0, width : 1920, height : 1020, name : "border"}
@@ -15,7 +17,7 @@ define([
         collisionEngine.addGroup("players", ["bullets", "wall", "players", "fittingOut"], ["border"]);
 
 
-    function Player(game,pad,color,x,y) {
+    function Player(game,pad,color,x,y,manager) {
         //basicObject.circle(this,0,0,null,null,32);
         basicObject.basic(this, x||0,y||0, 96, 96, null);
         this.spawn = {x:x||0,y:y||0};
@@ -28,7 +30,11 @@ define([
         this.rotationAsVec = true;
         this.life = 9;
         this.respawTime=-1;
-        this.gamepadController = GamepadController(pad || 0,4);
+        if (pad===1 && queryString.forceKeyboard) {
+            this.gamepadController = keyboardControler(manager.content[0],4);
+        } else {
+            this.gamepadController = GamepadController(pad || 0,4);
+        }
         this.physicControler = PhysicControler(0.70);
         this.shoot = ShootController(game,20,15);
         this.canDie = 0;

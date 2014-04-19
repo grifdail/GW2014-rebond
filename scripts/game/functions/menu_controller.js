@@ -1,4 +1,4 @@
-define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, eventBus){
+define(["game/functions/gamepad", "Game", "eventBus","game/functions/queryString"], function (gamepad, Game, eventBus, queryString){
     var MenuController = function (){
         console.log(gamepad);
         this.pages = {};
@@ -120,13 +120,16 @@ define(["game/functions/gamepad", "Game", "eventBus"], function (gamepad, Game, 
     }
 
     MenuController.prototype.start = function (){
+        if (queryString.forceKeyboard){
+            this.joueur2OK = true;
+        }
         var joueursOk = [this.joueur1OK, this.joueur2OK, this.joueur3OK, this.joueur4OK];
         var okNb = 0;
         for(var i = 0; i < joueursOk.length; i++){
             if(joueursOk[i])
                 okNb++;
         }
-        if(okNb >= 2)
+        if(okNb >= 2 || (queryString.forceSingle && okNb>=1))
             Game.startGame(joueursOk);
     }
 
