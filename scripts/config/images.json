@@ -4,6 +4,7 @@
     "background1" : "images/GW_background_0.png",
     "background2" : "images/GW_background_1.png",
     "background3" : "images/GW_background_2.png",
+    "background2_alternate" : "images/GW_background_3.png",
     "bullet_yellow" : "images/Bullet_jaune.png",
     "bullet_green" : "images/Bullet_vert.png",
     "bullet_red" : "images/Bullet_rouge.png",

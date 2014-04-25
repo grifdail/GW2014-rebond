@@ -50,6 +50,7 @@ define(["game/functions/add_event_capabilities",
             game.playersEngine.create(game,1500,800,"yellow");
         if(players[3])
             game.playersEngine.create(game,200,800,"green");
+        game.backFront.image = Math.random() < 0.5 ? "background2_alternate" : "background2";
         game.startState("game");
     }
     Game.prototype.startGameNo = function(){

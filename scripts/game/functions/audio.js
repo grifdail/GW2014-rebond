@@ -1,4 +1,4 @@
-define(["eventBus","libs/howler"], function(eventBus){
+define(["eventBus","game/functions/queryString","libs/howler"], function(eventBus,queryString){
     "use strict";
     
     function loadAudio(fn) {
@@ -37,8 +37,7 @@ define(["eventBus","libs/howler"], function(eventBus){
 
         var music = null;
         eventBus.on("play music",function(e) {
-            console.log("helloaaaaaaaaa");
-            if (e.sound === music) {
+            if (e.sound === music || queryString.mute) {
                 return;
             }
             if (music) {
