@@ -2,25 +2,32 @@ define(["game/functions/add_event_capabilities",
         "game/functions/renderEngine", 
         "game/functions/basicObject", 
         "game/functions/bulletsEngine", 
-        "game/functions/loadRessource",
         "game/functions/player_manager",
         "collisionEngine", 
         "game/functions/bullets_collision",
         "game/functions/fittingOutEngine", 
         "game/functions/startMenu",
         "game/functions/particleEngine",
-        "game/functions/audio",
         "eventBus"],
-    function (addEventCapabilities, RenderEngine, basicObject, BulletsEngine, loadRessource, PlayerEngine, collisionEngine, bullet_collision, FittingOutEngine, Menu, ParticleEngine,loadSound, eventBus){
+    function (addEventCapabilities, 
+              RenderEngine, 
+              basicObject, 
+              BulletsEngine, 
+              PlayerEngine, 
+              collisionEngine, 
+              bullet_collision, 
+              FittingOutEngine, 
+              Menu, 
+              ParticleEngine, 
+              eventBus
+              ){
     var Game = function Game (){
         this.states = {};
         this.state = "";
         this.gameObjects = {};
 
         this.instance = this;
-        loadSound(function() {
-
-        });
+        
     }
 
     Game.prototype.startState = function (state){
@@ -68,7 +75,6 @@ define(["game/functions/add_event_capabilities",
 
 
     var game = new Game();  
-    loadRessource(game); 
 
     window.pGame = game;
 

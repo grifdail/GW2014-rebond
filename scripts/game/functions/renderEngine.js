@@ -40,18 +40,21 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 			this.content[name].elements = [];
 		}
 	}
-	Renderer.prototype.addSprite = function(name, image, config){
+	Renderer.prototype.addSprite = function(name, image, config,callback){
 		config = utils.httpGetData(config);
 		var target = {};
 		for (var list in config){
 			target[list] = {};
-			for (var key in config[list])
+			for (var key in config[list]) {
 				target[list][key] = config[list][key];
+			}
 		}
 
 		var object = {"image" : name, "animation" : target};
-		if (!this.images[name])
-			this.addImage(name, image);
+		if (!this.images[name]) {
+			this.addImage(name, image,callback);
+		}
+
 
 		this.sprites[name] = object;
 
@@ -106,13 +109,14 @@ define(["libs/utils","eventBus"], function (utils,eventBus){
 		}
 		this.content[group].elements.splice(this.content[group].elements.indexOf(target),1);
 	}
-	Renderer.prototype.addImage = function(name, image){
+	Renderer.prototype.addImage = function(name, image, callback){
 		if (!this.images[name]){
 			this.images[name] = new Image();
 			this.images[name].src = image;
 			this.images[name].onload = function(){
 				window.nbImage++;
 				window.changeLoader();
+				callback();
 			}
 		}
 	}

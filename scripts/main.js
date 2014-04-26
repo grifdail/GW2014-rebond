@@ -1,3 +1,6 @@
-define(["Game", "gameLoop", "menuLoop", "init"], function(Game, gameLoop, menuLoop, init) {
-    init();
+define(["Game", "gameLoop", "menuLoop", "init", "game/functions/loadRessource",], function(Game, gameLoop, menuLoop, init,load) {
+    load(function() {
+        init();
+    });
+    
 });

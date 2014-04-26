@@ -1,8 +1,33 @@
-define(["Game", "Menu", "game/functions/menu_page", "game/functions/menuSprite", "game/functions/button", "game/functions/renderEngine",
-        "game/functions/bulletsEngine", "game/functions/player_manager","game/functions/basicObject", "game/functions/fittingOutEngine", "game/functions/player_manager",
-        "game/functions/particleEngine", "eventBus", "game/functions/drawGUI"],
- function (game, menu, Page, Sprite, Button, RenderEngine, BulletsEngine, PlayerEngine, basicObject, FittingOutEngine,
- 	playersEngine, ParticleEngine, eventBus, drawGUI){
+define([
+        "Game", 
+        "Menu", 
+        "game/functions/menu_page", 
+        "game/functions/menuSprite", 
+        "game/functions/button", 
+        "game/functions/renderEngine",
+        "game/functions/bulletsEngine", 
+        "game/functions/player_manager",
+        "game/functions/basicObject", 
+        "game/functions/fittingOutEngine", 
+        "game/functions/player_manager",
+        "game/functions/particleEngine",
+        "eventBus", "game/functions/drawGUI"
+    ],
+ function (
+            game, 
+            menu, 
+            Page, 
+            Sprite, 
+            Button, 
+            RenderEngine, 
+            BulletsEngine, 
+            PlayerEngine, 
+            basicObject, 
+            FittingOutEngine,
+ 	        playersEngine, 
+            ParticleEngine, 
+            eventBus, 
+            drawGUI){
 
 	function init (){
         game.frame = 0;
