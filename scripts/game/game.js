@@ -31,11 +31,14 @@ define(["game/functions/add_event_capabilities",
     }
 
     Game.prototype.startState = function (state){
-        if(this.states[state] !== undefined){            
+        if(this.states[state] !== undefined){
+            console.log(state)       
             this.state = state;
             this.states[state]();
             if (state === "menu") {
+                console.log("aaaaaaa");
                 eventBus.emit("play music",{sound:"musicMenu"});
+                console.log("bbbbbb");
             }
             if (state === "game") {
                 eventBus.emit("play music",{sound:"musicGame"});

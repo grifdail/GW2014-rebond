@@ -8,6 +8,7 @@ define(["RAF", "Game", "Menu", "game/functions/deltatime", "game/functions/drawG
         Game.renderEngine.canvas.menu.context.clearRect(0,0,1920,1080);
         Game.renderEngine.render(dt);
         menu.pages[menu.activePage].draw();
+        console.log("jjjjjjjjjjjjjjjjjjjjjjjjjj")
         menu.control();
 
         //renderEngine.render();

@@ -2,6 +2,7 @@ define(["eventBus","game/functions/queryString","libs/howler"], function(eventBu
     "use strict";
     
     function loadAudio(fn) {
+        var audioToLoad = 0;
         var sounds = {
             "explosion":createAudio("audio/EXPLOSION.ogg",0.8),
             "tir":createAudio("audio/TIR.ogg"),
@@ -24,7 +25,7 @@ define(["eventBus","game/functions/queryString","libs/howler"], function(eventBu
             "commentary12":createAudio("audio/COMMENTAIRES/commentaire14.ogg",3),
             "commentary13":createAudio("audio/COMMENTAIRES/commentaire15.ogg",3),
             "musicGame":createAudio("audio/musiques/MUSIQUE DE LA PARTIE.ogg",0.5),
-            "musicMenu":createAudio("audio/musiques/MUSIQUE ECRAN TITRE+selectiondeperso.ogg",0.5),
+            "musicMenu":createAudio("audio/musiques/A40_musique_intro1.ogg",0.5),
         };
 
         eventBus.on("play explosion",function() {
@@ -56,8 +57,7 @@ define(["eventBus","game/functions/queryString","libs/howler"], function(eventBu
 
             sounds["commentary"+m].play();
         });
-
-        var audioToLoad = 0;
+        
         function callback() {
             audioToLoad--;
             if (audioToLoad<=0) {
@@ -71,6 +71,7 @@ define(["eventBus","game/functions/queryString","libs/howler"], function(eventBu
               onload: callback,
               onloaderror: callback
             });
+            audioToLoad++;
             return sound;
         }
     }
