@@ -22,14 +22,14 @@ define(["RAF", "Game","game/functions/gamepad_controller", "collisionEngine","ga
             }
         }
 
-        collisionEngine.calcul(dt);
+        //collisionEngine.calcul(dt);
         Game.bulletsEngine.calcul(dt);
         Game.playersEngine.calcul(dt);
         Game.renderEngine.render(dt);
         Game.particleEngine.calcul(dt);
         if (Game.fittingOutEngine.gravity)
             Game.fittingOutEngine.gravity.update(dt);
-        //collisionEngine.render(Game.canvas.debug.context);
+        collisionEngine.render(Game.canvas.debug.context);
         // Game.canvas.debug.context.fillRect(0, 0, 1920, 1080);
     }
 

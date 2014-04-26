@@ -1,5 +1,15 @@
-define(["game/functions/basicObject", "game/functions/renderEngine", "collisionEngine", 
-        "game/functions/bullets_collision"], function (basicObject, renderEngine, CollisionEngine, bulletsCollision){
+define(["game/functions/basicObject",
+       	"game/functions/renderEngine", 
+       	"collisionEngine", 
+        "game/functions/bullets_collision",
+        "game/functions/colisionControler"
+], function (
+        basicObject, 
+        renderEngine, 
+        CollisionEngine, 
+        bulletsCollision,
+        collisionControler
+){
 
 	var BulletsEngine = function(){
 		this.content = [];
@@ -36,7 +46,8 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 		this.renderEngine.addElement("bullets", bullet);
 		CollisionEngine.addHitbox(bullet, "circle", 0, 0, bullet.width, bullet.height);
 		CollisionEngine.addElement(bullet, "bullets");
-		var that = this;
+		bullet.hitbox[0].radius=10;
+		bullet.isColiding = collisionControler("bullets");
 		bullet.on("collisionEnter", bulletsCollision, bullet);
 	}
 	BulletsEngine.prototype.calcul = function(dt){
@@ -48,14 +59,24 @@ define(["game/functions/basicObject", "game/functions/renderEngine", "collisionE
 				self.actife = false;
 				this.renderEngine.removeElement("bullets", self);
 				collisionEngine.group.bullets.content.splice(i, 1)
-				// CollisionEngine.removeElement(self, "bullets");
-				// console.log(CollisionEngine);
 				this.content.splice(i,1);
  				continue;
 			}
 			self.transformationTime-=dt;
 			self.pos.x += self.vel.x*dt;
+			var col = self.isColiding();
+			if (col) {
+				self.pos.x -= self.vel.x*dt;
+				self.emit("collisionEnter", col,null,"x");
+				
+			}
 			self.pos.y += self.vel.y*dt;
+			col = self.isColiding();
+			if (col) {
+				self.pos.y -= self.vel.y*dt;
+				self.emit("collisionEnter", col,null,"y");
+				
+			}
  		};
 	}
 	return BulletsEngine;

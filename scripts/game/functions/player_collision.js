@@ -2,13 +2,13 @@ define(["eventBus"], function(eventBus){
 
     var CHANGE_CONTROLLE = false;
 
-    function playerColision (other, collisionPoint){
+    function playerColision (other, collisionPoint,dir){
         if(other.tag == "player"){
             playerPlayerColision.apply(this, arguments)
         }else if(other.tag == "bullet"){
 
         }else{
-            other.reaction(this, collisionPoint);
+            other.reaction(this, collisionPoint,dir);
         }
     }
 

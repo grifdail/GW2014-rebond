@@ -43,9 +43,9 @@ define(["game/functions/basicObject", "collisionEngine", "game/functions/renderE
 			// collisionEngine.addHitbox(wall, x, y, width, height);
 			if (image)
 				wall.image = image;
-						collisionEngine.addElement(wall, "fittingOut");
+			collisionEngine.addElement(wall, "fittingOut");
 
-			wall.reaction = function(target, collisionPoint){
+			wall.reaction = function(target, collisionPoint, dir){
 				if(collisionPoint){
 					if(collisionPoint.x == this.pos.x){
 						target.pos.x = this.pos.x - target.width;

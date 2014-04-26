@@ -1,15 +1,28 @@
 define([
-       "game/functions/basicObject",
-       "game/functions/gamepad_controller",
-       "game/functions/physic_controller",
-       "game/functions/shoot_controller",
-       "game/functions/player_collision",
-       "game/functions/player_out_of_bound",
-       "collisionEngine",
-       "eventBus",
-       "game/functions/queryString",
-       "game/functions/keyboardControler"
-       ], function(basicObject,GamepadController,PhysicControler,ShootController, player_collision, playerOutOfBound, collisionEngine,eventBus,queryString,keyboardControler) {
+        "game/functions/basicObject",
+        "game/functions/gamepad_controller",
+        "game/functions/physic_controller",
+        "game/functions/shoot_controller",
+        "game/functions/player_collision",
+        "game/functions/player_out_of_bound",
+        "collisionEngine",
+        "eventBus",
+        "game/functions/queryString",
+        "game/functions/keyboardControler",
+        "game/functions/colisionControler"
+], function(
+        basicObject,
+        GamepadController,
+        PhysicControler,
+        ShootController, 
+        player_collision, 
+        playerOutOfBound, 
+        collisionEngine,
+        eventBus,
+        queryString,
+        keyboardControler,
+        collisionControler
+) {
     "use strict";
     
         var border = {x: 0, y : 0, width : 1920, height : 1020, name : "border"}
@@ -47,7 +60,7 @@ define([
         collisionEngine.addElement(this, "players");
         this.on("collisionEnter", player_collision, this);
         this.on("inboxOut", playerOutOfBound, this);
-
+        this.isColiding = collisionControler("players");
         this.on("die", function() {
             if (this.canDie>0) {
                 return;

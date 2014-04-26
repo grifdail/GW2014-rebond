@@ -6,8 +6,8 @@ define(["eventBus"], function(eventBus){
         var fn = function(dt) {
             if (timer<0) {
                 timer = freq;
-                var nx = this.pos.x+this.radius+Math.cos(fn.rotation)*75-5;
-                var ny = this.pos.y+this.radius+Math.sin(fn.rotation)*75-5;
+                var nx = this.pos.x+this.radius+Math.cos(fn.rotation)*90;
+                var ny = this.pos.y+this.radius+Math.sin(fn.rotation)*90;
                 game.bulletsEngine.create(nx, ny, 20, fn.rotation, speed, this.color);
                 this.canon.sprite.changeAnimation("shoot");
                 eventBus.emit("play sound",{sound:"tir"});

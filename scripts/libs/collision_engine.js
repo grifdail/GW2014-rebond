@@ -42,8 +42,10 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 			hitbox.height = height || target.height || 0;
 		}
 		if(hitbox.shape == "circle"){
-			hitbox.offsetX = hitbox.radius;
-			hitbox.offsetY = hitbox.radius;
+			hitbox.offsetX = 0//hitbox.radius;
+			hitbox.offsetY = 0//hitbox.radius;
+			hitbox.width = hitbox.radius*2;
+			hitbox.height = hitbox.radius*2;
 		}else{
 			hitbox.offsetX = offsetX || 0;
 			hitbox.offsetY = offsetY || 0;
@@ -60,6 +62,15 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 			this.box[name].name = name;
 		}
 	}
+
+	CollisionEngine.prototype.getCollidersFor = function(group) {
+		var that = this;
+		return this.group[group].target.reduce(function(a, b) {
+    		return a.concat(that.group[b].content);
+		},[]);
+	};
+
+
 	CollisionEngine.prototype.calcul = function(context){
 		for (var name in this.group){											//Pour tous les groupes
 			for (var i = this.group[name].content.length - 1; i >= 0; i--) {	//Pour tous les elements du groupe
@@ -147,10 +158,12 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 		}
 	}
 	CollisionEngine.prototype.rectCollision = function(a, aHitbox, b, bHitbox){
-		var aRealX = a.posX + aHitbox.offsetX;
-		var aRealY = a.posY + aHitbox.offsetY;
-		var bRealX = b.posX + bHitbox.offsetX;
-		var bRealY = b.posY + bHitbox.offsetY;
+		var aRealX = a.pos.x + aHitbox.offsetX;
+		var aRealY = a.pos.y + aHitbox.offsetY;
+		var bRealX = b.pos.x + bHitbox.offsetX;
+		var bRealY = b.pos.y + bHitbox.offsetY;
+		//console.log(aHitbox.width,aHitbox.height,bHitbox.width,bHitbox.height);
+		//debugger;
 		if ( aRealX + aHitbox.width > bRealX &&
 			aRealX < bRealX + bHitbox.width &&
 			aRealY + aHitbox.height > bRealY &&
@@ -159,13 +172,13 @@ define(['game/functions/add_event_capabilities'], function(addEventCapabilities)
 	}
 
 	CollisionEngine.prototype.circleCollision = function(a, hitboxA, b, hitboxB){
-		var aRealX = a.pos.x + hitboxA.offsetX;
-		var aRealY = a.pos.y + hitboxA.offsetY;
-		var bRealX = b.pos.x + hitboxB.offsetX;
-		var bRealY = b.pos.y + hitboxB.offsetY;
+		var aRealX = a.pos.x + hitboxA.radius;
+		var aRealY = a.pos.y + hitboxA.radius;
+		var bRealX = b.pos.x + hitboxB.radius;
+		var bRealY = b.pos.y + hitboxB.radius;
 
 		var norme = Math.sqrt(Math.pow(bRealX - aRealX, 2) + Math.pow(bRealY - aRealY, 2));
-		return norme <= hitboxA.radius + hitboxB.radius;
+		return norme <= hitboxA.radius*2 + hitboxB.radius*2;
 	}
 
 	CollisionEngine.prototype.circleRectCollision = function(a, hitboxA, b, hitboxB){
